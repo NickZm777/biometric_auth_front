@@ -30,3 +30,39 @@
 .auth_failure h3 {
   color: rgb(194, 203, 248);
 }
+
+.form form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+}
+
+.form-input {
+  margin-bottom: 20px;
+  padding: 5px;
+  font-size: 20px;
+  background-color: #242424;
+  color: rgb(128, 156, 235);
+  border-radius: 5px;
+  border: none;
+  -webkit-box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
+  -moz-box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
+  box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
+}
+
+.form form label { 
+  color: rgb(128, 156, 235);
+  text-align: left;
+  margin-bottom: 2px;;
+}
+
+.form-submit {
+  max-width: 70px;
+  margin: 0 auto;
+  background-color: rgb(43, 43, 43);
+  color: white;
+  border-radius:5px;
+  padding: 4px 10px;
+  
+}
