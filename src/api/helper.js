@@ -1,4 +1,7 @@
-const checkURL = "http://localhost:5000/check"
+const BASE_URL = "https://glowing-kringle-b3a3c5.netlify.app"
+const EXPRESS_URL = ".netlify/functions/api"
+
+const checkURL = `${BASE_URL}/${EXPRESS_URL}/check`
 
 export const checkCreds = async (requestData) => {
   const data = { data: { ...requestData } }
