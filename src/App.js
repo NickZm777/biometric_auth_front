@@ -1,20 +1,34 @@
 import "./App.css"
 import { useState } from "react"
 import Auth from "./components/Auth"
-import Form from "./components/Form"
+import RegisterForm from "./components/RegisterForm"
+import LogInForm from "./components/LogInForm"
 import Unregistered from "./components/Unregistered"
+
+const RES = {
+  SUCCESS: "success",
+  WARNING: "warning",
+}
 
 function App() {
   const [data, setData] = useState("")
+  const [register, setRegister] = useState(false)
+
+  const changeForm = () => {
+    setRegister((req) => !req)
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        {!data && <Form setResult={setData} />}
-        {data?.status === "success" && <Auth info={data?.data?.userName} />}
-        {data?.status === "warning" && (
-          <Unregistered info={data?.data?.details} />
+        {!data && !register && (
+          <LogInForm changeForm={changeForm} setResult={setData} />
         )}
+        {!data && register && (
+          <RegisterForm changeForm={changeForm} setResult={setData} />
+        )}
+        {data?.status === RES.SUCCESS && <Auth info={data?.data.userInfo} />}
+        {data?.status === RES.WARNING && <Unregistered info={data?.data} />}
       </header>
     </div>
   )

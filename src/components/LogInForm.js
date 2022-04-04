@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { checkCreds } from "../api/helper"
 
-const Form = ({ setResult }) => {
+const LogInForm = ({ changeForm, setResult }) => {
   const [login, setLogin] = useState("")
   const [password, setPassword] = useState("")
 
@@ -38,9 +38,12 @@ const Form = ({ setResult }) => {
           />
           <input className="form-submit" type="submit" value="submit" />
         </form>
+        <button className="switchBTN" onClick={changeForm}>
+          Switch to Registration
+        </button>
       </div>
     </div>
   )
 }
 
-export default Form
+export default LogInForm
