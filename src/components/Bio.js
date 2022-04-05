@@ -1,4 +1,4 @@
-import { saveKey } from "../api/helperAuth"
+import { saveKey } from "../api/helper"
 
 const createKey = (att) => {
   if (!window.PublicKeyCredential) {
@@ -54,7 +54,7 @@ const createKey = (att) => {
       },
     ],
 
-    extensions: { appidExclude: "https://acme.example.com" },
+    // extensions: { appidExclude: "https://acme.example.com" },
   }
 
   navigator.credentials

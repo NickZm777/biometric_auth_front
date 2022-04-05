@@ -1,29 +1,29 @@
-import { BASE_URL, EXPRESS_URL } from "./helper"
+// import { BASE_URL, EXPRESS_URL } from "./helper"
 // import { decode } from "base64url"
 // import { encode } from "base64url"
 
 // const base64urlDecode = decode.base64urlDecode
 // const base64urlEncode = encode.base64urlEncode
 
-const BIO_URL = `${BASE_URL}/${EXPRESS_URL}/save`
+// const BIO_URL = `${BASE_URL}/${EXPRESS_URL}/save`
 
-export const saveKey = async (requestData) => {
-  const data = requestData
-  try {
-    const response = await fetch(BIO_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      credentials: "include",
-    })
-    const res = await response.json()
-    return res
-  } catch (e) {
-    console.error(e)
-  }
-}
+// export const saveKey = async (requestData) => {
+//   const data = requestData
+//   try {
+//     const response = await fetch(BIO_URL, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//       credentials: "include",
+//     })
+//     const res = await response.json()
+//     return res
+//   } catch (e) {
+//     console.error(e)
+//   }
+// }
 
 // const device = {
 //   _id: "1111",
