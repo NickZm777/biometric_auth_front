@@ -1,6 +1,6 @@
-const BASE_URL = "https://glowing-kringle-b3a3c5.netlify.app"
-// const BASE_URL = "http://localhost:9000"
-const EXPRESS_URL = ".netlify/functions/api"
+// export const BASE_URL = "https://glowing-kringle-b3a3c5.netlify.app"
+export const BASE_URL = "http://localhost:9000"
+export const EXPRESS_URL = ".netlify/functions/api"
 
 const checkUser_URL = `${BASE_URL}/${EXPRESS_URL}/check`
 const addUser_URL = `${BASE_URL}/${EXPRESS_URL}/create`
@@ -14,6 +14,7 @@ export const checkCreds = async (requestData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      credentials: "include",
     })
     const res = await response.json()
     return res
@@ -31,6 +32,7 @@ export const addUser = async (requestData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      credentials: "include",
     })
     const res = await response.json()
     return res
