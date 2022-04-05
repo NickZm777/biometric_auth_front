@@ -4,6 +4,7 @@ import Auth from "./components/Auth"
 import RegisterForm from "./components/RegisterForm"
 import LogInForm from "./components/LogInForm"
 import Unregistered from "./components/Unregistered"
+import Bio from "./components/Bio"
 
 const RES = {
   SUCCESS: "success",
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Bio />
         {!data && !register && (
           <LogInForm changeForm={changeForm} setResult={setData} />
         )}
