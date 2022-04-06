@@ -62,7 +62,7 @@ const RegisterForm = ({ changeForm, setResult }) => {
           />
           <input className="form-submit" type="submit" value="submit" />
         </form>
-        <button className="switchBTN" onClick={changeForm}>
+        <button className="btn-switch" onClick={changeForm}>
           Switch to LogIn
         </button>
       </div>

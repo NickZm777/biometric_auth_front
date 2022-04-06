@@ -1,72 +1,5 @@
 import { saveKey } from "../api/helper"
-
-const createKey = (att) => {
-  if (!window.PublicKeyCredential) {
-    console.log("window.PublicKeyCredential is false")
-    return
-  }
-  console.log(document.domain)
-
-  var publicKey = {
-    challenge: new Uint8Array([21, 31, 105]),
-
-    rp: { id: document.domain, name: "My Acme Inc" },
-
-    user: {
-      id: Uint8Array.from(
-        window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
-        (c) => c.charCodeAt(0)
-      ),
-      name: "alex.mueller@example.com",
-      displayName: "Alex Müller",
-    },
-
-    pubKeyCredParams: [
-      {
-        type: "public-key",
-        alg: -7,
-      },
-      {
-        type: "public-key",
-        alg: -257,
-      },
-    ],
-
-    authenticatorSelection: {
-      userVerification: "preferred",
-    },
-
-    timeout: 36000,
-    excludeCredentials: [
-      {
-        id: Uint8Array.from(
-          window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
-          (c) => c.charCodeAt(0)
-        ),
-        type: "public-key",
-      },
-      {
-        id: Uint8Array.from(
-          window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
-          (c) => c.charCodeAt(0)
-        ),
-        type: "public-key",
-      },
-    ],
-
-    // extensions: { appidExclude: "https://acme.example.com" },
-  }
-
-  navigator.credentials
-    .create({ publicKey })
-    .then(function (newCredentialInfo) {
-      saveKey(newCredentialInfo)
-    })
-    .catch(function (err) {
-      console.log("Catch an error in navigator.credentials create")
-      console.log(err.message)
-    })
-}
+import { useState } from "react"
 
 // import { decode } from "base64url"
 // import { encode } from "base64url"
@@ -135,9 +68,85 @@ const createKey = (att) => {
 // const webAuthnAttestation = publicKeyCredentialToJSON(attestation)
 
 const Bio = () => {
+  const [inf, setInf] = useState("")
+  const createKey = (att) => {
+    if (!window.PublicKeyCredential) {
+      console.log("window.PublicKeyCredential is false")
+      return
+    }
+    console.log(document.domain)
+
+    var publicKey = {
+      challenge: new Uint8Array([21, 31, 105]),
+
+      rp: { id: document.domain, name: "My Acme Inc" },
+
+      user: {
+        id: Uint8Array.from(
+          window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
+          (c) => c.charCodeAt(0)
+        ),
+        name: "alex.mueller@example.com",
+        displayName: "Alex Müller",
+      },
+
+      pubKeyCredParams: [
+        {
+          type: "public-key",
+          alg: -7,
+        },
+        {
+          type: "public-key",
+          alg: -257,
+        },
+      ],
+
+      // authenticatorSelection: {
+      //   userVerification: "preferred",
+      // },
+      authenticatorSelection: {
+        authenticatorAttachment: "platform",
+        userVerification: "required",
+      },
+
+      timeout: 36000,
+      excludeCredentials: [
+        {
+          id: Uint8Array.from(
+            window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
+            (c) => c.charCodeAt(0)
+          ),
+          type: "public-key",
+        },
+        {
+          id: Uint8Array.from(
+            window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
+            (c) => c.charCodeAt(0)
+          ),
+          type: "public-key",
+        },
+      ],
+
+      // extensions: { appidExclude: "https://acme.example.com" },
+    }
+
+    navigator.credentials
+      .create({ publicKey })
+      .then(function (newCredentialInfo) {
+        saveKey(newCredentialInfo)
+        setInf(newCredentialInfo)
+      })
+      .catch(function (err) {
+        console.log("Catch an error in navigator.credentials create:")
+        console.log(err.message)
+      })
+  }
   return (
     <div>
-      <button onClick={() => createKey()}>Bio</button>
+      <button className="btn-bio" onClick={() => createKey()}>
+        Touch ID
+      </button>
+      <div>{JSON.stringify(inf)}</div>
     </div>
   )
 }

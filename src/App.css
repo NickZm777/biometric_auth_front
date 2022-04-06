@@ -65,11 +65,25 @@
   color: rgb(231, 227, 227);
   border-radius:5px;
   padding: 4px 10px;
+  border: 1px solid black;
+  cursor: pointer;
 }
 
-.switchBTN {
+.btn-switch {
   margin-top: 50px;
   padding: 5px 10px;
   border-radius: 5px;
   background-color: rgb(128, 156, 235);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-bio {
+  margin-top: 50px;
+  margin-bottom:30px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(155 91 189);
+  cursor: pointer;
 }

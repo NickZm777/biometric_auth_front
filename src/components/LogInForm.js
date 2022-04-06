@@ -12,7 +12,7 @@ const LogInForm = ({ changeForm, setResult }) => {
 
   return (
     <div>
-      <h1>Enter your credentials</h1>
+      <h1>Enter credentials</h1>
       <div className="form">
         <form
           onSubmit={(e) => {
@@ -38,7 +38,7 @@ const LogInForm = ({ changeForm, setResult }) => {
           />
           <input className="form-submit" type="submit" value="submit" />
         </form>
-        <button className="switchBTN" onClick={changeForm}>
+        <button className="btn-switch" onClick={changeForm}>
           Switch to Registration
         </button>
       </div>
