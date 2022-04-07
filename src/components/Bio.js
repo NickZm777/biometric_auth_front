@@ -81,6 +81,57 @@ function publicKeyCredentialToJSON(pubKeyCred) {
   } else return pubKeyCred
 }
 
+const publicKey = {
+  challenge: new Uint8Array([21, 31, 105]),
+
+  rp: { id: document.domain, name: "My test TouchID" },
+
+  user: {
+    id: Uint8Array.from(
+      window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
+      (c) => c.charCodeAt(0)
+    ),
+    name: "alex.mueller@example.com",
+    displayName: "Alex Müller",
+  },
+
+  pubKeyCredParams: [
+    {
+      type: "public-key",
+      alg: -7,
+    },
+    // {
+    //   type: "public-key",
+    //   alg: -257,
+    // },
+  ],
+
+  authenticatorSelection: {
+    authenticatorAttachment: "platform",
+    userVerification: "required",
+  },
+
+  // timeout: 36000,
+  // excludeCredentials: [
+  //   {
+  //     id: Uint8Array.from(
+  //       window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
+  //       (c) => c.charCodeAt(0)
+  //     ),
+  //     type: "public-key",
+  //   },
+  //   {
+  //     id: Uint8Array.from(
+  //       window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
+  //       (c) => c.charCodeAt(0)
+  //     ),
+  //     type: "public-key",
+  //   },
+  // ],
+
+  // extensions: { appidExclude: "https://acme.example.com" },
+}
+
 const Bio = () => {
   const [inf, setInf] = useState("")
   const createKey = () => {
@@ -89,59 +140,6 @@ const Bio = () => {
       return
     }
     console.log(document.domain)
-
-    const publicKey = {
-      // challenge: new Uint8Array([21, 31, 105]),
-      challenge: "sdagfbasgb4352356b2h56bhb536345-26553456-456n54b6n",
-
-      rp: { id: document.domain, name: "My test TouchID" },
-
-      user: {
-        // id: Uint8Array.from(
-        //   window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
-        //   (c) => c.charCodeAt(0)
-        // ),
-        id: "kswgfbgkbasdgfl",
-        name: "alex.mueller@example.com",
-        displayName: "Alex Müller",
-      },
-
-      pubKeyCredParams: [
-        {
-          type: "public-key",
-          alg: -7,
-        },
-        {
-          type: "public-key",
-          alg: -257,
-        },
-      ],
-
-      authenticatorSelection: {
-        authenticatorAttachment: "platform",
-        userVerification: "required",
-      },
-
-      // timeout: 36000,
-      // excludeCredentials: [
-      //   {
-      //     id: Uint8Array.from(
-      //       window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
-      //       (c) => c.charCodeAt(0)
-      //     ),
-      //     type: "public-key",
-      //   },
-      //   {
-      //     id: Uint8Array.from(
-      //       window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
-      //       (c) => c.charCodeAt(0)
-      //     ),
-      //     type: "public-key",
-      //   },
-      // ],
-
-      // extensions: { appidExclude: "https://acme.example.com" },
-    }
 
     navigator.credentials
       .create({ publicKey })
