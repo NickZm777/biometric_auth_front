@@ -67,6 +67,23 @@ import { useState } from "react"
 // }
 // const webAuthnAttestation = publicKeyCredentialToJSON(attestation)
 
+const keyforCheck = (credential) => {
+  const newPublicKey = {
+    challenge: newChallenge,
+    allowCredentials: [
+      {
+        id: credential.rawId,
+        type: "public-key",
+        transports: ["internal"],
+      },
+    ],
+    rpId: domain,
+    // attachment: "platform",
+    userVerification: "required",
+  }
+  return newPublicKey
+}
+
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
     return pubKeyCred
@@ -80,11 +97,13 @@ function publicKeyCredentialToJSON(pubKeyCred) {
     return obj
   } else return pubKeyCred
 }
+const domain = document.domain
+const newChallenge = new Uint8Array([21, 31, 105])
 
 const publicKey = {
-  challenge: new Uint8Array([21, 31, 105]),
+  challenge: newChallenge,
 
-  rp: { id: document.domain, name: "My test TouchID" },
+  rp: { id: domain, name: "My test TouchID" },
 
   user: {
     id: Uint8Array.from(
@@ -134,6 +153,8 @@ const publicKey = {
 
 const Bio = () => {
   const [inf, setInf] = useState("")
+  const [getinf, setGetInf] = useState("")
+
   const createKey = () => {
     if (!window.PublicKeyCredential) {
       console.log("window.PublicKeyCredential is false")
@@ -159,6 +180,10 @@ const Bio = () => {
         Touch ID
       </button>
       <div>{JSON.stringify(inf)}</div>
+      <button className="btn-bio" onClick={() => keyforCheck(inf)}>
+        check by Touch ID
+      </button>
+      <div>{JSON.stringify(getinf)}</div>
     </div>
   )
 }
