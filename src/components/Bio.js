@@ -67,25 +67,41 @@ import { useState } from "react"
 // }
 // const webAuthnAttestation = publicKeyCredentialToJSON(attestation)
 
+function publicKeyCredentialToJSON(pubKeyCred) {
+  if (pubKeyCred instanceof ArrayBuffer) {
+    return pubKeyCred
+  } else if (pubKeyCred instanceof Array) {
+    return pubKeyCred.map(publicKeyCredentialToJSON)
+  } else if (pubKeyCred instanceof Object) {
+    const obj = {}
+    for (let key in pubKeyCred) {
+      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+    }
+    return obj
+  } else return pubKeyCred
+}
+
 const Bio = () => {
   const [inf, setInf] = useState("")
-  const createKey = async () => {
+  const createKey = () => {
     if (!window.PublicKeyCredential) {
       console.log("window.PublicKeyCredential is false")
       return
     }
     console.log(document.domain)
 
-    var publicKey = {
-      challenge: new Uint8Array([21, 31, 105]),
+    const publicKey = {
+      // challenge: new Uint8Array([21, 31, 105]),
+      challenge: "sdagfbasgb4352356b2h56bhb536345-26553456-456n54b6n",
 
-      rp: { id: document.domain, name: "My Acme Inc" },
+      rp: { id: document.domain, name: "My test TouchID" },
 
       user: {
-        id: Uint8Array.from(
-          window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
-          (c) => c.charCodeAt(0)
-        ),
+        // id: Uint8Array.from(
+        //   window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
+        //   (c) => c.charCodeAt(0)
+        // ),
+        id: "kswgfbgkbasdgfl",
         name: "alex.mueller@example.com",
         displayName: "Alex Müller",
       },
@@ -101,9 +117,6 @@ const Bio = () => {
         },
       ],
 
-      // authenticatorSelection: {
-      //   userVerification: "preferred",
-      // },
       authenticatorSelection: {
         authenticatorAttachment: "platform",
         userVerification: "required",
@@ -130,15 +143,16 @@ const Bio = () => {
       // extensions: { appidExclude: "https://acme.example.com" },
     }
 
-    await navigator.credentials
+    navigator.credentials
       .create({ publicKey })
-      .then(function (newCredentialInfo) {
-        saveKey(newCredentialInfo)
-        setInf(newCredentialInfo)
+      .then((output) => {
+        const keyres = publicKeyCredentialToJSON(output)
+        saveKey(keyres)
+        setInf(keyres)
       })
-      .catch(function (err) {
+      .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
-        console.log(err.message)
+        console.log(error.message)
       })
   }
   return (
