@@ -176,8 +176,16 @@ const Bio = () => {
       })
   }
   const trykeyforCheck = () => {
-    const res = keyforCheck(inf)
-    setGetInf(res)
+    keyforCheck(inf)
+      .then((output) => {
+        // const keyres = publicKeyCredentialToJSON(output)
+        saveKey(output)
+        setGetInf(output)
+      })
+      .catch((error) => {
+        console.log("Catch an error in navigator.credentials create:")
+        console.log(error.message)
+      })
   }
 
   return (
