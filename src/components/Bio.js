@@ -19,37 +19,9 @@ const keyforCheck = async (credential) => {
   })
 }
 
-// function publicKeyCredentialToJSON(pubKeyCred) {
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return pubKeyCred
-//   } else if (pubKeyCred instanceof Array) {
-//     return pubKeyCred.map(publicKeyCredentialToJSON)
-//   } else if (pubKeyCred instanceof Object) {
-//     const obj = {}
-//     for (let key in pubKeyCred) {
-//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     }
-//     return obj
-//   } else return pubKeyCred
-// }
-
-// function publicKeyCredentialToJSON(pubKeyCred) {
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return "instanceof ArrayBuffer"
-//   } else if (pubKeyCred instanceof Array) {
-//     return "instanceof Array"
-//   } else if (pubKeyCred instanceof Object) {
-//     // const obj = {}
-//     // for (let key in pubKeyCred) {
-//     //   obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     // }
-//     return "instanceof Object"
-//   } else return "Else"
-// }
-
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return pubKeyCred.byteLength
+    return pubKeyCred
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
@@ -63,6 +35,7 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
 const domain = document.domain
 const newChallenge = new Uint8Array([21, 31, 105])
+const iserID = new Uint8Array([21, 31, 105])
 
 const publicKey = {
   challenge: newChallenge,
@@ -70,10 +43,7 @@ const publicKey = {
   rp: { id: domain, name: "My test TouchID" },
 
   user: {
-    id: Uint8Array.from(
-      window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="),
-      (c) => c.charCodeAt(0)
-    ),
+    id: iserID,
     name: "alex.mueller@example.com",
     displayName: "Alex Müller",
   },
