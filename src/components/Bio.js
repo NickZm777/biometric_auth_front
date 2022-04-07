@@ -69,7 +69,7 @@ import { useState } from "react"
 
 const Bio = () => {
   const [inf, setInf] = useState("")
-  const createKey = (att) => {
+  const createKey = () => {
     if (!window.PublicKeyCredential) {
       console.log("window.PublicKeyCredential is false")
       return
@@ -109,23 +109,23 @@ const Bio = () => {
         userVerification: "required",
       },
 
-      timeout: 36000,
-      excludeCredentials: [
-        {
-          id: Uint8Array.from(
-            window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
-            (c) => c.charCodeAt(0)
-          ),
-          type: "public-key",
-        },
-        {
-          id: Uint8Array.from(
-            window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
-            (c) => c.charCodeAt(0)
-          ),
-          type: "public-key",
-        },
-      ],
+      // timeout: 36000,
+      // excludeCredentials: [
+      //   {
+      //     id: Uint8Array.from(
+      //       window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
+      //       (c) => c.charCodeAt(0)
+      //     ),
+      //     type: "public-key",
+      //   },
+      //   {
+      //     id: Uint8Array.from(
+      //       window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
+      //       (c) => c.charCodeAt(0)
+      //     ),
+      //     type: "public-key",
+      //   },
+      // ],
 
       // extensions: { appidExclude: "https://acme.example.com" },
     }
