@@ -155,6 +155,8 @@ const publicKey = {
 const Bio = () => {
   const [inf, setInf] = useState("")
   const [getinf, setGetInf] = useState("")
+  const [getinff, setGetInff] = useState("")
+  const [getinfff, setGetInfff] = useState("")
 
   const createKey = () => {
     if (!window.PublicKeyCredential) {
@@ -175,16 +177,21 @@ const Bio = () => {
         console.log(error.message)
       })
   }
-  const trykeyforCheck = () => {
+  const trykeyforCheck = (inf) => {
     keyforCheck(inf)
       .then((output) => {
         // const keyres = publicKeyCredentialToJSON(output)
         saveKey(output)
         setGetInf(output)
+        getinfff(typeof output)
       })
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
         console.log(error.message)
+        setGetInfff({
+          message: "Catch an error in navigator.credentials create:",
+          error: error,
+        })
       })
   }
 
@@ -198,6 +205,8 @@ const Bio = () => {
         check by Touch ID
       </button>
       <div>{JSON.stringify(getinf)}</div>
+      <div>{JSON.stringify(getinff)}</div>
+      <div>{JSON.stringify(getinfff)}</div>
     </div>
   )
 }
