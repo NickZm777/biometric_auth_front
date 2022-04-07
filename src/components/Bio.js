@@ -33,18 +33,32 @@ const keyforCheck = async (credential) => {
 //   } else return pubKeyCred
 // }
 
+// function publicKeyCredentialToJSON(pubKeyCred) {
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return "instanceof ArrayBuffer"
+//   } else if (pubKeyCred instanceof Array) {
+//     return "instanceof Array"
+//   } else if (pubKeyCred instanceof Object) {
+//     // const obj = {}
+//     // for (let key in pubKeyCred) {
+//     //   obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     // }
+//     return "instanceof Object"
+//   } else return "Else"
+// }
+
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return "instanceof ArrayBuffer"
+    return pubKeyCred.byteLength
   } else if (pubKeyCred instanceof Array) {
-    return "instanceof Array"
+    return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
-    // const obj = {}
-    // for (let key in pubKeyCred) {
-    //   obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-    // }
-    return "instanceof Object"
-  } else return "Else"
+    const obj = {}
+    for (let key in pubKeyCred) {
+      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+    }
+    return obj
+  } else return pubKeyCred
 }
 
 const domain = document.domain
@@ -128,6 +142,7 @@ const Bio = () => {
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
         console.log(error.message)
+        setInf(error.message)
       })
   }
   const trykeyforCheck = (inf) => {
