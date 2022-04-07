@@ -183,7 +183,7 @@ const Bio = () => {
         // const keyres = publicKeyCredentialToJSON(output)
         saveKey(output)
         setGetInf(output)
-        getinff(typeof output)
+        setGetInff(typeof output)
       })
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
