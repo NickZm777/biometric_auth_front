@@ -183,7 +183,7 @@ const Bio = () => {
         // const keyres = publicKeyCredentialToJSON(output)
         saveKey(output)
         setGetInf(output)
-        getinfff(typeof output)
+        getinff(typeof output)
       })
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
@@ -202,7 +202,7 @@ const Bio = () => {
       </button>
       <div>{JSON.stringify(inf)}</div>
       <button className="btn-bio" onClick={() => trykeyforCheck(inf)}>
-        check by Touch ID
+        check by Touch IDE
       </button>
       <div>{JSON.stringify(getinf)}</div>
       <div>{JSON.stringify(getinff)}</div>
