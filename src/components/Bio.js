@@ -69,7 +69,7 @@ import { useState } from "react"
 
 const Bio = () => {
   const [inf, setInf] = useState("")
-  const createKey = () => {
+  const createKey = async () => {
     if (!window.PublicKeyCredential) {
       console.log("window.PublicKeyCredential is false")
       return
@@ -130,7 +130,7 @@ const Bio = () => {
       // extensions: { appidExclude: "https://acme.example.com" },
     }
 
-    navigator.credentials
+    await navigator.credentials
       .create({ publicKey })
       .then(function (newCredentialInfo) {
         saveKey(newCredentialInfo)
