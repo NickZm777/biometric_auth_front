@@ -1,72 +1,6 @@
 import { saveKey } from "../api/helper"
 import { useState } from "react"
 
-// import { decode } from "base64url"
-// import { encode } from "base64url"
-// import { saveKey } from "../api/helperAuth"
-
-// // const base64urlDecode = decode.base64urlDecode
-// // const base64urlEncode = encode.base64urlEncode
-
-// const device = {
-//   _id: "1111",
-//   challenge: "asdfasjdfh;asdhg",
-//   counter: 1,
-//   publicKey: "",
-//   attestationObject: "",
-//   clientDataJSON: "",
-//   userAgent: "",
-//   user: {
-//     id: "345235423542354",
-//     email: "lasdf@sdfg.dsf",
-//     fullName: "KIUHdfsf",
-//   },
-// }
-
-// const challenge = device.challenge
-// const user = device.user
-
-// const createAttestation = async () => {
-//   const attestation = await navigator.credentials.create({
-//     publicKey: {
-//       authenticatorSelection: {
-//         authenticatorAttachment: "platform",
-//         userVerification: "required",
-//       },
-//       challenge: challenge,
-//       rp: { id: document.domain, name: "My Acme Inc" },
-//       user: {
-//         id: user.id,
-//         name: user.email,
-//         displayName: user.fullName,
-//       },
-//       pubKeyCredParams: [
-//         { type: "public-key", alg: -7 },
-//         { type: "public-key", alg: -257 },
-//       ],
-//     },
-//   })
-//   navigator.credentials.preventSilentAccess()
-//   return attestation
-// }
-
-// const attestation = createAttestation()
-
-// function publicKeyCredentialToJSON(pubKeyCred) {
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return pubKeyCred
-//   } else if (pubKeyCred instanceof Array) {
-//     return pubKeyCred.map(publicKeyCredentialToJSON)
-//   } else if (pubKeyCred instanceof Object) {
-//     const obj = {}
-//     for (let key in pubKeyCred) {
-//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     }
-//     return obj
-//   } else return pubKeyCred
-// }
-// const webAuthnAttestation = publicKeyCredentialToJSON(attestation)
-
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
     publicKey: {
@@ -98,6 +32,21 @@ const keyforCheck = async (credential) => {
 //     return obj
 //   } else return pubKeyCred
 // }
+
+function publicKeyCredentialToJSON(pubKeyCred) {
+  if (pubKeyCred instanceof ArrayBuffer) {
+    return "instanceof ArrayBuffer"
+  } else if (pubKeyCred instanceof Array) {
+    return "instanceof Array"
+  } else if (pubKeyCred instanceof Object) {
+    // const obj = {}
+    // for (let key in pubKeyCred) {
+    //   obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+    // }
+    return "instanceof Object"
+  } else return "Else"
+}
+
 const domain = document.domain
 const newChallenge = new Uint8Array([21, 31, 105])
 
@@ -169,9 +118,9 @@ const Bio = () => {
     navigator.credentials
       .create({ publicKey })
       .then((output) => {
-        // const keyres = publicKeyCredentialToJSON(output)
-        saveKey(output)
-        setInf(output)
+        const keyres = publicKeyCredentialToJSON(output)
+        saveKey(keyres)
+        setInf(keyres)
         // const buf = {
 
         // }
