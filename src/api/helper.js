@@ -15,7 +15,7 @@ export const checkCreds = async (requestData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include",
+      // credentials: "include",
     })
     const res = await response.json()
     return res
@@ -33,7 +33,7 @@ export const addUser = async (requestData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include",
+      // credentials: "include",
     })
     const res = await response.json()
     return res
@@ -51,7 +51,7 @@ export const saveKey = async (requestData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      credentials: "include",
+      // credentials: "include",
     })
     const res = await response.json()
     return res
