@@ -67,21 +67,22 @@ import { useState } from "react"
 // }
 // const webAuthnAttestation = publicKeyCredentialToJSON(attestation)
 
-const keyforCheck = (credential) => {
-  const newPublicKey = {
-    challenge: newChallenge,
-    allowCredentials: [
-      {
-        id: credential.rawId,
-        type: "public-key",
-        transports: ["internal"],
-      },
-    ],
-    rpId: domain,
-    // attachment: "platform",
-    userVerification: "required",
-  }
-  return newPublicKey
+const keyforCheck = async (credential) => {
+  return await navigator.credentials.get({
+    publicKey: {
+      challenge: newChallenge,
+      allowCredentials: [
+        {
+          id: credential.rawId,
+          type: "public-key",
+          transports: ["internal"],
+        },
+      ],
+      rpId: domain,
+      // attachment: "platform",
+      userVerification: "required",
+    },
+  })
 }
 
 function publicKeyCredentialToJSON(pubKeyCred) {
@@ -174,13 +175,18 @@ const Bio = () => {
         console.log(error.message)
       })
   }
+  const trykeyforCheck = () => {
+    const res = keyforCheck(inf)
+    setGetInf(res)
+  }
+
   return (
     <div>
       <button className="btn-bio" onClick={() => createKey()}>
         Touch ID
       </button>
       <div>{JSON.stringify(inf)}</div>
-      <button className="btn-bio" onClick={() => keyforCheck(inf)}>
+      <button className="btn-bio" onClick={() => trykeyforCheck(inf)}>
         check by Touch ID
       </button>
       <div>{JSON.stringify(getinf)}</div>
