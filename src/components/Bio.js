@@ -2,9 +2,9 @@ import { saveKey, getInitChallenge } from "../api/helper"
 import { useState } from "react"
 // import { uuid } from "uuidv4"
 
-const decode = (buffer, utf) => {
-  return new TextDecoder(utf).decode(buffer)
-}
+// const decode = (buffer, utf) => {
+//   return new TextDecoder(utf).decode(buffer)
+// }
 
 const encode = (string) => {
   return new TextEncoder().encode(string)
