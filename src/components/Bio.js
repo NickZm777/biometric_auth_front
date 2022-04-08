@@ -7,9 +7,9 @@ const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
 }
 
-// const encode = (string) => {
-//   return new TextEncoder().encode(string)
-// }
+const encode = (string) => {
+  return new TextEncoder().encode(string)
+}
 
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
@@ -95,8 +95,7 @@ const Bio = () => {
       return
     }
     const serverChallengeString = await getInitChallenge()
-    publicKey.challenge = serverChallengeString
-    console.log(publicKey.challenge)
+    publicKey.challenge = encode(serverChallengeString)
 
     await navigator.credentials
       .create({ publicKey })
