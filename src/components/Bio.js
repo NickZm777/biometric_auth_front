@@ -1,5 +1,37 @@
 import { saveKey, getInitChallenge } from "../api/helper"
 import { useState } from "react"
+// import { uuid } from "uuidv4"
+
+const decode = (buffer, utf) => {
+  return new TextDecoder(utf).decode(buffer)
+}
+
+const encode = (string) => {
+  return new TextEncoder().encode(string)
+}
+
+const convertBuffer = (obj) => {
+  const convObj = {
+    id: obj.id,
+    type: obj.type,
+    rawIdAtob: window.atob(obj.rawId),
+    rawIdBuffer8: decode(obj.rawId, "utf-8"),
+    rawIdBuffer103: decode(obj.rawId, "utf-103"),
+    response: {
+      attestationObjectAtob: window.atob(obj.response.attestationObject),
+      attestationObjectBuffer8: decode(obj.response.attestationObject, "utf-8"),
+      attestationObjectBuffer265: decode(
+        obj.response.attestationObject,
+        "utf-265"
+      ),
+      clientDataJSONAtob: JSON.parse(window.atob(obj.response.clientDataJSON)),
+      clientDataJSONBuffer: JSON.parse(
+        decode(obj.response.clientDataJSON, "utf-266")
+      ),
+    },
+  }
+  return convObj
+}
 
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
@@ -70,17 +102,16 @@ const Bio = () => {
       console.log("window.PublicKeyCredential is false")
       return
     }
-    console.log(document.domain)
-
     const serverChallengeString = await getInitChallenge()
-    publicKey.challenge = Uint8Array.from(serverChallengeString)
+    publicKey.challenge = encode(serverChallengeString)
 
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
         const keyres = publicKeyCredentialToJSON(output)
-        saveKey(keyres)
-        setInf(keyres)
+        const convertedKeyRes = convertBuffer(keyres)
+        saveKey(convertedKeyRes)
+        setInf(convertedKeyRes)
         // const buf = {
 
         // }
@@ -142,6 +173,9 @@ const Bio = () => {
     </div>
   )
 }
+
+// const encodedData = window.btoa("Hello, world")
+// const decodedData = window.atob(encodedData)
 
 export default Bio
 
