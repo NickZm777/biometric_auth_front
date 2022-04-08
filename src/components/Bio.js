@@ -3,9 +3,9 @@ import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
-const decode = (buffer, utf) => {
-  return new TextDecoder(utf).decode(buffer)
-}
+// const decode = (buffer, utf) => {
+//   return new TextDecoder(utf).decode(buffer)
+// }
 
 const encode = (string) => {
   return new TextEncoder().encode(string)
@@ -45,7 +45,9 @@ const keyforCheck = async (credential) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return decode(pubKeyCred, "utf-8")
+    // return decode(pubKeyCred, "utf-8")
+
+    return window.btoa(pubKeyCred)
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
