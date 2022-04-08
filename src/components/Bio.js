@@ -6,9 +6,9 @@ const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
 }
 
-// const encode = (string) => {
-//   return new TextEncoder().encode(string)
-// }
+const encode = (string) => {
+  return new TextEncoder().encode(string)
+}
 
 const convertBuffer = (obj) => {
   const convObj = {
@@ -103,9 +103,7 @@ const Bio = () => {
       return
     }
     const serverChallengeString = await getInitChallenge()
-    // publicKey.challenge = encode(serverChallengeString)
-    publicKey.challenge = new Uint8Array(serverChallengeString)
-
+    publicKey.challenge = encode(serverChallengeString)
     console.log(publicKey.challenge)
 
     await navigator.credentials
@@ -114,7 +112,8 @@ const Bio = () => {
         const keyres = publicKeyCredentialToJSON(output)
         try {
           const convertedKeyRes = convertBuffer(keyres)
-          saveKey(convertedKeyRes)
+          saveKey("err in try")
+          setInf({ err: "err in try" })
           setInf(convertedKeyRes)
         } catch (e) {
           setInf(e)
