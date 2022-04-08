@@ -72,7 +72,8 @@ const Bio = () => {
     }
     console.log(document.domain)
 
-    publicKey.challenge = await getInitChallenge()
+    const serverChallengeString = await getInitChallenge()
+    publicKey.challenge = Uint8Array.from(serverChallengeString)
 
     await navigator.credentials
       .create({ publicKey })
