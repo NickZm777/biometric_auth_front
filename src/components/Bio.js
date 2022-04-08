@@ -3,9 +3,9 @@ import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
-// const decode = (buffer, utf) => {
-//   return new TextDecoder(utf).decode(buffer)
-// }
+const decode = (buffer, utf) => {
+  return new TextDecoder(utf).decode(buffer)
+}
 
 const encode = (string) => {
   return new TextEncoder().encode(string)
@@ -14,7 +14,7 @@ const encode = (string) => {
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
     publicKey: {
-      challenge: newChallenge,
+      challenge: null,
       allowCredentials: [
         {
           id: credential.rawId,
@@ -45,9 +45,7 @@ const keyforCheck = async (credential) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    // return decode(pubKeyCred, "utf-8")
-
-    return window.atob(pubKeyCred)
+    return decode(pubKeyCred, "utf-8")
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
@@ -60,7 +58,7 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 }
 
 const domain = document.domain
-const newChallenge = new Uint8Array([21, 31, 105])
+
 const iserID = new Uint8Array([21, 31, 105])
 
 const Bio = () => {
@@ -72,7 +70,7 @@ const Bio = () => {
   const [initChallenge, setInitChallenge] = useState("")
 
   const publicKey = {
-    challenge: initChallenge,
+    challenge: null,
     rp: { id: domain, name: "My test TouchID" },
     user: {
       id: iserID,
