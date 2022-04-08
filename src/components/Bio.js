@@ -68,9 +68,7 @@ const keyforCheck = async (credential) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    const bytes = pubKeyCred.byteLength
-    const utf = "utf-" + bytes
-    return decode(pubKeyCred, utf)
+    return decode(pubKeyCred, "utf-8")
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
