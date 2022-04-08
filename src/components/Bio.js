@@ -53,7 +53,7 @@ const keyforCheck = async (credential) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return pubKeyCred
+    return window.atob(pubKeyCred)
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
@@ -110,15 +110,17 @@ const Bio = () => {
       .create({ publicKey })
       .then((output) => {
         const keyres = publicKeyCredentialToJSON(output)
-        try {
-          const convertedKeyRes = convertBuffer(keyres)
-          saveKey("err in try")
-          setInf({ err: "err in try" })
-          setInf(convertedKeyRes)
-        } catch (e) {
-          saveKey("err in try")
-          setInf({ err: "err in try" })
-        }
+        saveKey(keyres)
+        setInf(keyres)
+        // try {
+        //   const convertedKeyRes = convertBuffer(keyres)
+        //   saveKey("err in try")
+        //   setInf({ err: "err in try" })
+        //   setInf(convertedKeyRes)
+        // } catch (e) {
+        //   saveKey("err in try")
+        //   setInf({ err: "err in try" })
+        // }
         // const buf = {
 
         // }
