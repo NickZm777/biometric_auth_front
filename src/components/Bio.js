@@ -104,14 +104,20 @@ const Bio = () => {
     }
     const serverChallengeString = await getInitChallenge()
     publicKey.challenge = encode(serverChallengeString)
+    console.log(publicKey.challenge)
 
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
         const keyres = publicKeyCredentialToJSON(output)
-        const convertedKeyRes = convertBuffer(keyres)
-        saveKey(convertedKeyRes)
-        setInf(convertedKeyRes)
+        try {
+          const convertedKeyRes = convertBuffer(keyres)
+          saveKey(convertedKeyRes)
+          setInf(convertedKeyRes)
+        } catch (e) {
+          setInf(e)
+          saveKey(e)
+        }
         // const buf = {
 
         // }
