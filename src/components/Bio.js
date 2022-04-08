@@ -52,9 +52,23 @@ const keyforCheck = async (credential) => {
   })
 }
 
+// function publicKeyCredentialToJSON(pubKeyCred) {
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return window.atob(pubKeyCred)
+//   } else if (pubKeyCred instanceof Array) {
+//     return pubKeyCred.map(publicKeyCredentialToJSON)
+//   } else if (pubKeyCred instanceof Object) {
+//     const obj = {}
+//     for (let key in pubKeyCred) {
+//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     }
+//     return obj
+//   } else return pubKeyCred
+// }
+
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return window.atob(pubKeyCred)
+    return decode(pubKeyCred, "utf-8")
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
@@ -64,16 +78,6 @@ function publicKeyCredentialToJSON(pubKeyCred) {
     }
     return obj
   } else return pubKeyCred
-}
-
-function pubJSON(obj) {
-  if (obj instanceof ArrayBuffer) {
-    return "ArrayBuffer"
-  } else if (obj instanceof Array) {
-    return obj.map(pubJSON)
-  } else if (obj instanceof Object) {
-    return "Object"
-  } else return "else"
 }
 
 const domain = document.domain
@@ -89,7 +93,6 @@ const Bio = () => {
   const [initChallenge, setInitChallenge] = useState("")
   const [dec, setDec] = useState("")
   const [jsonc, setJsonc] = useState("")
-  const [tls, sc] = useState("")
 
   const publicKey = {
     challenge: initChallenge,
@@ -123,24 +126,10 @@ const Bio = () => {
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
-        // const keyres = publicKeyCredentialToJSON(output)
+        const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
-        // saveKey(keyres)
-        // setInf(keyres)
-        saveKey(output)
-        setInf(output)
-        // try {
-        //   const convertedKeyRes = convertBuffer(keyres)
-        //   saveKey("err in try")
-        //   setInf({ err: "err in try" })
-        //   setInf(convertedKeyRes)
-        // } catch (e) {
-        //   saveKey("err in try")
-        //   setInf({ err: "err in try" })
-        // }
-        // const buf = {
-
-        // }
+        saveKey(keyres)
+        setInf(keyres)
       })
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
@@ -208,10 +197,6 @@ const Bio = () => {
         jsonc
       </button>
       <div>{JSON.stringify(jsonc)}</div>
-      <button className="btn-bio" onClick={() => sc(pubJSON(inf))}>
-        jsonc
-      </button>
-      <div>{JSON.stringify(tls)}</div>
     </div>
   )
 }
