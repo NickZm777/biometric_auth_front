@@ -51,19 +51,19 @@ const keyforCheck = async (credential) => {
   })
 }
 
-// function publicKeyCredentialToJSON(pubKeyCred) {
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return window.atob(pubKeyCred)
-//   } else if (pubKeyCred instanceof Array) {
-//     return pubKeyCred.map(publicKeyCredentialToJSON)
-//   } else if (pubKeyCred instanceof Object) {
-//     const obj = {}
-//     for (let key in pubKeyCred) {
-//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     }
-//     return obj
-//   } else return pubKeyCred
-// }
+function publicKeyCredentialToJSON(pubKeyCred) {
+  if (pubKeyCred instanceof ArrayBuffer) {
+    return window.atob(pubKeyCred)
+  } else if (pubKeyCred instanceof Array) {
+    return pubKeyCred.map(publicKeyCredentialToJSON)
+  } else if (pubKeyCred instanceof Object) {
+    const obj = {}
+    for (let key in pubKeyCred) {
+      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+    }
+    return obj
+  } else return pubKeyCred
+}
 
 const domain = document.domain
 const newChallenge = new Uint8Array([21, 31, 105])
@@ -76,6 +76,8 @@ const Bio = () => {
   const [getinfff, setGetInfff] = useState("")
   // const [buffer, setBuffer] = useState("")
   const [initChallenge, setInitChallenge] = useState("")
+  const [dec, setDec] = useState("")
+  const [jsonc, setJsonc] = useState("")
 
   const publicKey = {
     challenge: initChallenge,
@@ -110,9 +112,11 @@ const Bio = () => {
       .create({ publicKey })
       .then((output) => {
         // const keyres = publicKeyCredentialToJSON(output)
-        const keyres = convertBuffer(output)
-        saveKey(keyres)
-        setInf(keyres)
+        // const keyres = convertBuffer(output)
+        // saveKey(keyres)
+        // setInf(keyres)
+        saveKey(output)
+        setInf(output)
         // try {
         //   const convertedKeyRes = convertBuffer(keyres)
         //   saveKey("err in try")
@@ -180,6 +184,18 @@ const Bio = () => {
 
       <span>challenge:</span>
       <span>{JSON.stringify(initChallenge)}</span>
+      <button className="btn-bio" onClick={() => setDec(convertBuffer(inf))}>
+        initChallenge
+      </button>
+      <div>{JSON.stringify(dec)}</div>
+
+      <button
+        className="btn-bio"
+        onClick={() => setJsonc(publicKeyCredentialToJSON(inf))}
+      >
+        initChallenge
+      </button>
+      <div>{JSON.stringify(jsonc)}</div>
     </div>
   )
 }
