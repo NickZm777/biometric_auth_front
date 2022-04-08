@@ -2,36 +2,36 @@ import { saveKey, getInitChallenge } from "../api/helper"
 import { useState } from "react"
 // import { uuid } from "uuidv4"
 
-// const decode = (buffer, utf) => {
-//   return new TextDecoder(utf).decode(buffer)
-// }
+const decode = (buffer, utf) => {
+  return new TextDecoder(utf).decode(buffer)
+}
 
 const encode = (string) => {
   return new TextEncoder().encode(string)
 }
 
-// const convertBuffer = (obj) => {
-//   const convObj = {
-//     id: obj.id,
-//     type: obj.type,
-//     rawIdAtob: window.atob(obj.rawId),
-//     rawIdBuffer8: decode(obj.rawId, "utf-8"),
-//     rawIdBuffer103: decode(obj.rawId, "utf-103"),
-//     response: {
-//       attestationObjectAtob: window.atob(obj.response.attestationObject),
-//       attestationObjectBuffer8: decode(obj.response.attestationObject, "utf-8"),
-//       attestationObjectBuffer265: decode(
-//         obj.response.attestationObject,
-//         "utf-265"
-//       ),
-//       clientDataJSONAtob: JSON.parse(window.atob(obj.response.clientDataJSON)),
-//       clientDataJSONBuffer: JSON.parse(
-//         decode(obj.response.clientDataJSON, "utf-266")
-//       ),
-//     },
-//   }
-//   return convObj
-// }
+const convertBuffer = (obj) => {
+  const convObj = {
+    id: obj.id,
+    type: obj.type,
+    rawIdAtob: window.atob(obj.rawId),
+    rawIdBuffer8: decode(obj.rawId, "utf-8"),
+    rawIdBuffer103: decode(obj.rawId, "utf-103"),
+    response: {
+      attestationObjectAtob: window.atob(obj.response.attestationObject),
+      attestationObjectBuffer8: decode(obj.response.attestationObject, "utf-8"),
+      attestationObjectBuffer265: decode(
+        obj.response.attestationObject,
+        "utf-265"
+      ),
+      clientDataJSONAtob: JSON.parse(window.atob(obj.response.clientDataJSON)),
+      clientDataJSONBuffer: JSON.parse(
+        decode(obj.response.clientDataJSON, "utf-266")
+      ),
+    },
+  }
+  return convObj
+}
 
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
@@ -51,19 +51,19 @@ const keyforCheck = async (credential) => {
   })
 }
 
-function publicKeyCredentialToJSON(pubKeyCred) {
-  if (pubKeyCred instanceof ArrayBuffer) {
-    return window.atob(pubKeyCred)
-  } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON)
-  } else if (pubKeyCred instanceof Object) {
-    const obj = {}
-    for (let key in pubKeyCred) {
-      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-    }
-    return obj
-  } else return pubKeyCred
-}
+// function publicKeyCredentialToJSON(pubKeyCred) {
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return window.atob(pubKeyCred)
+//   } else if (pubKeyCred instanceof Array) {
+//     return pubKeyCred.map(publicKeyCredentialToJSON)
+//   } else if (pubKeyCred instanceof Object) {
+//     const obj = {}
+//     for (let key in pubKeyCred) {
+//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     }
+//     return obj
+//   } else return pubKeyCred
+// }
 
 const domain = document.domain
 const newChallenge = new Uint8Array([21, 31, 105])
@@ -109,7 +109,8 @@ const Bio = () => {
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
-        const keyres = publicKeyCredentialToJSON(output)
+        // const keyres = publicKeyCredentialToJSON(output)
+        const keyres = convertBuffer(output)
         saveKey(keyres)
         setInf(keyres)
         // try {
