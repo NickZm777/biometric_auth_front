@@ -1,4 +1,4 @@
-import { saveKey } from "../api/helper"
+import { saveKey, getInitChallenge } from "../api/helper"
 import { useState } from "react"
 
 const keyforCheck = async (credential) => {
@@ -37,69 +37,44 @@ const domain = document.domain
 const newChallenge = new Uint8Array([21, 31, 105])
 const iserID = new Uint8Array([21, 31, 105])
 
-const publicKey = {
-  challenge: newChallenge,
-
-  rp: { id: domain, name: "My test TouchID" },
-
-  user: {
-    id: iserID,
-    name: "alex.mueller@example.com",
-    displayName: "Alex Müller",
-  },
-
-  pubKeyCredParams: [
-    {
-      type: "public-key",
-      alg: -7,
-    },
-    // {
-    //   type: "public-key",
-    //   alg: -257,
-    // },
-  ],
-
-  authenticatorSelection: {
-    authenticatorAttachment: "platform",
-    userVerification: "required",
-  },
-
-  // timeout: 36000,
-  // excludeCredentials: [
-  //   {
-  //     id: Uint8Array.from(
-  //       window.atob("ufJWp8YGlibm1Kd9XQBWN1WAw2jy5In2Xhon9HAqcXE="),
-  //       (c) => c.charCodeAt(0)
-  //     ),
-  //     type: "public-key",
-  //   },
-  //   {
-  //     id: Uint8Array.from(
-  //       window.atob("E/e1dhZc++mIsz4f9hb6NifAzJpF1V4mEtRlIPBiWdY="),
-  //       (c) => c.charCodeAt(0)
-  //     ),
-  //     type: "public-key",
-  //   },
-  // ],
-
-  // extensions: { appidExclude: "https://acme.example.com" },
-}
-
 const Bio = () => {
   const [inf, setInf] = useState("")
   const [getinf, setGetInf] = useState("")
   const [getinff, setGetInff] = useState("")
   const [getinfff, setGetInfff] = useState("")
   // const [buffer, setBuffer] = useState("")
+  const [initChallenge, setInitChallenge] = useState("")
 
-  const createKey = () => {
+  const publicKey = {
+    challenge: initChallenge,
+    rp: { id: domain, name: "My test TouchID" },
+    user: {
+      id: iserID,
+      name: "jason.x@.pl",
+      displayName: "Jason X",
+    },
+    pubKeyCredParams: [
+      {
+        type: "public-key",
+        alg: -7,
+      },
+    ],
+    authenticatorSelection: {
+      authenticatorAttachment: "platform",
+      userVerification: "required",
+    },
+  }
+
+  const createKey = async () => {
     if (!window.PublicKeyCredential) {
       console.log("window.PublicKeyCredential is false")
       return
     }
     console.log(document.domain)
 
-    navigator.credentials
+    publicKey.challenge = await getInitChallenge()
+
+    await navigator.credentials
       .create({ publicKey })
       .then((output) => {
         const keyres = publicKeyCredentialToJSON(output)
@@ -133,6 +108,18 @@ const Bio = () => {
       })
   }
 
+  const getStartChallenge = () => {
+    getInitChallenge()
+      .then((res) => {
+        setInitChallenge(res)
+        // console.log(JSON.stringify(newChallenge) === JSON.stringify(res))
+        return res
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  }
+
   return (
     <div>
       <button className="btn-bio" onClick={() => createKey()}>
@@ -142,9 +129,15 @@ const Bio = () => {
       <button className="btn-bio" onClick={() => trykeyforCheck(inf)}>
         check by Touch IDE
       </button>
+      <button className="btn-bio" onClick={() => getStartChallenge()}>
+        initChallenge
+      </button>
       <div>{JSON.stringify(getinf)}</div>
       <div>{JSON.stringify(getinff)}</div>
       <div>{JSON.stringify(getinfff)}</div>
+
+      <span>challenge:</span>
+      <span>{JSON.stringify(initChallenge)}</span>
     </div>
   )
 }
