@@ -47,7 +47,7 @@ function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
     // return decode(pubKeyCred, "utf-8")
 
-    return window.btoa(pubKeyCred)
+    return window.atob(pubKeyCred)
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
