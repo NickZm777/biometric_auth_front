@@ -1,6 +1,7 @@
 import { saveKey, getInitChallenge } from "../api/helper"
 import { useState } from "react"
 // import { uuid } from "uuidv4"
+// import { base64urlEncode } from "base64url"
 
 const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
@@ -65,6 +66,16 @@ function publicKeyCredentialToJSON(pubKeyCred) {
   } else return pubKeyCred
 }
 
+function pubJSON(obj) {
+  if (obj instanceof ArrayBuffer) {
+    return "ArrayBuffer"
+  } else if (obj instanceof Array) {
+    return obj.map(pubJSON)
+  } else if (obj instanceof Object) {
+    return "Object"
+  } else return "else"
+}
+
 const domain = document.domain
 const newChallenge = new Uint8Array([21, 31, 105])
 const iserID = new Uint8Array([21, 31, 105])
@@ -78,6 +89,7 @@ const Bio = () => {
   const [initChallenge, setInitChallenge] = useState("")
   const [dec, setDec] = useState("")
   const [jsonc, setJsonc] = useState("")
+  const [tls, sc] = useState("")
 
   const publicKey = {
     challenge: initChallenge,
@@ -185,7 +197,7 @@ const Bio = () => {
       <span>challenge:</span>
       <span>{JSON.stringify(initChallenge)}</span>
       <button className="btn-bio" onClick={() => setDec(convertBuffer(inf))}>
-        initChallenge
+        dec
       </button>
       <div>{JSON.stringify(dec)}</div>
 
@@ -193,9 +205,13 @@ const Bio = () => {
         className="btn-bio"
         onClick={() => setJsonc(publicKeyCredentialToJSON(inf))}
       >
-        initChallenge
+        jsonc
       </button>
       <div>{JSON.stringify(jsonc)}</div>
+      <button className="btn-bio" onClick={() => sc(pubJSON(inf))}>
+        jsonc
+      </button>
+      <div>{JSON.stringify(tls)}</div>
     </div>
   )
 }
