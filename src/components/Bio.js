@@ -11,29 +11,6 @@ const encode = (string) => {
   return new TextEncoder().encode(string)
 }
 
-const convertBuffer = (obj) => {
-  const convObj = {
-    id: obj.id,
-    type: obj.type,
-    rawIdAtob: window.atob(obj.rawId),
-    rawIdBuffer8: decode(obj.rawId, "utf-8"),
-    rawIdBuffer103: decode(obj.rawId, "utf-103"),
-    response: {
-      attestationObjectAtob: window.atob(obj.response.attestationObject),
-      attestationObjectBuffer8: decode(obj.response.attestationObject, "utf-8"),
-      attestationObjectBuffer265: decode(
-        obj.response.attestationObject,
-        "utf-265"
-      ),
-      clientDataJSONAtob: JSON.parse(window.atob(obj.response.clientDataJSON)),
-      clientDataJSONBuffer: JSON.parse(
-        decode(obj.response.clientDataJSON, "utf-266")
-      ),
-    },
-  }
-  return convObj
-}
-
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
     publicKey: {
@@ -91,8 +68,6 @@ const Bio = () => {
   const [getinfff, setGetInfff] = useState("")
   // const [buffer, setBuffer] = useState("")
   const [initChallenge, setInitChallenge] = useState("")
-  const [dec, setDec] = useState("")
-  const [jsonc, setJsonc] = useState("")
 
   const publicKey = {
     challenge: initChallenge,
@@ -185,18 +160,6 @@ const Bio = () => {
 
       <span>challenge:</span>
       <span>{JSON.stringify(initChallenge)}</span>
-      <button className="btn-bio" onClick={() => setDec(convertBuffer(inf))}>
-        dec
-      </button>
-      <div>{JSON.stringify(dec)}</div>
-
-      <button
-        className="btn-bio"
-        onClick={() => setJsonc(publicKeyCredentialToJSON(inf))}
-      >
-        jsonc
-      </button>
-      <div>{JSON.stringify(jsonc)}</div>
     </div>
   )
 }
