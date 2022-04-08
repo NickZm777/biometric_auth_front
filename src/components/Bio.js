@@ -116,8 +116,8 @@ const Bio = () => {
           setInf({ err: "err in try" })
           setInf(convertedKeyRes)
         } catch (e) {
-          setInf(e)
-          saveKey(e)
+          saveKey("err in try")
+          setInf({ err: "err in try" })
         }
         // const buf = {
 
