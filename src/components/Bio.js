@@ -95,7 +95,8 @@ const Bio = () => {
       return
     }
     const serverChallengeString = await getInitChallenge()
-    publicKey.challenge = encode(serverChallengeString)
+    // publicKey.challenge = encode(serverChallengeString)
+    publicKey.challenge = serverChallengeString
     console.log(publicKey.challenge)
 
     await navigator.credentials
