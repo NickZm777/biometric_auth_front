@@ -13,10 +13,12 @@
   color: rgb(216, 211, 211);
 }
 
-.auth h1 { color:rgb(194, 203, 248);
+.auth h1 {
+  color: rgb(194, 203, 248);
 }
 
-.auth h2 { color:rgb(97, 233, 79);
+.auth h2 {
+  color: rgb(97, 233, 79);
 }
 
 .auth_failure h1 {
@@ -51,11 +53,11 @@
   box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
 }
 
-.form form label { 
+.form form label {
   color: rgb(124, 153, 233);
   text-align: left;
   margin-bottom: 2px;
-  font-size:15px
+  font-size: 15px;
 }
 
 .form-submit {
@@ -63,7 +65,7 @@
   margin: 0 auto;
   background-color: rgb(65, 64, 64);
   color: rgb(231, 227, 227);
-  border-radius:5px;
+  border-radius: 5px;
   padding: 4px 10px;
   border: 1px solid black;
   cursor: pointer;
@@ -80,10 +82,14 @@
 
 .btn-bio {
   margin-top: 50px;
-  margin-bottom:30px;
-  padding: 10px 15px;
+  margin-bottom: 30px;
+  padding: 5px 8px;
   border: none;
   border-radius: 5px;
-  background-color: rgb(155 91 189);
+  background-color: rgb(199, 163, 219);
   cursor: pointer;
+}
+
+.inf-bio {
+  font-size: 10px;
 }
