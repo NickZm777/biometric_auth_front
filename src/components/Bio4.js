@@ -33,8 +33,9 @@ const Bio4 = () => {
   const [inf, setInf] = useState("")
 
   const getKeys = async () => {
-    const keys = await fetch(url)
-    keys.then((keys) => keys.json()).then((keys) => setInf(keys))
+    await fetch(url)
+      .then((keys) => keys.json())
+      .then((keys) => setInf(keys))
   }
 
   console.log(inf)
