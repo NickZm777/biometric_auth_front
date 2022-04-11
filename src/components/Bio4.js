@@ -42,8 +42,8 @@ const Bio4 = () => {
   console.log(inf)
 
   const resparse = () => {
-    const obj = inf[5].output
-    console.log(publicKeyCredentialToJSON(obj))
+    const obj = inf[6].output
+    console.log(base64.decode(obj))
   }
 
   const publicKey = {
@@ -80,7 +80,7 @@ const Bio4 = () => {
       .then((output) => {
         saveBuffer({
           buffertype: "base64url;",
-          output: output.response.attestationObject,
+          output: decode(output.response.attestationObject, "utf-8"),
         })
         // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
