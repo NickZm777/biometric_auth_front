@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
 import { useState } from "react"
-var ab2str = require("arraybuffer-to-string")
+
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
