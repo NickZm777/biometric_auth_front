@@ -3,6 +3,7 @@ import { saveKey, saveBuffer } from "../api/helper"
 import { useState } from "react"
 // import { uuid } from "uuidv4"
 const base64 = require("base64url")
+var CBOR = require("cbor-sync")
 
 const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
@@ -79,8 +80,8 @@ const Bio4 = () => {
       .create({ publicKey })
       .then((output) => {
         saveBuffer({
-          buffertype: "base64url;",
-          output: window.atob(output.response.attestationObject),
+          buffertype: "cbor;",
+          output: CBOR.decode(output.response.attestationObject),
         })
         // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
