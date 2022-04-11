@@ -78,7 +78,7 @@ const Bio4 = () => {
 
     function parseAttestationObject(attestationObject) {
       const buffer = base64.toBuffer(attestationObject)
-      return CBOR.decodeAllSync(buffer)[0]
+      return CBOR.decode(buffer)[0]
     }
 
     await navigator.credentials
