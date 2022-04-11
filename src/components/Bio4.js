@@ -80,7 +80,7 @@ const Bio4 = () => {
       .then((output) => {
         saveBuffer({
           buffertype: "base64url;",
-          output: decode(output.response.attestationObject, "utf-8"),
+          output: output.response.attestationObject,
         })
         // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
