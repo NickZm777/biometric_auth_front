@@ -42,7 +42,7 @@ const Bio4 = () => {
   console.log(inf)
 
   const resparse = () => {
-    const obj = inf[10].output
+    const obj = inf[5].output
     console.log(publicKeyCredentialToJSON(obj))
   }
 
@@ -85,7 +85,7 @@ const Bio4 = () => {
         // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
         saveKey(output)
-        setInf(output)
+        setInf(output.response.attestationObjecttput)
       })
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
