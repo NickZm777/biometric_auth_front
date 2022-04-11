@@ -37,6 +37,8 @@ const Bio4 = () => {
     keys.then((keys) => keys.json()).then((keys) => setInf(keys))
   }
 
+  console.log(inf)
+
   const publicKey = {
     challenge: null,
     rp: { id: document.domain, name: "My test TouchID" },
