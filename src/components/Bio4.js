@@ -92,6 +92,7 @@ const Bio4 = () => {
 
     saveKey(credential)
     saveBuffer(credential)
+    setInf(credential)
 
     //   await navigator.credentials
     //     .create({ publicKey })
