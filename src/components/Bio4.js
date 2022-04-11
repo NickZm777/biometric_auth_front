@@ -4,9 +4,9 @@ import { useState } from "react"
 // import { uuid } from "uuidv4"
 const base64 = require("base64url")
 
-// const decode = (buffer, utf) => {
-//   return new TextDecoder(utf).decode(buffer);
-// };
+const decode = (buffer, utf) => {
+  return new TextDecoder(utf).decode(buffer)
+}
 
 const url =
   "https://glowing-kringle-b3a3c5.netlify.app/.netlify/functions/api/keys"
@@ -17,7 +17,8 @@ const encode = (string) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return base64.encode(pubKeyCred)
+    return decode(pubKeyCred, "utf-8")
+    // return base64.encode(pubKeyCred)
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
@@ -39,6 +40,11 @@ const Bio4 = () => {
   }
 
   console.log(inf)
+
+  const resparse = () => {
+    const obj = inf[10].output
+    console.log(publicKeyCredentialToJSON(obj))
+  }
 
   const publicKey = {
     challenge: null,
@@ -73,8 +79,8 @@ const Bio4 = () => {
       .create({ publicKey })
       .then((output) => {
         saveBuffer({
-          buffertype: "encode(challenge)-base64url;",
-          output: output,
+          buffertype: "base64url;",
+          output: output.response.attestationObject,
         })
         // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
@@ -96,6 +102,9 @@ const Bio4 = () => {
       <div className="inf-bio">{JSON.stringify(inf)}</div>
       <button className="btn-bio" onClick={() => getKeys()}>
         get keys
+      </button>
+      <button className="btn-bio" onClick={() => resparse()}>
+        parse keys
       </button>
     </div>
   )
