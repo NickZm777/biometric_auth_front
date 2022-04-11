@@ -64,10 +64,10 @@ const Bio4 = () => {
           buffertype: "encode(challenge)-base64url;",
           output: output,
         })
-        const keyres = publicKeyCredentialToJSON(output)
+        // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
-        saveKey(keyres)
-        setInf(keyres)
+        saveKey(output)
+        setInf(output)
       })
       .catch((error) => {
         console.log("Catch an error in navigator.credentials create:")
