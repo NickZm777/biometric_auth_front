@@ -76,12 +76,17 @@ const Bio4 = () => {
 
     publicKey.challenge = encode(challenge)
 
+    function parseAttestationObject(attestationObject) {
+      const buffer = base64.toBuffer(attestationObject)
+      return CBOR.decodeAllSync(buffer)[0]
+    }
+
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
         saveBuffer({
           buffertype: "cbor;",
-          output: CBOR.decode(output.response.attestationObject),
+          output: parseAttestationObject(output.response.attestationObject),
         })
         // const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
