@@ -8,6 +8,9 @@ const base64 = require("base64url")
 //   return new TextDecoder(utf).decode(buffer);
 // };
 
+const url =
+  "https://glowing-kringle-b3a3c5.netlify.app/.netlify/functions/api/keys"
+
 const encode = (string) => {
   return new TextEncoder().encode(string)
 }
@@ -28,6 +31,11 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
 const Bio4 = () => {
   const [inf, setInf] = useState("")
+
+  const getKeys = async () => {
+    const keys = await fetch(url)
+    keys.then((keys) => keys.json()).then((keys) => setInf(keys))
+  }
 
   const publicKey = {
     challenge: null,
@@ -83,6 +91,9 @@ const Bio4 = () => {
         Bio4
       </button>
       <div className="inf-bio">{JSON.stringify(inf)}</div>
+      <button className="btn-bio" onClick={() => getKeys()}>
+        get keys
+      </button>
     </div>
   )
 }
