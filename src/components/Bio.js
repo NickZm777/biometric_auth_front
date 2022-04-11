@@ -1,24 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { saveKey, getInitChallenge, saveBuffer } from "../api/helper";
-import { useState } from "react";
-var ab2str = require("arraybuffer-to-string");
+import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
+import { useState } from "react"
+var ab2str = require("arraybuffer-to-string")
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
 const decode = (buffer, utf) => {
-  return new TextDecoder(utf).decode(buffer);
-};
+  return new TextDecoder(utf).decode(buffer)
+}
 
 const encode = (string) => {
-  return new TextEncoder().encode(string);
-};
-
-const strr = encode("Claudi_Lopez");
-console.log(strr);
-const sstrr = ab2str("strr", "base64");
-console.log(sstrr);
-const sert = ab2str(sstrr);
-console.log(sert);
+  return new TextEncoder().encode(string)
+}
 
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
@@ -35,8 +28,8 @@ const keyforCheck = async (credential) => {
       // attachment: "platform",
       userVerification: "required",
     },
-  });
-};
+  })
+}
 
 // function publicKeyCredentialToJSON(pubKeyCred) {
 //   if (pubKeyCred instanceof ArrayBuffer) {
@@ -54,29 +47,29 @@ const keyforCheck = async (credential) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return decode(pubKeyCred, "utf-8");
+    return decode(pubKeyCred, "utf-8")
   } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON);
+    return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
-    const obj = {};
+    const obj = {}
     for (let key in pubKeyCred) {
-      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key]);
+      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
     }
-    return obj;
-  } else return pubKeyCred;
+    return obj
+  } else return pubKeyCred
 }
 
-const domain = document.domain;
+const domain = document.domain
 
-const iserID = new Uint8Array([21, 31, 105]);
+const iserID = new Uint8Array([21, 31, 105])
 
 const Bio = () => {
-  const [inf, setInf] = useState("");
-  const [getinf, setGetInf] = useState("");
-  const [getinff, setGetInff] = useState("");
-  const [getinfff, setGetInfff] = useState("");
+  const [inf, setInf] = useState("")
+  const [getinf, setGetInf] = useState("")
+  const [getinff, setGetInff] = useState("")
+  const [getinfff, setGetInfff] = useState("")
   // const [buffer, setBuffer] = useState("")
-  const [initChallenge, setInitChallenge] = useState("");
+  const [initChallenge, setInitChallenge] = useState("")
 
   const publicKey = {
     challenge: null,
@@ -96,61 +89,61 @@ const Bio = () => {
       authenticatorAttachment: "platform",
       userVerification: "required",
     },
-  };
+  }
 
   const createKey = async () => {
     if (!window.PublicKeyCredential) {
-      console.log("window.PublicKeyCredential is false");
-      return;
+      console.log("window.PublicKeyCredential is false")
+      return
     }
-    const serverChallengeString = await getInitChallenge();
-    publicKey.challenge = encode(serverChallengeString);
+    const serverChallengeString = await getInitChallenge()
+    publicKey.challenge = encode(serverChallengeString)
     // publicKey.challenge = Uint8Array.from(serverChallengeString);
 
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
-        saveBuffer(output);
-        const keyres = publicKeyCredentialToJSON(output);
+        saveBuffer(output)
+        const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
-        saveKey(keyres);
-        setInf(keyres);
+        saveKey(keyres)
+        setInf(keyres)
       })
       .catch((error) => {
-        console.log("Catch an error in navigator.credentials create:");
-        console.log(error.message);
-        setInf(error.message);
-      });
-  };
+        console.log("Catch an error in navigator.credentials create:")
+        console.log(error.message)
+        setInf(error.message)
+      })
+  }
   const trykeyforCheck = (inf) => {
     keyforCheck(inf)
       .then((output) => {
         // const keyres = publicKeyCredentialToJSON(output)
-        saveKey(output);
-        setGetInf(output);
-        setGetInff(typeof output);
+        saveKey(output)
+        setGetInf(output)
+        setGetInff(typeof output)
       })
       .catch((error) => {
-        console.log("Catch an error in navigator.credentials create:");
-        console.log(error.message);
+        console.log("Catch an error in navigator.credentials create:")
+        console.log(error.message)
         setGetInfff({
           message: "Catch an error in navigator.credentials create:",
           error: error,
-        });
-      });
-  };
+        })
+      })
+  }
 
   const getStartChallenge = () => {
     getInitChallenge()
       .then((res) => {
-        setInitChallenge(res);
+        setInitChallenge(res)
         // console.log(JSON.stringify(newChallenge) === JSON.stringify(res))
-        return res;
+        return res
       })
       .catch((error) => {
-        console.log(error.message);
-      });
-  };
+        console.log(error.message)
+      })
+  }
 
   return (
     <div>
@@ -171,13 +164,13 @@ const Bio = () => {
       {/* <span>challenge:</span>
       <span>{JSON.stringify(initChallenge)}</span> */}
     </div>
-  );
-};
+  )
+}
 
 // const encodedData = window.btoa("Hello, world")
 // const decodedData = window.atob(encodedData)
 
-export default Bio;
+export default Bio
 
 // const igorid = {
 //   rawId: {},

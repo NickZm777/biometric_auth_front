@@ -1,32 +1,32 @@
-import { saveKey, saveBuffer } from "../api/helper";
-import { useState } from "react";
+import { saveKey, saveBuffer } from "../api/helper"
+import { useState } from "react"
 // import { uuid } from "uuidv4"
-// import { base64urlEncode } from "base64url"
+const base64 = require("base64url")
 
 // const decode = (buffer, utf) => {
 //   return new TextDecoder(utf).decode(buffer);
 // };
 
 const encode = (string) => {
-  return new TextEncoder().encode(string);
-};
+  return new TextEncoder().encode(string)
+}
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return window.btoa(pubKeyCred);
+    return base64.encode(pubKeyCred)
   } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON);
+    return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
-    const obj = {};
+    const obj = {}
     for (let key in pubKeyCred) {
-      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key]);
+      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
     }
-    return obj;
-  } else return pubKeyCred;
+    return obj
+  } else return pubKeyCred
 }
 
 const Bio4 = () => {
-  const [inf, setInf] = useState("");
+  const [inf, setInf] = useState("")
 
   const publicKey = {
     challenge: null,
@@ -46,35 +46,35 @@ const Bio4 = () => {
       authenticatorAttachment: "platform",
       userVerification: "required",
     },
-  };
+  }
 
   const createKey = async () => {
     if (!window.PublicKeyCredential) {
-      console.log("window.PublicKeyCredential is false");
-      return;
+      console.log("window.PublicKeyCredential is false")
+      return
     }
-    const challenge = "Bio4challenge";
+    const challenge = "Bio4challenge"
 
-    publicKey.challenge = encode(challenge);
+    publicKey.challenge = encode(challenge)
 
     await navigator.credentials
       .create({ publicKey })
       .then((output) => {
         saveBuffer({
-          buffertype: "encode(challenge)-btoares_Bio4;",
+          buffertype: "encode(challenge)-base64url;",
           output: output,
-        });
-        const keyres = publicKeyCredentialToJSON(output);
+        })
+        const keyres = publicKeyCredentialToJSON(output)
         // const keyres = convertBuffer(output)
-        saveKey(keyres);
-        setInf(keyres);
+        saveKey(keyres)
+        setInf(keyres)
       })
       .catch((error) => {
-        console.log("Catch an error in navigator.credentials create:");
-        console.log(error.message);
-        setInf(error.message);
-      });
-  };
+        console.log("Catch an error in navigator.credentials create:")
+        console.log(error.message)
+        setInf(error.message)
+      })
+  }
 
   return (
     <div>
@@ -83,10 +83,10 @@ const Bio4 = () => {
       </button>
       <div className="inf-bio">{JSON.stringify(inf)}</div>
     </div>
-  );
-};
+  )
+}
 
 // const encodedData = window.btoa("Hello, world")
 // const decodedData = window.atob(encodedData)
 
-export default Bio4;
+export default Bio4
