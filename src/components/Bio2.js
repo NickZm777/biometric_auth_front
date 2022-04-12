@@ -84,10 +84,11 @@ const Bio2 = () => {
         alg: -7,
       },
     ],
-    authenticatorSelection: {
-      authenticatorAttachment: "platform",
-      userVerification: "required",
-    },
+    // authenticatorSelection: {
+    //   authenticatorAttachment: "platform",
+    //   userVerification: "required",
+    // },
+    attestation: "direct",
   }
 
   const createKey = async () => {
