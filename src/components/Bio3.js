@@ -3,23 +3,50 @@ import { saveKey, saveBuffer } from "../api/helper"
 import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
+const base64url = require("base64url")
 
 const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
 }
 
-function publicKeyCredentialToJSON(pubKeyCred) {
+// function publicKeyCredentialToJSON(pubKeyCred) {
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return decode(pubKeyCred, "utf-8")
+//   } else if (pubKeyCred instanceof Array) {
+//     return pubKeyCred.map(publicKeyCredentialToJSON)
+//   } else if (pubKeyCred instanceof Object) {
+//     const obj = {}
+//     for (let key in pubKeyCred) {
+//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     }
+//     return obj
+//   } else return pubKeyCred
+// }
+
+var publicKeyCredentialToJSON = (pubKeyCred) => {
+  /* ----- DO NOT MODIFY THIS CODE ----- */
+  if (pubKeyCred instanceof Array) {
+    let arr = []
+    for (let i of pubKeyCred) arr.push(publicKeyCredentialToJSON(i))
+
+    return arr
+  }
+
   if (pubKeyCred instanceof ArrayBuffer) {
-    return decode(pubKeyCred, "utf-8")
-  } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON)
-  } else if (pubKeyCred instanceof Object) {
-    const obj = {}
+    return base64url.encode(pubKeyCred)
+  }
+
+  if (pubKeyCred instanceof Object) {
+    let obj = {}
+
     for (let key in pubKeyCred) {
       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
     }
+
     return obj
-  } else return pubKeyCred
+  }
+
+  return pubKeyCred
 }
 
 const Bio3 = () => {
