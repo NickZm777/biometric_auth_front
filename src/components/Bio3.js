@@ -98,11 +98,11 @@ const Bio3 = () => {
         //   output: newCredentialInfo,
         // })
         const cccc = publicKeyCredentialToJSON(newCredentialInfo)
-        // saveKey(cccc)
-        saveBuffer({
-          buffertype: "window.btoa(challenge)-Bio3;",
-          output: cccc,
-        })
+        saveKey(cccc)
+        // saveBuffer({
+        //   buffertype: "window.btoa(challenge)-Bio3;",
+        //   output: cccc,
+        // })
         setInf(cccc)
       })
       .catch((error) => {
