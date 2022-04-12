@@ -14,7 +14,7 @@ const decode = (buffer, utf) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return base64.encode(pubKeyCred)
+    return pubKeyCred.toString("base64")
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
