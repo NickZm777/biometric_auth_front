@@ -12,45 +12,45 @@ const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
 }
 
-// function publicKeyCredentialToJSON(pubKeyCred) {
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return decode(pubKeyCred, "utf-8")
-//   } else if (pubKeyCred instanceof Array) {
-//     return pubKeyCred.map(publicKeyCredentialToJSON)
-//   } else if (pubKeyCred instanceof Object) {
-//     const obj = {}
-//     for (let key in pubKeyCred) {
-//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     }
-//     return obj
-//   } else return pubKeyCred
-// }
-
-var publicKeyCredentialToJSON = (pubKeyCred) => {
-  /* ----- DO NOT MODIFY THIS CODE ----- */
-  if (pubKeyCred instanceof Array) {
-    let arr = []
-    for (let i of pubKeyCred) arr.push(publicKeyCredentialToJSON(i))
-
-    return arr
-  }
-
+function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
     return base64.encode(pubKeyCred)
-  }
-
-  if (pubKeyCred instanceof Object) {
-    let obj = {}
-
+  } else if (pubKeyCred instanceof Array) {
+    return pubKeyCred.map(publicKeyCredentialToJSON)
+  } else if (pubKeyCred instanceof Object) {
+    const obj = {}
     for (let key in pubKeyCred) {
       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
     }
-
     return obj
-  }
-
-  return pubKeyCred
+  } else return pubKeyCred
 }
+
+// var publicKeyCredentialToJSON = (pubKeyCred) => {
+//   /* ----- DO NOT MODIFY THIS CODE ----- */
+//   if (pubKeyCred instanceof Array) {
+//     let arr = []
+//     for (let i of pubKeyCred) arr.push(publicKeyCredentialToJSON(i))
+
+//     return arr
+//   }
+
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return base64.encode(pubKeyCred)
+//   }
+
+//   if (pubKeyCred instanceof Object) {
+//     let obj = {}
+
+//     for (let key in pubKeyCred) {
+//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     }
+
+//     return obj
+//   }
+
+//   return pubKeyCred
+// }
 
 const Bio3 = () => {
   const [inf, setInf] = useState("")
