@@ -71,7 +71,7 @@ const Bio3 = () => {
         // saveKey(cccc)
         saveBuffer({
           buffertype: "window.btoa(challenge)-Bio3;",
-          output: newCredentialInfo,
+          output: cccc,
         })
         setInf(cccc)
       })
