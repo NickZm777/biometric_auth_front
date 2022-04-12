@@ -6,7 +6,7 @@ import { useState } from "react"
 const base64url = require("base64url")
 const base64 = require("base-64")
 
-var Buffer = require("buffer/").Buffer
+// var Buffer = require("buffer/").Buffer
 
 const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
