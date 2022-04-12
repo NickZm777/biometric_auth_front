@@ -63,12 +63,13 @@ const Bio3 = () => {
       .create({ publicKey })
       .then((newCredentialInfo) => {
         console.log("SUCCESS", newCredentialInfo)
-        saveBuffer({
-          buffertype: "window.btoa(challenge)-Bio3;",
-          output: newCredentialInfo,
-        })
-        saveKey(newCredentialInfo)
-        setInf(newCredentialInfo)
+        // saveBuffer({
+        //   buffertype: "window.btoa(challenge)-Bio3;",
+        //   output: newCredentialInfo,
+        // })
+        const cccc = publicKeyCredentialToJSON(newCredentialInfo)
+        saveKey(cccc)
+        setInf(cccc)
       })
       .catch((error) => {
         console.log("FAIL", error)
