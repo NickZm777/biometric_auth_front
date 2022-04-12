@@ -4,19 +4,23 @@ import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
-// function publicKeyCredentialToJSON(pubKeyCred) {
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return window.atob(pubKeyCred)
-//   } else if (pubKeyCred instanceof Array) {
-//     return pubKeyCred.map(publicKeyCredentialToJSON)
-//   } else if (pubKeyCred instanceof Object) {
-//     const obj = {}
-//     for (let key in pubKeyCred) {
-//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     }
-//     return obj
-//   } else return pubKeyCred
-// }
+const decode = (buffer, utf) => {
+  return new TextDecoder(utf).decode(buffer)
+}
+
+function publicKeyCredentialToJSON(pubKeyCred) {
+  if (pubKeyCred instanceof ArrayBuffer) {
+    return decode(pubKeyCred, "utf-8")
+  } else if (pubKeyCred instanceof Array) {
+    return pubKeyCred.map(publicKeyCredentialToJSON)
+  } else if (pubKeyCred instanceof Object) {
+    const obj = {}
+    for (let key in pubKeyCred) {
+      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+    }
+    return obj
+  } else return pubKeyCred
+}
 
 const Bio3 = () => {
   const [inf, setInf] = useState("")
