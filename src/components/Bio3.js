@@ -4,6 +4,7 @@ import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 const base64url = require("base64url")
+var Buffer = require("buffer/").Buffer
 
 const decode = (buffer, utf) => {
   return new TextDecoder(utf).decode(buffer)
