@@ -4,6 +4,8 @@ import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 const base64url = require("base64url")
+const base64 = require("base-64")
+
 var Buffer = require("buffer/").Buffer
 
 const decode = (buffer, utf) => {
@@ -34,7 +36,7 @@ var publicKeyCredentialToJSON = (pubKeyCred) => {
   }
 
   if (pubKeyCred instanceof ArrayBuffer) {
-    return base64url.encode(pubKeyCred)
+    return base64.encode(pubKeyCred)
   }
 
   if (pubKeyCred instanceof Object) {
