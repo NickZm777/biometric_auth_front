@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
 import { useState } from "react"
+const base64 = require("base-64")
 
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
@@ -47,7 +48,7 @@ const keyforCheck = async (credential) => {
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof ArrayBuffer) {
-    return decode(pubKeyCred, "utf-8")
+    return base64.encode(pubKeyCred)
   } else if (pubKeyCred instanceof Array) {
     return pubKeyCred.map(publicKeyCredentialToJSON)
   } else if (pubKeyCred instanceof Object) {
