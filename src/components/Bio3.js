@@ -1,72 +1,76 @@
-import { saveKey, saveBuffer } from "../api/helper";
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { saveKey, saveBuffer } from "../api/helper"
+import { useState } from "react"
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
-function publicKeyCredentialToJSON(pubKeyCred) {
-  if (pubKeyCred instanceof ArrayBuffer) {
-    return window.atob(pubKeyCred);
-  } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON);
-  } else if (pubKeyCred instanceof Object) {
-    const obj = {};
-    for (let key in pubKeyCred) {
-      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key]);
-    }
-    return obj;
-  } else return pubKeyCred;
-}
+// function publicKeyCredentialToJSON(pubKeyCred) {
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return window.atob(pubKeyCred)
+//   } else if (pubKeyCred instanceof Array) {
+//     return pubKeyCred.map(publicKeyCredentialToJSON)
+//   } else if (pubKeyCred instanceof Object) {
+//     const obj = {}
+//     for (let key in pubKeyCred) {
+//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     }
+//     return obj
+//   } else return pubKeyCred
+// }
 
 const Bio3 = () => {
-  const [inf, setInf] = useState("");
-
-  const publicKey = {
-    challenge: null,
-    rp: { id: document.domain, name: "My test TouchID" },
-    user: {
-      id: new Uint8Array([21, 31, 105]),
-      name: "jason.x@.pl",
-      displayName: "Jason X",
-    },
-    pubKeyCredParams: [
-      {
-        type: "public-key",
-        alg: -7,
-      },
-    ],
-    authenticatorSelection: {
-      authenticatorAttachment: "platform",
-      userVerification: "required",
-    },
-  };
+  const [inf, setInf] = useState("")
 
   const createKey = async () => {
     if (!window.PublicKeyCredential) {
-      console.log("window.PublicKeyCredential is false");
-      return;
+      console.log("window.PublicKeyCredential is false")
+      return
     }
-    const challenge = "Bio2challenge";
+    const challenge = "Bio2challenge"
 
-    publicKey.challenge = window.btoa(challenge);
+    var randomChallengeBuffer = new Uint8Array(32)
+    window.crypto.getRandomValues(randomChallengeBuffer)
 
-    await navigator.credentials
+    var base64id = "MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="
+    var idBuffer = Uint8Array.from(window.atob(base64id), (c) =>
+      c.charCodeAt(0)
+    )
+
+    var publicKey = {
+      challenge: randomChallengeBuffer,
+
+      rp: { name: "FIDO Example Corporation" },
+
+      user: {
+        id: idBuffer,
+        name: "alice@example.com",
+        displayName: "Alice von Wunderland",
+      },
+
+      attestation: "direct",
+
+      pubKeyCredParams: [
+        { type: "public-key", alg: -7 }, // ES256
+        { type: "public-key", alg: -257 }, // RS256
+      ],
+    }
+
+    navigator.credentials
       .create({ publicKey })
-      .then((output) => {
+      .then((newCredentialInfo) => {
+        console.log("SUCCESS", newCredentialInfo)
         saveBuffer({
           buffertype: "window.btoa(challenge)-Bio3;",
-          output: output,
-        });
-        const keyres = publicKeyCredentialToJSON(output);
-        // const keyres = convertBuffer(output)
-        saveKey(keyres);
-        setInf(keyres);
+          output: newCredentialInfo,
+        })
+        saveKey(newCredentialInfo)
+        setInf(newCredentialInfo)
       })
       .catch((error) => {
-        console.log("Catch an error in navigator.credentials create:");
-        console.log(error.message);
-        setInf(error.message);
-      });
-  };
+        console.log("FAIL", error)
+        setInf(error.message)
+      })
+  }
 
   return (
     <div>
@@ -75,10 +79,10 @@ const Bio3 = () => {
       </button>
       <div className="inf-bio">{JSON.stringify(inf)}</div>
     </div>
-  );
-};
+  )
+}
 
 // const encodedData = window.btoa("Hello, world")
 // const decodedData = window.atob(encodedData)
 
-export default Bio3;
+export default Bio3
