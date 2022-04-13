@@ -17,7 +17,7 @@ const BioForm = () => {
       const publicKey = preformatMakeCredReq(res.data)
       console.log(publicKey)
       try {
-        const generatedBrowserCreds = createBioKey(publicKey)
+        const generatedBrowserCreds = await createBioKey(publicKey)
         alert(JSON.stringify(generatedBrowserCreds))
         console.log(generatedBrowserCreds)
         saveKey(generatedBrowserCreds)
