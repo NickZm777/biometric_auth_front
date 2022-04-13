@@ -22,7 +22,7 @@ const BioForm = () => {
         console.log(generatedBrowserCreds)
         saveKey(generatedBrowserCreds)
       } catch (error) {
-        alert(JSON.stringify(error))
+        alert(JSON.stringify(error.message))
         console.log(error)
       }
     } else alert(res.message)

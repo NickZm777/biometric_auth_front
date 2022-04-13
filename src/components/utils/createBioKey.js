@@ -6,7 +6,7 @@ const createBioKey = async (publicKey) => {
     console.log("window.PublicKeyCredential is disabled")
     return
   }
-  await navigator.credentials
+  const result = await navigator.credentials
     .create({ publicKey })
     .then((output) => {
       return publicKeyCredentialToJSON(output)
@@ -15,6 +15,7 @@ const createBioKey = async (publicKey) => {
       alert(`Catch an error in navigator.credentials create: ${error.message}`)
       console.log(error.message)
     })
+  return result
 }
 
 export default createBioKey
