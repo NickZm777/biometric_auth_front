@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { getCredentialsChallenge } from "../api/helpersBioAuth/getCredentialsChallenge"
+import preformatMakeCredReq from "./utils/preformatMakeCredReq"
 
 const BioForm = () => {
   const [name, setName] = useState("")
@@ -10,7 +11,18 @@ const BioForm = () => {
       userName: userName,
       name: name,
     })
-    alert(JSON.stringify(res))
+    if (res.status === "success") {
+      const publicKey = preformatMakeCredReq(res.data)
+      console.log(publicKey)
+      try {
+        const generatedCreds = await navigator.credentials.create({ publicKey })
+        alert(JSON.stringify(generatedCreds))
+        console.log(generatedCreds)
+      } catch (error) {
+        alert(JSON.stringify(error))
+        console.log(error)
+      }
+    } else alert(res.message)
   }
 
   return (
