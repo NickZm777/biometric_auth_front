@@ -1,18 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
 import { useState } from "react"
+import encode from "./utils/encode"
 const base64 = require("base-64")
 
 // import { uuid } from "uuidv4"
 // import { base64urlEncode } from "base64url"
 
-const decode = (buffer, utf) => {
-  return new TextDecoder(utf).decode(buffer, { ignoreBOM: true })
-}
-
-const encode = (string) => {
-  return new TextEncoder().encode(string)
-}
+// const encode = (string) => {
+//   return new TextEncoder().encode(string)
+// }
 
 const keyforCheck = async (credential) => {
   return await navigator.credentials.get({
