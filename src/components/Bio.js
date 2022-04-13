@@ -2,6 +2,7 @@
 import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
 import { useState } from "react"
 import encode from "./utils/encode"
+import publicKeyCredentialToJSON from "./utils/publicKeyCredentialToJSON"
 const base64 = require("base-64")
 
 // import { uuid } from "uuidv4"
@@ -43,31 +44,31 @@ const keyforCheck = async (credential) => {
 //   } else return pubKeyCred
 // }
 
-function arrayBufferToBase64(ab) {
-  var dView = new Uint8Array(ab) //Get a byte view
+// function arrayBufferToBase64(ab) {
+//   var dView = new Uint8Array(ab) //Get a byte view
 
-  var arr = Array.prototype.slice.call(dView) //Create a normal array
+//   var arr = Array.prototype.slice.call(dView) //Create a normal array
 
-  var arr1 = arr.map(function (item) {
-    return String.fromCharCode(item) //Convert
-  })
+//   var arr1 = arr.map(function (item) {
+//     return String.fromCharCode(item) //Convert
+//   })
 
-  return window.btoa(arr1.join("")) //Form a string
-}
+//   return window.btoa(arr1.join("")) //Form a string
+// }
 
-function publicKeyCredentialToJSON(pubKeyCred) {
-  if (pubKeyCred instanceof ArrayBuffer) {
-    return arrayBufferToBase64(pubKeyCred)
-  } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON)
-  } else if (pubKeyCred instanceof Object) {
-    const obj = {}
-    for (let key in pubKeyCred) {
-      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-    }
-    return obj
-  } else return pubKeyCred
-}
+// function publicKeyCredentialToJSON(pubKeyCred) {
+//   if (pubKeyCred instanceof ArrayBuffer) {
+//     return arrayBufferToBase64(pubKeyCred)
+//   } else if (pubKeyCred instanceof Array) {
+//     return pubKeyCred.map(publicKeyCredentialToJSON)
+//   } else if (pubKeyCred instanceof Object) {
+//     const obj = {}
+//     for (let key in pubKeyCred) {
+//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
+//     }
+//     return obj
+//   } else return pubKeyCred
+// }
 
 const domain = document.domain
 
