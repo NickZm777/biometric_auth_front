@@ -28,7 +28,11 @@ const BioForm = () => {
         alert(JSON.stringify(generatedBrowserCreds))
         console.log(generatedBrowserCreds)
         saveKey(generatedBrowserCreds)
-        saveCreatedCreds(generatedBrowserCreds)
+        const creds = {
+          userInfoforSession: userName,
+          data: generatedBrowserCreds,
+        }
+        saveCreatedCreds(creds)
       } catch (error) {
         alert(JSON.stringify(error.message))
         console.log(error)
