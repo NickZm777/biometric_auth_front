@@ -1,11 +1,11 @@
 import publicKeyCredentialToJSON from "../utils/publicKeyCredentialToJSON"
 
 const createBioKey = async (publicKey) => {
-  if (!window.PublicKeyCredential) {
-    alert("window.PublicKeyCredential is disabled")
-    console.log("window.PublicKeyCredential is disabled")
-    return
-  }
+  // if (!window.PublicKeyCredential) {
+  //   alert("window.PublicKeyCredential is disabled")
+  //   console.log("window.PublicKeyCredential is disabled")
+  //   return
+  // }
   const result = await navigator.credentials
     .create({ publicKey })
     .then((output) => {

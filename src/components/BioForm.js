@@ -2,6 +2,7 @@ import { useState } from "react"
 import { getCredentialsChallenge } from "../api/helpersBioAuth/getCredentialsChallenge"
 import preformatMakeCredReq from "./utils/preformatMakeCredReq"
 import createBioKey from "./utils/createBioKey"
+import saveCreatedCreds from "../api/helpersBioAuth/saveCreatedCreds"
 import { saveKey } from "../api/helper"
 
 const BioForm = () => {
@@ -9,11 +10,17 @@ const BioForm = () => {
   const [userName, setUserName] = useState("")
 
   const getResult = async () => {
+    const bioAwailable = window.PublicKeyCredential
+    console.log(bioAwailable)
+    if (!bioAwailable) {
+      alert("PublicKeyCredentials are disabled on your device")
+      return
+    }
     const res = await getCredentialsChallenge({
       userName: userName,
       name: name,
     })
-    if (res.status === "success") {
+    if (res.status === "success" && bioAwailable) {
       const publicKey = preformatMakeCredReq(res.data)
       console.log(publicKey)
       try {
@@ -21,6 +28,7 @@ const BioForm = () => {
         alert(JSON.stringify(generatedBrowserCreds))
         console.log(generatedBrowserCreds)
         saveKey(generatedBrowserCreds)
+        saveCreatedCreds(generatedBrowserCreds)
       } catch (error) {
         alert(JSON.stringify(error.message))
         console.log(error)
