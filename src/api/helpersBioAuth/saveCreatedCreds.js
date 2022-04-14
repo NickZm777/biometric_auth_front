@@ -4,14 +4,14 @@ const EXPRESS_URL = ".netlify/functions/api"
 const BIOCREATE_URL = `${BASE_URL}/${EXPRESS_URL}/biocreate`
 
 const saveCreatedCreds = async (requestData) => {
-  const data = { ...requestData }
+  // const data = {  ...requestData  }
   try {
     const response = await fetch(BIOCREATE_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(requestData),
       // credentials: "include",
     })
     const res = await response.json()
