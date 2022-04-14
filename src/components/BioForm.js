@@ -37,7 +37,7 @@ const BioForm = () => {
         alert(JSON.stringify(error.message))
         console.log(error)
       }
-    } else alert(res.message)
+    } else alert(JSON.stringify(res.message))
   }
 
   return (
