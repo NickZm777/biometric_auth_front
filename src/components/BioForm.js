@@ -1,9 +1,26 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react"
 import { getCredentialsChallenge } from "../api/helpersBioAuth/getCredentialsChallenge"
 import preformatMakeCredReq from "./utils/preformatMakeCredReq"
 import createBioKey from "./utils/createBioKey"
 import saveCreatedCreds from "../api/helpersBioAuth/saveCreatedCreds"
 import { saveKey } from "../api/helper"
+
+// const dataJ = {
+//   userInfoforSession: "testUser",
+//   data: {
+//     rawId: "XtGy+6wkQM6cAl3OtQSJGyx3Dh0=",
+//     response: {
+//       attestationObject:
+//         "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViYNeLDO3AtFqklDPw3YMTxKfJjZ/9QJCVSkccHII6uWjZFAAAAAAAAAAAAAAAAAAAAAAAAAAAAFF7RsvusJEDOnAJdzrUEiRssdw4dpQECAyYgASFYIKK7R1HP9XvbESTWWy5GwkZbjCSQMC6pCU3C2s9Dl/LpIlggetvHRhnIHLL2v9nnGJ9NnLKeg70LslqlTuSxxBGc8kI=",
+//       clientDataJSON:
+//         "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiY21GdVpHOXRZMmhoYkd4bGJtZGxabkp2YldkbGJtVnlZWFJsVTJWeWRtVnlUV0ZyWlVOeVpXUlNaWEYxWlhOMCIsIm9yaWdpbiI6Imh0dHBzOi8vamFkZS1icmlvY2hlLTdjMzNmZC5uZXRsaWZ5LmFwcCJ9",
+//     },
+//     getClientExtensionResults: {},
+//     id: "XtGy-6wkQM6cAl3OtQSJGyx3Dh0",
+//     type: "public-key",
+//   },
+// }
 
 const BioForm = () => {
   const [name, setName] = useState("")
@@ -26,7 +43,7 @@ const BioForm = () => {
         const generatedBrowserCreds = await createBioKey(publicKey)
         // alert(JSON.stringify(generatedBrowserCreds))
         // console.log(generatedBrowserCreds)
-        saveKey(generatedBrowserCreds)
+        // saveKey(generatedBrowserCreds)
         const creds = {
           userInfoforSession: userName,
           data: generatedBrowserCreds,
