@@ -11,7 +11,6 @@ const BioForm = () => {
 
   const getResult = async () => {
     const bioAwailable = window.PublicKeyCredential
-    console.log(bioAwailable)
     if (!bioAwailable) {
       alert("PublicKeyCredentials are disabled on your device")
       return
@@ -34,10 +33,10 @@ const BioForm = () => {
         }
         saveCreatedCreds(creds)
       } catch (error) {
-        alert(JSON.stringify(error.message))
+        alert(`There${error.message}`)
         console.log(error)
       }
-    } else alert(JSON.stringify(res.message))
+    } else alert(`is is ${res.message}`)
   }
 
   return (
