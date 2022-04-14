@@ -33,10 +33,10 @@ const BioForm = () => {
         }
         saveCreatedCreds(creds)
       } catch (error) {
-        alert(`There${error.message}`)
+        alert(`catch in Bioform:  ${error.message}`)
         console.log(error)
       }
-    } else alert(`is is ${res.message}`)
+    } else alert(`else in Bioform: ${res.message}`)
   }
 
   return (

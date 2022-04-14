@@ -14,11 +14,12 @@ const saveCreatedCreds = async (requestData) => {
       body: JSON.stringify(requestData),
       // credentials: "include",
     })
+    alert(JSON.stringify(requestData))
     const res = await response.json()
     return res
   } catch (e) {
     console.error(e)
-    alert(`Here${e.message}`)
+    alert(`catch in saveCreatedCreds: ${e.message}`)
   }
 }
 
