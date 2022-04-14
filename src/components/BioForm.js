@@ -25,8 +25,8 @@ const BioForm = () => {
       console.log(publicKey)
       try {
         const generatedBrowserCreds = await createBioKey(publicKey)
-        alert(JSON.stringify(generatedBrowserCreds))
-        console.log(generatedBrowserCreds)
+        // alert(JSON.stringify(generatedBrowserCreds))
+        // console.log(generatedBrowserCreds)
         saveKey(generatedBrowserCreds)
         const creds = {
           userInfoforSession: userName,
