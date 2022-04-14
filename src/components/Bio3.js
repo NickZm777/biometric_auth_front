@@ -1,127 +1,31 @@
 /* eslint-disable no-unused-vars */
-import { saveKey, saveBuffer } from "../api/helper"
+import { tryCheck } from "../api/helper"
 import { useState } from "react"
-// import { uuid } from "uuidv4"
-// import { base64urlEncode } from "base64url"
-const base64url = require("base64url")
-const base64 = require("base-64")
 
-// var Buffer = require("buffer/").Buffer
-
-const decode = (buffer, utf) => {
-  return new TextDecoder(utf).decode(buffer)
+const data = {
+  userInfoforSession: "testUser",
+  data: {
+    rawId: "XtGy+6wkQM6cAl3OtQSJGyx3Dh0=",
+    response: {
+      attestationObject:
+        "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViYNeLDO3AtFqklDPw3YMTxKfJjZ/9QJCVSkccHII6uWjZFAAAAAAAAAAAAAAAAAAAAAAAAAAAAFF7RsvusJEDOnAJdzrUEiRssdw4dpQECAyYgASFYIKK7R1HP9XvbESTWWy5GwkZbjCSQMC6pCU3C2s9Dl/LpIlggetvHRhnIHLL2v9nnGJ9NnLKeg70LslqlTuSxxBGc8kI=",
+      clientDataJSON:
+        "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiY21GdVpHOXRZMmhoYkd4bGJtZGxabkp2YldkbGJtVnlZWFJsVTJWeWRtVnlUV0ZyWlVOeVpXUlNaWEYxWlhOMCIsIm9yaWdpbiI6Imh0dHBzOi8vamFkZS1icmlvY2hlLTdjMzNmZC5uZXRsaWZ5LmFwcCJ9",
+    },
+    getClientExtensionResults: {},
+    id: "XtGy-6wkQM6cAl3OtQSJGyx3Dh0",
+    type: "public-key",
+  },
 }
-
-function publicKeyCredentialToJSON(pubKeyCred) {
-  if (pubKeyCred instanceof ArrayBuffer) {
-    return window.btoa(String.fromCharCode(...new Uint8Array(pubKeyCred)))
-  } else if (pubKeyCred instanceof Array) {
-    return pubKeyCred.map(publicKeyCredentialToJSON)
-  } else if (pubKeyCred instanceof Object) {
-    const obj = {}
-    for (let key in pubKeyCred) {
-      obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-    }
-    return obj
-  } else return pubKeyCred
-}
-
-// var publicKeyCredentialToJSON = (pubKeyCred) => {
-//   /* ----- DO NOT MODIFY THIS CODE ----- */
-//   if (pubKeyCred instanceof Array) {
-//     let arr = []
-//     for (let i of pubKeyCred) arr.push(publicKeyCredentialToJSON(i))
-
-//     return arr
-//   }
-
-//   if (pubKeyCred instanceof ArrayBuffer) {
-//     return base64.encode(pubKeyCred)
-//   }
-
-//   if (pubKeyCred instanceof Object) {
-//     let obj = {}
-
-//     for (let key in pubKeyCred) {
-//       obj[key] = publicKeyCredentialToJSON(pubKeyCred[key])
-//     }
-
-//     return obj
-//   }
-
-//   return pubKeyCred
-// }
 
 const Bio3 = () => {
-  const [inf, setInf] = useState("")
-
-  const createKey = async () => {
-    if (!window.PublicKeyCredential) {
-      console.log("window.PublicKeyCredential is false")
-      return
-    }
-    const challenge = "Bio2challenge"
-
-    var randomChallengeBuffer = new Uint8Array(32)
-    window.crypto.getRandomValues(randomChallengeBuffer)
-
-    var base64id = "MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="
-    var idBuffer = Uint8Array.from(window.atob(base64id), (c) =>
-      c.charCodeAt(0)
-    )
-
-    var publicKey = {
-      challenge: randomChallengeBuffer,
-
-      rp: { name: "FIDO Example Corporation" },
-
-      user: {
-        id: idBuffer,
-        name: "alice@example.com",
-        displayName: "Alice von Wunderland",
-      },
-
-      attestation: "direct",
-
-      pubKeyCredParams: [
-        { type: "public-key", alg: -7 }, // ES256
-        { type: "public-key", alg: -257 }, // RS256
-      ],
-    }
-
-    navigator.credentials
-      .create({ publicKey })
-      .then((newCredentialInfo) => {
-        console.log("SUCCESS", newCredentialInfo)
-        // saveBuffer({
-        //   buffertype: "window.btoa(challenge)-Bio3;",
-        //   output: newCredentialInfo,
-        // })
-        const cccc = publicKeyCredentialToJSON(newCredentialInfo)
-        saveKey(cccc)
-        // saveBuffer({
-        //   buffertype: "window.btoa(challenge)-Bio3;",
-        //   output: cccc,
-        // })
-        setInf(cccc)
-      })
-      .catch((error) => {
-        console.log("FAIL", error)
-        setInf(error.message)
-      })
-  }
-
   return (
     <div>
-      <button className="btn-bio" onClick={() => createKey()}>
-        Bio3
+      <button className="btn-bio" onClick={() => tryCheck(data)}>
+        TryCheck
       </button>
-      <div className="inf-bio">{JSON.stringify(inf)}</div>
     </div>
   )
 }
-
-// const encodedData = window.btoa("Hello, world")
-// const decodedData = window.atob(encodedData)
 
 export default Bio3

@@ -6,6 +6,7 @@ const addUser_URL = `${BASE_URL}/${EXPRESS_URL}/create`
 const BIO_URL = `${BASE_URL}/${EXPRESS_URL}/save`
 const INIT_URL = `${BASE_URL}/${EXPRESS_URL}/init`
 const BUFFER_URL = `${BASE_URL}/${EXPRESS_URL}/savebuffer`
+const TRY_URL = `${BASE_URL}/${EXPRESS_URL}/try`
 
 export const checkCreds = async (requestData) => {
   const data = { data: { ...requestData } }
@@ -83,6 +84,24 @@ export const saveBuffer = async (requestData) => {
   const data = requestData
   try {
     const response = await fetch(BUFFER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      // credentials: "include",
+    })
+    const res = await response.json()
+    return res
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const tryCheck = async (requestData) => {
+  const data = requestData
+  try {
+    const response = await fetch(TRY_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
