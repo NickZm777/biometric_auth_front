@@ -14,9 +14,8 @@ const saveCreatedCreds = async (requestData) => {
       body: JSON.stringify(requestData),
       // credentials: "include",
     })
-    const resl = response
-    alert(resl)
     const res = await response.json()
+    alert(JSON.stringify(res))
     return res
   } catch (e) {
     console.error(e)
