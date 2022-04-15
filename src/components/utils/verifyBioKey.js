@@ -1,7 +1,7 @@
 import publicKeyCredentialToJSON from "../utils/publicKeyCredentialToJSON"
 import { saveKey } from "../../api/helper"
 
-const verifyBioKey = async (publicKey) => {
+const verifyBioKey = async ({ publicKey }) => {
   // if (!window.PublicKeyCredential) {
   //   alert("window.PublicKeyCredential is disabled")
   //   console.log("window.PublicKeyCredential is disabled")
