@@ -4,7 +4,7 @@ const EXPRESS_URL = ".netlify/functions/api"
 const REGISTER_URL = `${BASE_URL}/${EXPRESS_URL}/getverify`
 
 export const getCredentialsChallengeforVerify = async (userNameforVerify) => {
-  const data = userNameforVerify
+  const data = { userName: userNameforVerify }
   try {
     const response = await fetch(REGISTER_URL, {
       method: "POST",
