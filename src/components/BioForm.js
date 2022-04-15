@@ -1,9 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react"
-import { getCredentialsChallenge } from "../api/helpersBioAuth/getCredentialsChallenge"
+import {
+  getCredentialsChallenge,
+  getCredentialsChallengeforVerify,
+} from "../api/helpersBioAuth/getCredentialsChallenge"
 import preformatMakeCredReq from "./utils/preformatMakeCredReq"
+import preformatVerificationCredReq from "./utils/preformatVerificationCredReq"
 import createBioKey from "./utils/createBioKey"
+import verifyBioKey from "./utils/verifyBioKey"
 import saveCreatedCreds from "../api/helpersBioAuth/saveCreatedCreds"
+import saveVerifiedCreds from "../api/helpersBioAuth/saveVerifiedCreds"
 import { saveKey } from "../api/helper"
 
 // const dataJ = {
@@ -23,8 +29,38 @@ import { saveKey } from "../api/helper"
 // }
 
 const BioForm = () => {
+  const [tryVerify, setTryVerify] = useState(false)
   const [name, setName] = useState("")
   const [userName, setUserName] = useState("")
+  const [userNameforVerify, setUserNameforVerify] = useState("")
+
+  const getVerifyResult = async () => {
+    const bioAwailable = window.PublicKeyCredential
+    if (!bioAwailable) {
+      alert("PublicKeyCredentials are disabled on your device")
+      return
+    }
+    const res = await getCredentialsChallengeforVerify(userNameforVerify)
+    if (res.status === "success" && bioAwailable) {
+      const publicKey = preformatVerificationCredReq(res.data, document.domain)
+      console.log(publicKey)
+      try {
+        const generatedBrowserCreds = await verifyBioKey(publicKey)
+        // alert(JSON.stringify(generatedBrowserCreds))
+        // console.log(generatedBrowserCreds)
+        // saveKey(generatedBrowserCreds)
+        const creds = {
+          userInfoforSession: userNameforVerify,
+          data: generatedBrowserCreds,
+        }
+        saveVerifiedCreds(creds)
+      } catch (error) {
+        alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+        console.log(error)
+      }
+    } else
+      alert(`else in Bioform getCredentialsChallengeforVerify: ${res.message}`)
+  }
 
   const getResult = async () => {
     const bioAwailable = window.PublicKeyCredential
@@ -57,35 +93,69 @@ const BioForm = () => {
   }
 
   return (
-    <div>
-      <h1>Enter</h1>
-      <div className="form">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            console.log("username:", userName)
-            console.log("name:", name)
-            getResult()
-          }}
-        >
-          <label>Name</label>
-          <input
-            className="form-input"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <label>User Name</label>
-          <input
-            className="form-input"
-            type="password"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <input className="form-submit" type="submit" value="submit" />
-        </form>
-      </div>
-    </div>
+    <>
+      <button onClick={() => setTryVerify((flag) => !flag)}>
+        {`Go to ${tryVerify ? "verify" : "register"}`}
+      </button>
+      {tryVerify ? (
+        <>
+          <div>
+            <h1>Enter</h1>
+            <div className="form">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  console.log("username:", userName)
+                  console.log("name:", name)
+                  getResult()
+                }}
+              >
+                <label>Name</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <label>User Name</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+                <input className="form-submit" type="submit" value="submit" />
+              </form>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <h1>Tre Verify</h1>
+            <div className="form">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  console.log("username:", userName)
+                  console.log("name:", name)
+                  getVerifyResult()
+                }}
+              >
+                <label>Enter user name for verify</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  value={userNameforVerify}
+                  onChange={(e) => setUserNameforVerify(e.target.value)}
+                />
+                <input className="form-submit" type="submit" value="verify" />
+              </form>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   )
 }
 
