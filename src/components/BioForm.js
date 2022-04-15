@@ -10,27 +10,26 @@ import saveCreatedCreds from "../api/helpersBioAuth/saveCreatedCreds"
 import saveVerifiedCreds from "../api/helpersBioAuth/saveVerifiedCreds"
 import { saveKey } from "../api/helper"
 
-// const dataJ = {
-//   userInfoforSession: "testUser",
-//   data: {
-//     rawId: "XtGy+6wkQM6cAl3OtQSJGyx3Dh0=",
-//     response: {
-//       attestationObject:
-//         "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViYNeLDO3AtFqklDPw3YMTxKfJjZ/9QJCVSkccHII6uWjZFAAAAAAAAAAAAAAAAAAAAAAAAAAAAFF7RsvusJEDOnAJdzrUEiRssdw4dpQECAyYgASFYIKK7R1HP9XvbESTWWy5GwkZbjCSQMC6pCU3C2s9Dl/LpIlggetvHRhnIHLL2v9nnGJ9NnLKeg70LslqlTuSxxBGc8kI=",
-//       clientDataJSON:
-//         "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiY21GdVpHOXRZMmhoYkd4bGJtZGxabkp2YldkbGJtVnlZWFJsVTJWeWRtVnlUV0ZyWlVOeVpXUlNaWEYxWlhOMCIsIm9yaWdpbiI6Imh0dHBzOi8vamFkZS1icmlvY2hlLTdjMzNmZC5uZXRsaWZ5LmFwcCJ9",
-//     },
-//     getClientExtensionResults: {},
-//     id: "XtGy-6wkQM6cAl3OtQSJGyx3Dh0",
-//     type: "public-key",
-//   },
-// }
-
 const BioForm = () => {
   const [tryVerify, setTryVerify] = useState(true)
   const [name, setName] = useState("")
   const [userName, setUserName] = useState("")
   const [userNameforVerify, setUserNameforVerify] = useState("")
+  // const fakeRegisterCreds = {
+  //   userInfoforSession: userName,
+  //   data: {
+  //     rawId: "XtGy+6wkQM6cAl3OtQSJGyx3Dh0=",
+  //     response: {
+  //       attestationObject:
+  //         "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViYNeLDO3AtFqklDPw3YMTxKfJjZ/9QJCVSkccHII6uWjZFAAAAAAAAAAAAAAAAAAAAAAAAAAAAFF7RsvusJEDOnAJdzrUEiRssdw4dpQECAyYgASFYIKK7R1HP9XvbESTWWy5GwkZbjCSQMC6pCU3C2s9Dl/LpIlggetvHRhnIHLL2v9nnGJ9NnLKeg70LslqlTuSxxBGc8kI=",
+  //       clientDataJSON:
+  //         "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiY21GdVpHOXRZMmhoYkd4bGJtZGxabkp2YldkbGJtVnlZWFJsVTJWeWRtVnlUV0ZyWlVOeVpXUlNaWEYxWlhOMCIsIm9yaWdpbiI6Imh0dHBzOi8vamFkZS1icmlvY2hlLTdjMzNmZC5uZXRsaWZ5LmFwcCJ9",
+  //     },
+  //     getClientExtensionResults: {},
+  //     id: "XtGy-6wkQM6cAl3OtQSJGyx3Dh0",
+  //     type: "public-key",
+  //   },
+  // }
 
   const getVerifyResult = async () => {
     const bioAwailable = window.PublicKeyCredential
@@ -135,8 +134,6 @@ const BioForm = () => {
               <form
                 onSubmit={(e) => {
                   e.preventDefault()
-                  console.log("username:", userName)
-                  console.log("name:", name)
                   getVerifyResult()
                 }}
               >

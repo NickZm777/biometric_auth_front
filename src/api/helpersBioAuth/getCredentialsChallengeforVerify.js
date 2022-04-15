@@ -17,7 +17,7 @@ export const getCredentialsChallengeforVerify = async (userNameforVerify) => {
     const res = await response.json()
     return res
   } catch (e) {
-    console.error(e)
-    alert(e.message)
+    console.log(e.message)
+    alert(`catch in getCredentialsChallengeforVerify: ${e.message}`)
   }
 }
