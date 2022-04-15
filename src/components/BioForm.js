@@ -15,6 +15,7 @@ const BioForm = () => {
   const [name, setName] = useState("")
   const [userName, setUserName] = useState("")
   const [userNameforVerify, setUserNameforVerify] = useState("")
+  const [key, setKey] = useState("")
   // const fakeRegisterCreds = {
   //   userInfoforSession: userName,
   //   data: {
@@ -31,6 +32,23 @@ const BioForm = () => {
   //   },
   // }
 
+  const getKeyCr = async () => {
+    try {
+      const generatedBrowserCreds = await verifyBioKey(key)
+      // alert(JSON.stringify(generatedBrowserCreds))
+      // console.log(generatedBrowserCreds)
+      // saveKey(generatedBrowserCreds)
+      const creds = {
+        userInfoforSession: userNameforVerify,
+        data: generatedBrowserCreds,
+      }
+      saveVerifiedCreds(creds)
+    } catch (error) {
+      alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+      console.log(error)
+    }
+  }
+
   const getVerifyResult = async () => {
     const bioAwailable = window.PublicKeyCredential
     if (!bioAwailable) {
@@ -41,20 +59,22 @@ const BioForm = () => {
     if (res.status === "success" && bioAwailable) {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
       console.log(publicKey)
-      try {
-        const generatedBrowserCreds = await verifyBioKey(publicKey)
-        // alert(JSON.stringify(generatedBrowserCreds))
-        // console.log(generatedBrowserCreds)
-        // saveKey(generatedBrowserCreds)
-        const creds = {
-          userInfoforSession: userNameforVerify,
-          data: generatedBrowserCreds,
-        }
-        saveVerifiedCreds(creds)
-      } catch (error) {
-        alert(`catch in Bioform verifyBioKey:  ${error.message}`)
-        console.log(error)
-      }
+
+      setKey(publicKey)
+      // try {
+      //   const generatedBrowserCreds = await verifyBioKey(publicKey)
+      //   // alert(JSON.stringify(generatedBrowserCreds))
+      //   // console.log(generatedBrowserCreds)
+      //   // saveKey(generatedBrowserCreds)
+      //   const creds = {
+      //     userInfoforSession: userNameforVerify,
+      //     data: generatedBrowserCreds,
+      //   }
+      //   saveVerifiedCreds(creds)
+      // } catch (error) {
+      //   alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+      //   console.log(error)
+      // }
     } else
       alert(`else in Bioform getCredentialsChallengeforVerify: ${res.message}`)
   }
@@ -146,6 +166,7 @@ const BioForm = () => {
                 />
                 <input className="form-submit" type="submit" value="verify" />
               </form>
+              <button onClick={() => getKeyCr()}>ClickCr</button>
             </div>
           </div>
         </>
