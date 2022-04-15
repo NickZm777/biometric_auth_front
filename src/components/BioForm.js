@@ -15,7 +15,28 @@ const BioForm = () => {
   const [name, setName] = useState("")
   const [userName, setUserName] = useState("")
   const [userNameforVerify, setUserNameforVerify] = useState("")
-  const [key, setKey] = useState("")
+  const [key, setKey] = useState({
+    // challenge: randomBase64URLBuffer(32),
+    //   rp: { name: "My test TouchID" },
+    // challenge: base64urlDecode(challenge),
+    challenge: new TextEncoder().encode(
+      "randomchallengefromgenerateServerVerificationCredRequest"
+    ),
+    rpId: document.domain,
+    allowCredentials: [
+      {
+        type: "public-key",
+        // id: base64urlDecode(publicKey),
+        id: new TextEncoder().encode("string"),
+        transports: ["internal"],
+      },
+    ],
+    userVerification: "required",
+    // authenticatorSelection: {
+    //   authenticatorAttachment: "platform",
+    //   userVerification: "required",
+    // },
+  })
   // const fakeRegisterCreds = {
   //   userInfoforSession: userName,
   //   data: {
