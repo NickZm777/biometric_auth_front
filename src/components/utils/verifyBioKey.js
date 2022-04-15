@@ -1,4 +1,5 @@
 import publicKeyCredentialToJSON from "../utils/publicKeyCredentialToJSON"
+import { saveKey } from "../../api/helper"
 
 const verifyBioKey = async (publicKey) => {
   // if (!window.PublicKeyCredential) {
@@ -7,9 +8,16 @@ const verifyBioKey = async (publicKey) => {
   //   return
   // }
   const result = await navigator.credentials
-    .get(publicKey)
+    .get({ publicKey })
     .then((output) => {
-      return publicKeyCredentialToJSON(output)
+      saveKey(output)
+      try {
+        const a = publicKeyCredentialToJSON(output)
+        saveKey(a)
+      } catch (e) {
+        alert(`error in creds Get: ${e.message}`)
+      }
+      //   return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {
       alert(`Catch an error in navigator.credentials create: ${error.message}`)
