@@ -27,7 +27,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={() => setBioR((flag) => !flag)}>switch</button>
+        <button className="btn-switch" onClick={() => setBioR((flag) => !flag)}>
+          switch
+        </button>
         {bioR ? (
           <BioForm />
         ) : (

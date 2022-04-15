@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react"
-import {
-  getCredentialsChallenge,
-  getCredentialsChallengeforVerify,
-} from "../api/helpersBioAuth/getCredentialsChallenge"
+import { getCredentialsChallenge } from "../api/helpersBioAuth/getCredentialsChallenge"
+import { getCredentialsChallengeforVerify } from "../api/helpersBioAuth/getCredentialsChallengeforVerify"
 import preformatMakeCredReq from "./utils/preformatMakeCredReq"
 import preformatVerificationCredReq from "./utils/preformatVerificationCredReq"
 import createBioKey from "./utils/createBioKey"
@@ -29,7 +27,7 @@ import { saveKey } from "../api/helper"
 // }
 
 const BioForm = () => {
-  const [tryVerify, setTryVerify] = useState(false)
+  const [tryVerify, setTryVerify] = useState(true)
   const [name, setName] = useState("")
   const [userName, setUserName] = useState("")
   const [userNameforVerify, setUserNameforVerify] = useState("")
@@ -132,7 +130,7 @@ const BioForm = () => {
       ) : (
         <>
           <div>
-            <h1>Tre Verify</h1>
+            <h1>Verify</h1>
             <div className="form">
               <form
                 onSubmit={(e) => {
