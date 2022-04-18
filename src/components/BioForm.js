@@ -46,13 +46,13 @@ const BioForm = () => {
             {
               type: "public-key",
               id: new TextEncoder().encode("string"),
-              transports: ["internal"],
+              // transports: ["internal"],
             },
           ],
-          userVerification: "required",
+          // userVerification: "required",
           authenticatorSelection: {
-            authenticatorAttachment: "cross-platform",
-            // userVerification: "required",
+            authenticatorAttachment: "platform",
+            userVerification: "required",
           },
         },
       })
