@@ -12,12 +12,10 @@ const verifyBioKey = async ({ publicKey }) => {
     .get({ publicKey: publicKey })
     .then((output) => {
       saveKey(output)
-      try {
-        const a = publicKeyCredentialToJSON(output)
-        saveKey(a)
-      } catch (e) {
-        alert(`error in creds Get: ${e.message}`)
-      }
+
+      const a = publicKeyCredentialToJSON(output)
+      saveKey(a)
+
       //   return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {
