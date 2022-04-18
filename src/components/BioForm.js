@@ -50,9 +50,10 @@ const BioForm = () => {
         },
       })
       .then((output) => {
-        saveKey(output)
-        const a = publicKeyCredentialToJSON(output)
-        saveKey(a)
+        alert(JSON.stringify(output))
+        // saveKey(output)
+        // const a = publicKeyCredentialToJSON(output)
+        // saveKey(a)
       })
       .catch((error) => {
         alert(`Catch an error in navigator.credentials get: ${error.message}`)
