@@ -38,10 +38,7 @@ const BioForm = () => {
     await navigator.credentials
       .get({
         publicKey: {
-          challenge: {
-            type: "Buffer",
-            data: [236, 146, 80],
-          },
+          challenge: new Uint8Array([21, 31, 105, 23]),
           allowCredentials: [
             {
               id: new Uint8Array([21, 31, 105]),
