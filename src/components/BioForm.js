@@ -51,7 +51,7 @@ const BioForm = () => {
           ],
           userVerification: "required",
           authenticatorSelection: {
-            authenticatorAttachment: "platform",
+            authenticatorAttachment: "cross-platform",
             // userVerification: "required",
           },
         },
