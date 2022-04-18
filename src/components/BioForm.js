@@ -50,11 +50,10 @@ const BioForm = () => {
             },
           ],
           userVerification: "required",
-          // authenticatorSelection: {
-          //   authenticatorAttachment: "platform",
-          //   userVerification: "required",
-          // },
-          attestation: "direct",
+          authenticatorSelection: {
+            authenticatorAttachment: "platform",
+            // userVerification: "required",
+          },
         },
       })
       .then((output) => {
