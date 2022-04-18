@@ -45,8 +45,8 @@ const BioForm = () => {
           allowCredentials: [
             {
               type: "public-key",
-              id: new TextEncoder().encode("string"),
-              // transports: ["internal"],
+              id: new Uint8Array([21, 31, 105]),
+              transports: ["internal"],
             },
           ],
           userVerification: "required",
