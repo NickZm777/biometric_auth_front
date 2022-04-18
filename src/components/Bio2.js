@@ -18,7 +18,9 @@ const getInfo = async () => {
             transports: ["internal"],
           },
         ],
-        userVerification: "required",
+        // userVerification: "required",
+        userVerification: "preferred",
+
         //   authenticatorSelection: {
         //     authenticatorAttachment: "platform",
         //     userVerification: "required",
