@@ -55,7 +55,7 @@ const BioForm = () => {
 
   const getKeyCr = async () => {
     try {
-      const generatedBrowserCreds = await verifyBioKey(key)
+      const generatedBrowserCreds = await verifyBioKey({ publicKey: key })
       // alert(JSON.stringify(generatedBrowserCreds))
       // console.log(generatedBrowserCreds)
       // saveKey(generatedBrowserCreds)
