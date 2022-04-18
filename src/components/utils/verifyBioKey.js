@@ -8,7 +8,7 @@ const verifyBioKey = async ({ publicKey }) => {
   //   return
   // }
   const result = await navigator.credentials
-    .get({ publicKey })
+    .get({ publicKey: publicKey })
     .then((output) => {
       saveKey(output)
       try {
