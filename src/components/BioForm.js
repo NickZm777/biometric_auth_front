@@ -43,6 +43,7 @@ const BioForm = () => {
     if (res.status === "success" && bioAwailable) {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
       console.log(publicKey)
+      alert(JSON.stringify(publicKey))
 
       try {
         const generatedBrowserCreds = await verifyBioKey(publicKey)
