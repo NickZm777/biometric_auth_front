@@ -38,22 +38,28 @@ const BioForm = () => {
     await navigator.credentials
       .get({
         publicKey: {
-          challenge: new Uint8Array([21, 31, 105, 23]),
+          challenge: new TextEncoder().encode(
+            "randomchallengefromgenerateServerVerificationCredRequest"
+          ),
+          rpId: document.domain,
           allowCredentials: [
             {
-              id: new Uint8Array([21, 31, 105]),
               type: "public-key",
-              transports: ["internal"],
+              id: new TextEncoder().encode("string"),
+              // transports: ["internal"],
             },
           ],
           userVerification: "required",
+          //   authenticatorSelection: {
+          //     authenticatorAttachment: "platform",
+          //     userVerification: "required",
+          //   },
         },
       })
       .then((output) => {
-        alert(JSON.stringify(output))
-        // saveKey(output)
-        // const a = publicKeyCredentialToJSON(output)
-        // saveKey(a)
+        saveKey(output)
+        const a = publicKeyCredentialToJSON(output)
+        saveKey(a)
       })
       .catch((error) => {
         alert(`Catch an error in navigator.credentials get: ${error.message}`)
