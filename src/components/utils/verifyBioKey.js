@@ -20,7 +20,7 @@ const verifyBioKey = async ({ publicKey }) => {
       //   return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {
-      alert(`Catch an error in navigator.credentials create: ${error.message}`)
+      alert(`Catch an error in navigator.credentials get: ${error.message}`)
       console.log(error.message)
     })
   return result
