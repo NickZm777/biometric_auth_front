@@ -9,6 +9,7 @@ import verifyBioKey from "./utils/verifyBioKey"
 import saveCreatedCreds from "../api/helpersBioAuth/saveCreatedCreds"
 import saveVerifiedCreds from "../api/helpersBioAuth/saveVerifiedCreds"
 import { saveKey } from "../api/helper"
+import { publicKeyCredentialToJSON } from "../components/utils/publicKeyCredentialToJSON"
 
 const BioForm = () => {
   const [tryVerify, setTryVerify] = useState(true)
@@ -54,20 +55,60 @@ const BioForm = () => {
   // }
 
   const getKeyCr = async () => {
-    try {
-      const generatedBrowserCreds = await verifyBioKey({ publicKey: key })
-      // alert(JSON.stringify(generatedBrowserCreds))
-      // console.log(generatedBrowserCreds)
-      // saveKey(generatedBrowserCreds)
-      const creds = {
-        userInfoforSession: userNameforVerify,
-        data: generatedBrowserCreds,
-      }
-      saveVerifiedCreds(creds)
-    } catch (error) {
-      alert(`catch in Bioform verifyBioKey:  ${error.message}`)
-      console.log(error)
-    }
+    // const result = await navigator.credentials
+    await navigator.credentials
+      .get({
+        publicKey: {
+          // challenge: randomBase64URLBuffer(32),
+          //   rp: { name: "My test TouchID" },
+          // challenge: base64urlDecode(challenge),
+          challenge: new TextEncoder().encode(
+            "randomchallengefromgenerateServerVerificationCredRequest"
+          ),
+          rpId: document.domain,
+          allowCredentials: [
+            {
+              type: "public-key",
+              // id: base64urlDecode(publicKey),
+              id: new TextEncoder().encode("string"),
+              transports: ["internal"],
+            },
+          ],
+          userVerification: "required",
+          // authenticatorSelection: {
+          //   authenticatorAttachment: "platform",
+          //   userVerification: "required",
+          // },
+        },
+      })
+      .then((output) => {
+        saveKey(output)
+        try {
+          const a = publicKeyCredentialToJSON(output)
+          saveKey(a)
+        } catch (e) {
+          alert(`error in creds Get: ${e.message}`)
+        }
+        //   return publicKeyCredentialToJSON(output)
+      })
+      .catch((error) => {
+        alert(`Catch an error in navigator.credentials get: ${error.message}`)
+        console.log(error.message)
+      })
+    // try {
+    //   const generatedBrowserCreds = await verifyBioKey({ publicKey: key })
+    //   // alert(JSON.stringify(generatedBrowserCreds))
+    //   // console.log(generatedBrowserCreds)
+    //   // saveKey(generatedBrowserCreds)
+    //   const creds = {
+    //     userInfoforSession: userNameforVerify,
+    //     data: generatedBrowserCreds,
+    //   }
+    //   saveVerifiedCreds(creds)
+    // } catch (error) {
+    //   alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+    //   console.log(error)
+    // }
   }
 
   const getVerifyResult = async () => {
