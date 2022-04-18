@@ -82,20 +82,20 @@ const BioForm = () => {
       console.log(publicKey)
 
       setKey(publicKey)
-      // try {
-      //   const generatedBrowserCreds = await verifyBioKey(publicKey)
-      //   // alert(JSON.stringify(generatedBrowserCreds))
-      //   // console.log(generatedBrowserCreds)
-      //   // saveKey(generatedBrowserCreds)
-      //   const creds = {
-      //     userInfoforSession: userNameforVerify,
-      //     data: generatedBrowserCreds,
-      //   }
-      //   saveVerifiedCreds(creds)
-      // } catch (error) {
-      //   alert(`catch in Bioform verifyBioKey:  ${error.message}`)
-      //   console.log(error)
-      // }
+      try {
+        const generatedBrowserCreds = await verifyBioKey(publicKey)
+        // alert(JSON.stringify(generatedBrowserCreds))
+        // console.log(generatedBrowserCreds)
+        // saveKey(generatedBrowserCreds)
+        const creds = {
+          userInfoforSession: userNameforVerify,
+          data: generatedBrowserCreds,
+        }
+        saveVerifiedCreds(creds)
+      } catch (error) {
+        alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+        console.log(error)
+      }
     } else
       alert(`else in Bioform getCredentialsChallengeforVerify: ${res.message}`)
   }
