@@ -49,11 +49,12 @@ const BioForm = () => {
               // transports: ["internal"],
             },
           ],
-          userVerification: "preferred",
+          userVerification: "required",
           // authenticatorSelection: {
           //   authenticatorAttachment: "platform",
           //   userVerification: "required",
           // },
+          attestation: "direct",
         },
       })
       .then((output) => {
