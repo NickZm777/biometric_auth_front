@@ -35,7 +35,6 @@ const BioForm = () => {
   // }
 
   const getKeyCr = async () => {
-    // const result = await navigator.credentials
     await navigator.credentials
       .get({
         publicKey: {
@@ -47,7 +46,7 @@ const BioForm = () => {
             {
               type: "public-key",
               id: new TextEncoder().encode("string"),
-              transports: ["internal"],
+              // transports: ["internal"],
             },
           ],
           // userVerification: "required",
@@ -59,13 +58,8 @@ const BioForm = () => {
       })
       .then((output) => {
         saveKey(output)
-        try {
-          const a = publicKeyCredentialToJSON(output)
-          saveKey(a)
-        } catch (e) {
-          alert(`error in creds Get: ${e.message}`)
-        }
-        //   return publicKeyCredentialToJSON(output)
+        const a = publicKeyCredentialToJSON(output)
+        saveKey(a)
       })
       .catch((error) => {
         alert(`Catch an error in navigator.credentials get: ${error.message}`)
