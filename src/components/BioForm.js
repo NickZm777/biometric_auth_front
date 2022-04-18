@@ -39,9 +39,6 @@ const BioForm = () => {
     await navigator.credentials
       .get({
         publicKey: {
-          // challenge: randomBase64URLBuffer(32),
-          //   rp: { name: "My test TouchID" },
-          // challenge: base64urlDecode(challenge),
           challenge: new TextEncoder().encode(
             "randomchallengefromgenerateServerVerificationCredRequest"
           ),
@@ -49,16 +46,15 @@ const BioForm = () => {
           allowCredentials: [
             {
               type: "public-key",
-              // id: base64urlDecode(publicKey),
               id: new TextEncoder().encode("string"),
               // transports: ["internal"],
             },
           ],
-          userVerification: "required",
-          // authenticatorSelection: {
-          //   authenticatorAttachment: "platform",
-          //   userVerification: "required",
-          // },
+          // userVerification: "required",
+          authenticatorSelection: {
+            authenticatorAttachment: "platform",
+            userVerification: "required",
+          },
         },
       })
       .then((output) => {
@@ -75,20 +71,6 @@ const BioForm = () => {
         alert(`Catch an error in navigator.credentials get: ${error.message}`)
         console.log(error.message)
       })
-    // try {
-    //   const generatedBrowserCreds = await verifyBioKey({ publicKey: key })
-    //   // alert(JSON.stringify(generatedBrowserCreds))
-    //   // console.log(generatedBrowserCreds)
-    //   // saveKey(generatedBrowserCreds)
-    //   const creds = {
-    //     userInfoforSession: userNameforVerify,
-    //     data: generatedBrowserCreds,
-    //   }
-    //   saveVerifiedCreds(creds)
-    // } catch (error) {
-    //   alert(`catch in Bioform verifyBioKey:  ${error.message}`)
-    //   console.log(error)
-    // }
   }
 
   const getVerifyResult = async () => {
