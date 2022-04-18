@@ -7,7 +7,7 @@ const verifyBioKey = async ({ publicKey }) => {
   //   console.log("window.PublicKeyCredential is disabled")
   //   return
   // }
-  alert(JSON.stringify(publicKey))
+
   const result = await navigator.credentials
     .get({ publicKey: publicKey })
     .then((output) => {
