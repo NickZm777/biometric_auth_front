@@ -29,7 +29,7 @@ const BioForm = () => {
         type: "public-key",
         // id: base64urlDecode(publicKey),
         id: new TextEncoder().encode("string"),
-        transports: ["internal"],
+        // transports: ["internal"],
       },
     ],
     userVerification: "required",
