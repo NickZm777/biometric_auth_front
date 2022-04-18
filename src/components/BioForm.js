@@ -16,7 +16,6 @@ const BioForm = () => {
   const [name, setName] = useState("")
   const [userName, setUserName] = useState("")
   const [userNameforVerify, setUserNameforVerify] = useState("")
-  const [key, setKey] = useState("")
 
   // const fakeRegisterCreds = {
   //   userInfoforSession: userName,
@@ -34,39 +33,6 @@ const BioForm = () => {
   //   },
   // }
 
-  const getKeyCr = async () => {
-    await navigator.credentials
-      .get({
-        publicKey: {
-          challenge: new TextEncoder().encode(
-            "randomchallengefromgenerateServerVerificationCredRequest"
-          ),
-          rpId: document.domain,
-          allowCredentials: [
-            {
-              type: "public-key",
-              id: new Uint8Array([21, 31, 105]),
-              transports: ["internal"],
-            },
-          ],
-          userVerification: "required",
-          //   authenticatorSelection: {
-          //     authenticatorAttachment: "platform",
-          //     userVerification: "required",
-          //   },
-        },
-      })
-      .then((output) => {
-        saveKey(output)
-        const a = publicKeyCredentialToJSON(output)
-        saveKey(a)
-      })
-      .catch((error) => {
-        alert(`Catch an error in navigator.credentials get: ${error.message}`)
-        console.log(error.message)
-      })
-  }
-
   const getVerifyResult = async () => {
     const bioAwailable = window.PublicKeyCredential
     if (!bioAwailable) {
@@ -78,7 +44,6 @@ const BioForm = () => {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
       console.log(publicKey)
 
-      setKey(publicKey)
       try {
         const generatedBrowserCreds = await verifyBioKey(publicKey)
         // alert(JSON.stringify(generatedBrowserCreds))
@@ -184,7 +149,6 @@ const BioForm = () => {
                 />
                 <input className="form-submit" type="submit" value="verify" />
               </form>
-              <button onClick={() => getKeyCr()}>ClickCr</button>
             </div>
           </div>
         </>

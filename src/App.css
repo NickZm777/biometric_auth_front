@@ -97,3 +97,9 @@
 .btn-switch {
   margin-bottom: 30px;
 }
+
+.btn-sw {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+}

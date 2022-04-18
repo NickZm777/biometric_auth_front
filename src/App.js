@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css"
 import { useState } from "react"
 import Auth from "./components/Auth"
@@ -19,6 +20,7 @@ function App() {
   const [data, setData] = useState("")
   const [register, setRegister] = useState(false)
   const [bioR, setBioR] = useState(true)
+  const [getCredsPage, setGetCredsPage] = useState(true)
 
   const changeForm = () => {
     setRegister((req) => !req)
@@ -27,27 +29,37 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button className="btn-switch" onClick={() => setBioR((flag) => !flag)}>
-          switch
-        </button>
-        {bioR ? (
-          <BioForm />
+        {getCredsPage ? (
+          <Bio2 changeForm={() => setGetCredsPage((flag) => !flag)} />
         ) : (
           <>
-            <Bio />
-            <Bio2 />
-            <Bio3 />
-            <Bio4 />
-            {!data && !register && (
-              <LogInForm changeForm={changeForm} setResult={setData} />
+            <button
+              className="btn-switch"
+              onClick={() => setBioR((flag) => !flag)}
+            >
+              switch
+            </button>
+            {bioR ? (
+              <BioForm />
+            ) : (
+              <>
+                <Bio />
+                <Bio3 />
+                <Bio4 />
+                {!data && !register && (
+                  <LogInForm changeForm={changeForm} setResult={setData} />
+                )}
+                {!data && register && (
+                  <RegisterForm changeForm={changeForm} setResult={setData} />
+                )}
+                {data?.status === RES.SUCCESS && (
+                  <Auth info={data?.data.userInfo} />
+                )}
+                {data?.status === RES.WARNING && (
+                  <Unregistered info={data?.data} />
+                )}
+              </>
             )}
-            {!data && register && (
-              <RegisterForm changeForm={changeForm} setResult={setData} />
-            )}
-            {data?.status === RES.SUCCESS && (
-              <Auth info={data?.data.userInfo} />
-            )}
-            {data?.status === RES.WARNING && <Unregistered info={data?.data} />}
           </>
         )}
       </header>
