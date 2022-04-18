@@ -9,7 +9,7 @@ import verifyBioKey from "./utils/verifyBioKey"
 import saveCreatedCreds from "../api/helpersBioAuth/saveCreatedCreds"
 import saveVerifiedCreds from "../api/helpersBioAuth/saveVerifiedCreds"
 import { saveKey } from "../api/helper"
-import { publicKeyCredentialToJSON } from "../components/utils/publicKeyCredentialToJSON"
+import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
 
 const BioForm = () => {
   const [tryVerify, setTryVerify] = useState(true)
