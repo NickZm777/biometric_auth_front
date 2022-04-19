@@ -20,7 +20,7 @@ const verifyBioKey = async ({ publicKey }) => {
     })
     .catch((error) => {
       // alert(`n.c.get: ${error.message}`)
-      alert(`n.c.get: ${JSON.stringify(error)}`)
+      alert(JSON.stringify(error))
       console.log(error.message)
     })
   return result
