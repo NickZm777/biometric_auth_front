@@ -19,12 +19,12 @@ const getInfo = async () => {
           },
         ],
         // userVerification: "required",
-        userVerification: "preferred",
+        // userVerification: "preferred",
 
-        //   authenticatorSelection: {
-        //     authenticatorAttachment: "platform",
-        //     userVerification: "required",
-        //   },
+        // authenticatorSelection: {
+        //   authenticatorAttachment: "platform",
+        //   userVerification: "required",
+        // },
       },
     })
     .then((output) => {
