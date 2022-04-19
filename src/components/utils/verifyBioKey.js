@@ -11,17 +11,15 @@ const verifyBioKey = async ({ publicKey }) => {
   const result = await navigator.credentials
     .get({ publicKey: publicKey })
     .then((output) => {
-      saveKey(output)
-
-      const a = publicKeyCredentialToJSON(output)
-      saveKey(a)
-
+      // saveKey(output)
+      // const a = publicKeyCredentialToJSON(output)
+      // saveKey(a)
       //   return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {
-      // alert(`n.c.get: ${error.message}`)
-      alert(JSON.stringify(error))
-      console.log(error.message)
+      alert(`n.c.get: ${error.message}`)
+      // alert(JSON.stringify(error))
+      // console.log(error.message)
     })
   return result
 }
