@@ -19,7 +19,8 @@ const verifyBioKey = async ({ publicKey }) => {
       //   return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {
-      alert(`n.c.get: ${error.message}`)
+      // alert(`n.c.get: ${error.message}`)
+      alert(`n.c.get: ${JSON.stringify(error)}`)
       console.log(error.message)
     })
   return result
