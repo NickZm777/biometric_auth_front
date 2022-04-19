@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import publicKeyCredentialToJSON from "../utils/publicKeyCredentialToJSON"
 import { saveKey } from "../../api/helper"
 
