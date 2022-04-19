@@ -7,7 +7,7 @@ const verifyBioKey = async ({ publicKey }) => {
   //   console.log("window.PublicKeyCredential is disabled")
   //   return
   // }
-  alert(JSON.stringify({ publicKey: publicKey }))
+
   const result = await navigator.credentials
     .get({ publicKey: publicKey })
     .then((output) => {
@@ -19,7 +19,7 @@ const verifyBioKey = async ({ publicKey }) => {
       //   return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {
-      alert(`Catch in n.c.get: ${error.message}`)
+      alert(`n.c.get: ${error.message}`)
       console.log(error.message)
     })
   return result
