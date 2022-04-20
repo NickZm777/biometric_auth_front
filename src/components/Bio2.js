@@ -53,18 +53,11 @@ const getCR = async () => {
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode("string"),
-            // transports: ["internal"],
+            id: new TextEncoder().encode("testID"),
+            transports: ["internal"],
           },
         ],
         userVerification: "required",
-        // userVerification: "preferred",
-        timeout: 60000,
-
-        // authenticatorSelection: {
-        //   authenticatorAttachment: "platform",
-        //   userVerification: "required",
-        // },
       },
     })
     .then((output) => {
