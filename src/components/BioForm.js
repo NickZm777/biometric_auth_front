@@ -47,6 +47,7 @@ const BioForm = () => {
         // alert(JSON.stringify(generatedBrowserCreds))
         // console.log(generatedBrowserCreds)
         // saveKey(generatedBrowserCreds)
+        console.log(publicKey)
         const creds = {
           userInfoforSession: userNameforVerify,
           data: generatedBrowserCreds,
