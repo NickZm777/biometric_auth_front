@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
-import { useEffect, useState } from "react"
-import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
+import { saveKey, getInitChallenge, saveBuffer } from "../api/helper";
+import { useEffect, useState } from "react";
+import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON";
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
-let superID
+let superID;
 
 // function base64ToArrayBuffer(base64) {
 //   var binary_string = window.atob(base64)
@@ -44,15 +44,15 @@ const createCR = async () => {
       },
     })
     .then((output) => {
-      const a = publicKeyCredentialToJSON(output)
-      superID = a.id
-      saveKey(a)
+      const a = publicKeyCredentialToJSON(output);
+      superID = a.id;
+      saveKey(a);
     })
     .catch((error) => {
-      alert(`testCreate: ${error.message}`)
-      console.log(error.message)
-    })
-}
+      alert(`testCreate: ${error.message}`);
+      console.log(error.message);
+    });
+};
 
 const createCRI = async () => {
   await navigator.credentials
@@ -82,15 +82,15 @@ const createCRI = async () => {
       },
     })
     .then((output) => {
-      const a = publicKeyCredentialToJSON(output)
-      superID = a.id
-      saveKey(a)
+      const a = publicKeyCredentialToJSON(output);
+      superID = a.id;
+      saveKey(a);
     })
     .catch((error) => {
-      alert(`testCreate: ${error.message}`)
-      console.log(error.message)
-    })
-}
+      alert(`testCreate: ${error.message}`);
+      console.log(error.message);
+    });
+};
 
 async function getCR(id) {
   navigator.credentials
@@ -111,17 +111,17 @@ async function getCR(id) {
       },
     })
     .then((output) => {
-      alert(JSON.stringify(output))
-      const a = publicKeyCredentialToJSON(output)
-      alert(JSON.stringify(a))
+      alert(JSON.stringify(output));
+      const a = publicKeyCredentialToJSON(output);
+      alert(JSON.stringify(a));
     })
     .catch((error) => {
-      alert(`Catch an error in navigator.credentials get: ${error.message}`)
-      console.log(error.message)
-    })
+      alert(`Catch an error in navigator.credentials get: ${error.message}`);
+      console.log(error.message);
+    });
 }
 
-const getInfoThree = async (id) => {
+const getCR2 = async (id) => {
   navigator.credentials
     .get({
       publicKey: {
@@ -133,22 +133,22 @@ const getInfoThree = async (id) => {
           {
             type: "public-key",
             id: new TextEncoder().encode(id).buffer,
-            // transports: ["internal"],
+            transports: ["internal"],
           },
         ],
-        userVerification: "required",
+        // userVerification: "required",
       },
     })
     .then((output) => {
-      alert(JSON.stringify(output))
-      const a = publicKeyCredentialToJSON(output)
-      alert(JSON.stringify(a))
+      alert(JSON.stringify(output));
+      const a = publicKeyCredentialToJSON(output);
+      alert(JSON.stringify(a));
     })
     .catch((error) => {
-      alert(`Catch an error in navigator.credentials get: ${error.message}`)
-      console.log(error.message)
-    })
-}
+      alert(`Catch an error in navigator.credentials get: ${error.message}`);
+      console.log(error.message);
+    });
+};
 
 const Bio2 = ({ changeForm }) => {
   // useEffect(() => {
@@ -168,15 +168,15 @@ const Bio2 = ({ changeForm }) => {
       <button className="btn-bio" onClick={() => getCR(superID)}>
         Get
       </button>
-      <button className="btn-bio" onClick={() => getInfoThree()}>
-        internal
+      <button className="btn-bio" onClick={() => getCR2()}>
+        Get 2
       </button>
 
       <button className="btn-sw" onClick={() => changeForm()}>
         switch
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Bio2
+export default Bio2;
