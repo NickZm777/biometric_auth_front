@@ -78,6 +78,14 @@ const getInfoTwice = async () => {
 }
 
 const getInfoThree = async () => {
+  document.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+    .then(function (available) {
+      alert(JSON.stringify(available))
+    })
+    .catch(function (err) {
+      // Something went wrong
+      alert(err.message)
+    })
   await navigator.credentials
     .get({
       publicKey: {
@@ -89,7 +97,7 @@ const getInfoThree = async () => {
           {
             type: "public-key",
             id: new TextEncoder().encode("string"),
-            // transports: ["internal"],
+            transports: ["internal"],
           },
         ],
         userVerification: "required",
