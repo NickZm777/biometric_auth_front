@@ -6,26 +6,26 @@ import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialTo
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
 let superID
 
-function base64ToArrayBuffer(base64) {
-  var binary_string = window.atob(base64)
-  var len = binary_string.length
-  var bytes = new Uint8Array(len)
-  for (var i = 0; i < len; i++) {
-    bytes[i] = binary_string.charCodeAt(i)
-  }
-  return bytes.buffer
-}
+// function base64ToArrayBuffer(base64) {
+//   var binary_string = window.atob(base64)
+//   var len = binary_string.length
+//   var bytes = new Uint8Array(len)
+//   for (var i = 0; i < len; i++) {
+//     bytes[i] = binary_string.charCodeAt(i)
+//   }
+//   return bytes.buffer
+// }
 
 const createCR = async () => {
   await navigator.credentials
     .create({
       publicKey: {
-        challenge: new TextEncoder().encode("testChallenge"),
+        challenge: new TextEncoder().encode("testChallenge").buffer,
 
         rp: { name: "My test TouchID" },
 
         user: {
-          id: new TextEncoder().encode("testID"),
+          id: new TextEncoder().encode("testID").buffer,
           name: "test name",
           displayName: "test displayName",
         },
