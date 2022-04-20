@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
-let superID
+let superID = "VGDMvgHGBfk30VVXge0PgZIfIE4"
 
 function base64ToArrayBuffer(base64) {
   var binary_string = window.atob(base64)
@@ -43,7 +43,7 @@ const createCR = async () => {
       },
     })
     .then((output) => {
-      superID = output.id
+      superID = base64ToArrayBuffer(output.id)
       const a = publicKeyCredentialToJSON(output)
       saveKey(a)
     })
