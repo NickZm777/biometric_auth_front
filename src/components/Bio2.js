@@ -122,32 +122,32 @@ async function getCR(id) {
 }
 
 const getCR2 = async (id) => {
-  navigator.credentials
-    .get({
-      publicKey: {
-        challenge: new TextEncoder().encode(
-          "randomchallengefromgenerateServerVerificationCredRequest"
-        ).buffer,
-        rpId: document.domain,
-        allowCredentials: [
-          {
-            type: "public-key",
-            id: new TextEncoder().encode(id).buffer,
-            transports: ["internal"],
-          },
-        ],
-        // userVerification: "required",
-      },
-    })
-    .then((output) => {
-      alert(JSON.stringify(output));
-      const a = publicKeyCredentialToJSON(output);
-      alert(JSON.stringify(a));
-    })
-    .catch((error) => {
-      alert(`Catch an error in navigator.credentials get: ${error.message}`);
-      console.log(error.message);
-    });
+  const rees = await navigator.credentials.get({
+    publicKey: {
+      challenge: new TextEncoder().encode(
+        "randomchallengefromgenerateServerVerificationCredRequest"
+      ).buffer,
+      rpId: document.domain,
+      allowCredentials: [
+        {
+          type: "public-key",
+          id: new TextEncoder().encode(id).buffer,
+          transports: ["internal"],
+        },
+      ],
+      userVerification: "required",
+    },
+  });
+  // .then((output) => {
+  //   alert(JSON.stringify(output));
+  //   const a = publicKeyCredentialToJSON(output);
+  //   alert(JSON.stringify(a));
+  // })
+  // .catch((error) => {
+  //   alert(`Catch an error in navigator.credentials get: ${error.message}`);
+  //   console.log(error.message);
+  // });
+  alert(JSON.stringify(rees));
 };
 
 const Bio2 = ({ changeForm }) => {
