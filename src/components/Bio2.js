@@ -20,6 +20,7 @@ const getInfo = async () => {
         ],
         userVerification: "required",
         // userVerification: "preferred",
+        timeout: 60000,
 
         // authenticatorSelection: {
         //   authenticatorAttachment: "platform",
@@ -55,6 +56,7 @@ const getInfoTwice = async () => {
         ],
         userVerification: "required",
         // userVerification: "preferred",
+        timeout: 60000,
 
         // authenticatorSelection: {
         //   authenticatorAttachment: "platform",
@@ -90,6 +92,7 @@ const getInfoThree = async () => {
         ],
         // userVerification: "required",
         // userVerification: "preferred",
+        timeout: 60000,
 
         // authenticatorSelection: {
         //   authenticatorAttachment: "platform",
