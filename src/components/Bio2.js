@@ -53,10 +53,7 @@ const createCR = async () => {
     })
 }
 
-const getCR = async (id) => {
-  const encoded = new TextEncoder().encode(id) // is Uint8Array
-  const buf = encoded.buffer // is ArrayBuffer
-  console.log(buf)
+async function getCR(id) {
   await navigator.credentials
     .get({
       publicKey: {
@@ -67,7 +64,7 @@ const getCR = async (id) => {
         allowCredentials: [
           {
             type: "public-key",
-            id: buf,
+            id: new TextEncoder().encode(id).buffer,
             transports: ["internal"],
           },
         ],
@@ -75,9 +72,9 @@ const getCR = async (id) => {
       },
     })
     .then((output) => {
-      saveKey(output)
+      alert(JSON.stringify(output))
       const a = publicKeyCredentialToJSON(output)
-      saveKey(a)
+      alert(JSON.stringify(a))
     })
     .catch((error) => {
       alert(`Catch an error in navigator.credentials get: ${error.message}`)
