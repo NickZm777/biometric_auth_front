@@ -93,7 +93,8 @@ const getInfoThree = async () => {
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode("string"),
+            // id: new TextEncoder().encode("string"),
+            id: "7TmwAXTpTKhuEaL6c3pttcGTIyg=",
             transports: ["internal"],
           },
         ],
