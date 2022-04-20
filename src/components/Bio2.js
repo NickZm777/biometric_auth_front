@@ -43,9 +43,9 @@ const createCR = async () => {
       },
     })
     .then((output) => {
+      superID = output.id
       const a = publicKeyCredentialToJSON(output)
       saveKey(a)
-      superID = a.id
     })
     .catch((error) => {
       alert(`testCreate: ${error.message}`)
@@ -53,7 +53,7 @@ const createCR = async () => {
     })
 }
 
-const getCR = async () => {
+const getCR = async (id) => {
   await navigator.credentials
     .get({
       publicKey: {
@@ -64,7 +64,7 @@ const getCR = async () => {
         allowCredentials: [
           {
             type: "public-key",
-            id: base64ToArrayBuffer(superID),
+            id: base64ToArrayBuffer(id),
             transports: ["internal"],
           },
         ],
@@ -125,7 +125,7 @@ const Bio2 = ({ changeForm }) => {
   })
   return (
     <div className="buttonBox">
-      <button className="btn-bio" onClick={() => createCR()}>
+      <button className="btn-bio" onClick={() => createCR(superID)}>
         Create
       </button>
 
