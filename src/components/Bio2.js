@@ -40,6 +40,7 @@ const createCR = async () => {
           authenticatorAttachment: "platform",
           userVerification: "required",
         },
+        attestation: "direct",
       },
     })
     .then((output) => {
