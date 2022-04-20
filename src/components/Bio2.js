@@ -54,7 +54,7 @@ const createCR = async () => {
 }
 
 async function getCR(id) {
-  await navigator.credentials
+  navigator.credentials
     .get({
       publicKey: {
         challenge: new TextEncoder().encode(
@@ -82,35 +82,28 @@ async function getCR(id) {
     })
 }
 
-const getInfoThree = async () => {
-  await navigator.credentials
+const getInfoThree = async (id) => {
+  navigator.credentials
     .get({
       publicKey: {
-        // challenge: new TextEncoder().encode(
-        //   "randomchallengefromgenerateServerVerificationCredRequest"
-        // ),
-
         challenge: new TextEncoder().encode(
           "randomchallengefromgenerateServerVerificationCredRequest"
-        ),
-
+        ).buffer,
         rpId: document.domain,
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode("string"),
-
+            id: new TextEncoder().encode(id).buffer,
             transports: ["internal"],
           },
         ],
         // userVerification: "required",
-        // userVerification: "preferred",
       },
     })
     .then((output) => {
-      saveKey(output)
+      alert(JSON.stringify(output))
       const a = publicKeyCredentialToJSON(output)
-      saveKey(a)
+      alert(JSON.stringify(a))
     })
     .catch((error) => {
       alert(`Catch an error in navigator.credentials get: ${error.message}`)
@@ -119,18 +112,17 @@ const getInfoThree = async () => {
 }
 
 const Bio2 = ({ changeForm }) => {
-  useEffect(() => {
-    const element = document.getElementById("btn")
-    element.addEventListener("click", getCR)
-  })
+  // useEffect(() => {
+  //   const element = document.getElementById("btn")
+  //   element.addEventListener("click", getCR)
+  // })
   return (
     <div className="buttonBox">
       <button className="btn-bio" onClick={() => createCR()}>
         Create
       </button>
 
-      {/* <button className="btn-bio" onClick={() => getCR(superID)}> */}
-      <button className="btn-bio" id="btn">
+      <button className="btn-bio" onClick={() => getCR(superID)}>
         Get
       </button>
       <button className="btn-bio" onClick={() => getInfoThree()}>
