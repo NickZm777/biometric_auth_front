@@ -62,7 +62,7 @@ const getCR = async (id) => {
       publicKey: {
         challenge: new TextEncoder().encode(
           "randomchallengefromgenerateServerVerificationCredRequest"
-        ),
+        ).buffer,
         rpId: document.domain,
         allowCredentials: [
           {
