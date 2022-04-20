@@ -3,6 +3,8 @@ import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
 import { useState } from "react"
 import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
 
+// const nchallenge = require("crypto").randomBytes(16).toString("hex")
+
 const getInfo = async () => {
   await navigator.credentials
     .get({
@@ -87,12 +89,11 @@ const getInfoThree = async () => {
           {
             type: "public-key",
             id: new TextEncoder().encode("string"),
-            transports: ["internal"],
+            // transports: ["internal"],
           },
         ],
-        // userVerification: "required",
+        userVerification: "required",
         // userVerification: "preferred",
-        timeout: 60000,
 
         // authenticatorSelection: {
         //   authenticatorAttachment: "platform",
@@ -113,7 +114,7 @@ const getInfoThree = async () => {
 
 const Bio2 = ({ changeForm }) => {
   return (
-    <div>
+    <div className="buttonBox">
       <button className="btn-bio" onClick={() => getInfo()}>
         internalreq
       </button>
