@@ -66,7 +66,7 @@ async function getCR(id) {
           {
             type: "public-key",
             id: new TextEncoder().encode(id).buffer,
-            // transports: ["internal"],
+            // transports: ["internal"],/
           },
         ],
         userVerification: "required",
@@ -95,10 +95,10 @@ const getInfoThree = async (id) => {
           {
             type: "public-key",
             id: new TextEncoder().encode(id).buffer,
-            transports: ["internal"],
+            // transports: ["internal"],
           },
         ],
-        userVerification: "discouraged",
+        userVerification: "required",
       },
     })
     .then((output) => {
