@@ -97,7 +97,7 @@ const getInfoThree = async (id) => {
             transports: ["internal"],
           },
         ],
-        // userVerification: "required",
+        userVerification: "discouraged",
       },
     })
     .then((output) => {
