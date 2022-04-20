@@ -128,11 +128,11 @@ const Bio2 = ({ changeForm }) => {
   })
   return (
     <div className="buttonBox">
-      <button className="btn-bio" onClick={() => createCR(superID)}>
+      <button className="btn-bio" onClick={() => createCR()}>
         Create
       </button>
 
-      <button className="btn-bio" onClick={() => getCR()}>
+      <button className="btn-bio" onClick={() => getCR(superID)}>
         Get
       </button>
       <button className="btn-bio" id="btn">
