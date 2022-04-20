@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
@@ -81,9 +81,14 @@ const getInfoThree = async () => {
   await navigator.credentials
     .get({
       publicKey: {
+        // challenge: new TextEncoder().encode(
+        //   "randomchallengefromgenerateServerVerificationCredRequest"
+        // ),
+
         challenge: new TextEncoder().encode(
           "randomchallengefromgenerateServerVerificationCredRequest"
         ),
+
         rpId: document.domain,
         allowCredentials: [
           {
@@ -92,13 +97,8 @@ const getInfoThree = async () => {
             transports: ["internal"],
           },
         ],
-        userVerification: "required",
+        // userVerification: "required",
         // userVerification: "preferred",
-
-        // authenticatorSelection: {
-        //   authenticatorAttachment: "platform",
-        //   userVerification: "required",
-        // },
       },
     })
     .then((output) => {
@@ -113,6 +113,10 @@ const getInfoThree = async () => {
 }
 
 const Bio2 = ({ changeForm }) => {
+  useEffect(() => {
+    const element = document.getElementById("btn")
+    element.addEventListener("click", getInfoThree)
+  })
   return (
     <div className="buttonBox">
       <button className="btn-bio" onClick={() => getInfo()}>
@@ -122,7 +126,7 @@ const Bio2 = ({ changeForm }) => {
       <button className="btn-bio" onClick={() => getInfoTwice()}>
         required
       </button>
-      <button className="btn-bio" onClick={() => getInfoThree()}>
+      <button className="btn-bio" id="btn">
         internal
       </button>
 
