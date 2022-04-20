@@ -5,6 +5,17 @@ import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialTo
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
 let superID
+
+function base64ToArrayBuffer(base64) {
+  var binary_string = window.atob(base64)
+  var len = binary_string.length
+  var bytes = new Uint8Array(len)
+  for (var i = 0; i < len; i++) {
+    bytes[i] = binary_string.charCodeAt(i)
+  }
+  return bytes.buffer
+}
+
 const createCR = async () => {
   await navigator.credentials
     .create({
@@ -34,8 +45,7 @@ const createCR = async () => {
     .then((output) => {
       const a = publicKeyCredentialToJSON(output)
       saveKey(a)
-
-      alert(JSON.stringify(a.id))
+      superID = a.id
     })
     .catch((error) => {
       alert(`testCreate: ${error.message}`)
@@ -44,15 +54,6 @@ const createCR = async () => {
 }
 
 const getCR = async () => {
-  //   function _base64ToArrayBuffer(base64) {
-  //     var binary_string = window.atob(base64);
-  //     var len = binary_string.length;
-  //     var bytes = new Uint8Array(len);
-  //     for (var i = 0; i < len; i++) {
-  //         bytes[i] = binary_string.charCodeAt(i);
-  //     }
-  //     return bytes.buffer;
-  // }
   await navigator.credentials
     .get({
       publicKey: {
@@ -63,7 +64,7 @@ const getCR = async () => {
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode("testID"),
+            id: base64ToArrayBuffer(superID),
             transports: ["internal"],
           },
         ],
