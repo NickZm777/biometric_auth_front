@@ -98,8 +98,8 @@ const getInfoThree = async () => {
         allowCredentials: [
           {
             type: "public-key",
-            // id: new TextEncoder().encode("string"),
-            id: "7TmwAXTpTKhuEaL6c3pttcGTIyg=",
+            id: new TextEncoder().encode("string"),
+
             transports: ["internal"],
           },
         ],
@@ -121,7 +121,7 @@ const getInfoThree = async () => {
 const Bio2 = ({ changeForm }) => {
   useEffect(() => {
     const element = document.getElementById("btn")
-    element.addEventListener("click", getInfoThree)
+    element.addEventListener("click", getCR)
   })
   return (
     <div className="buttonBox">
@@ -129,10 +129,11 @@ const Bio2 = ({ changeForm }) => {
         Create
       </button>
 
-      <button className="btn-bio" onClick={() => getCR(superID)}>
+      {/* <button className="btn-bio" onClick={() => getCR(superID)}> */}
+      <button className="btn-bio" id="btn">
         Get
       </button>
-      <button className="btn-bio" id="btn">
+      <button className="btn-bio" onClick={() => getInfoThree()}>
         internal
       </button>
 
