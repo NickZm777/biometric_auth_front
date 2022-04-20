@@ -40,6 +40,44 @@ const createCR = async () => {
           authenticatorAttachment: "platform",
           userVerification: "required",
         },
+        // attestation: "direct",
+      },
+    })
+    .then((output) => {
+      const a = publicKeyCredentialToJSON(output)
+      superID = a.id
+      saveKey(a)
+    })
+    .catch((error) => {
+      alert(`testCreate: ${error.message}`)
+      console.log(error.message)
+    })
+}
+
+const createCRI = async () => {
+  await navigator.credentials
+    .create({
+      publicKey: {
+        challenge: new TextEncoder().encode("testChallenge").buffer,
+
+        rp: { name: "My test TouchID" },
+
+        user: {
+          id: new TextEncoder().encode("testID").buffer,
+          name: "test name",
+          displayName: "test displayName",
+        },
+
+        pubKeyCredParams: [
+          {
+            type: "public-key",
+            alg: -7,
+          },
+        ],
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required",
+        },
         attestation: "direct",
       },
     })
@@ -120,7 +158,11 @@ const Bio2 = ({ changeForm }) => {
   return (
     <div className="buttonBox">
       <button className="btn-bio" onClick={() => createCR()}>
-        Create
+        Create CR
+      </button>
+
+      <button className="btn-bio" onClick={() => createCRI()}>
+        Create CRI
       </button>
 
       <button className="btn-bio" onClick={() => getCR(superID)}>
