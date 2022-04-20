@@ -43,8 +43,8 @@ const createCR = async () => {
       },
     })
     .then((output) => {
-      superID = base64ToArrayBuffer(output.id)
       const a = publicKeyCredentialToJSON(output)
+      superID = a.id
       saveKey(a)
     })
     .catch((error) => {
