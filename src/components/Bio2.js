@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
-let superID = "VGDMvgHGBfk30VVXge0PgZIfIE4"
+let superID
 
 function base64ToArrayBuffer(base64) {
   var binary_string = window.atob(base64)
@@ -54,6 +54,9 @@ const createCR = async () => {
 }
 
 const getCR = async (id) => {
+  const encoded = new TextEncoder().encode(id) // is Uint8Array
+  const buf = encoded.buffer // is ArrayBuffer
+  console.log(buf)
   await navigator.credentials
     .get({
       publicKey: {
@@ -64,7 +67,7 @@ const getCR = async (id) => {
         allowCredentials: [
           {
             type: "public-key",
-            id: base64ToArrayBuffer(id),
+            id: buf,
             transports: ["internal"],
           },
         ],
