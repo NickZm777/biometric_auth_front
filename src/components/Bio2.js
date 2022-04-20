@@ -32,9 +32,9 @@ const createCR = async () => {
       },
     })
     .then((output) => {
-      saveKey(output)
       const a = publicKeyCredentialToJSON(output)
       saveKey(a)
+      alert(JSON.stringify(a))
     })
     .catch((error) => {
       alert(`testCreate: ${error.message}`)
