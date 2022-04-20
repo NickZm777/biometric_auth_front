@@ -5,29 +5,30 @@ import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialTo
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
 
-const getInfo = async () => {
+const createCR = async () => {
   await navigator.credentials
-    .get({
+    .create({
       publicKey: {
-        challenge: new TextEncoder().encode(
-          "randomchallengefromgenerateServerVerificationCredRequest"
-        ),
-        rpId: document.domain,
-        allowCredentials: [
+        challenge: new TextEncoder().encode("testChallenge"),
+
+        rp: { name: "My test TouchID" },
+
+        user: {
+          id: new TextEncoder().encode("testID"),
+          name: "test name",
+          displayName: "test displayName",
+        },
+
+        pubKeyCredParams: [
           {
             type: "public-key",
-            id: new TextEncoder().encode("string"),
-            transports: ["internal"],
+            alg: -7,
           },
         ],
-        userVerification: "required",
-        // userVerification: "preferred",
-        timeout: 60000,
-
-        // authenticatorSelection: {
-        //   authenticatorAttachment: "platform",
-        //   userVerification: "required",
-        // },
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required",
+        },
       },
     })
     .then((output) => {
@@ -36,12 +37,12 @@ const getInfo = async () => {
       saveKey(a)
     })
     .catch((error) => {
-      alert(`Catch an error in navigator.credentials get: ${error.message}`)
+      alert(`testCreate: ${error.message}`)
       console.log(error.message)
     })
 }
 
-const getInfoTwice = async () => {
+const getCR = async () => {
   await navigator.credentials
     .get({
       publicKey: {
@@ -120,12 +121,12 @@ const Bio2 = ({ changeForm }) => {
   })
   return (
     <div className="buttonBox">
-      <button className="btn-bio" onClick={() => getInfo()}>
-        internalreq
+      <button className="btn-bio" onClick={() => createCR()}>
+        Create
       </button>
 
-      <button className="btn-bio" onClick={() => getInfoTwice()}>
-        required
+      <button className="btn-bio" onClick={() => getCR()}>
+        Get
       </button>
       <button className="btn-bio" id="btn">
         internal
