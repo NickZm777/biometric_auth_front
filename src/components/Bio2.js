@@ -5,6 +5,7 @@ import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialTo
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
 let superID
+let rawID
 
 // function base64ToArrayBuffer(base64) {
 //   var binary_string = window.atob(base64)
@@ -46,6 +47,9 @@ const createCR = async () => {
     .then((output) => {
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
+      rawID = a.rawID
+      alert(rawID)
+      alert(JSON.stringify(a))
       saveKey(a)
     })
     .catch((error) => {
