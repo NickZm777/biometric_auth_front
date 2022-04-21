@@ -124,7 +124,7 @@ const createCRI = async () => {
 
         user: {
           id: new TextEncoder().encode("tessdftID").buffer,
-          name: "yuame",
+          name: "Radamel Gallardo",
           displayName: "test displaysdfsdfdsfdsName",
         },
 
@@ -241,6 +241,7 @@ const getCR2 = async () => {
     //   alert(`Catch an error in navigator.credentials get: ${error.message}`);
     //   console.log(error.message);
     // });
+    const a = publicKeyCredentialToJSON(rees);
     alert(JSON.stringify(rees));
   } catch (err) {
     alert(err.message);
@@ -266,7 +267,7 @@ const Bio2 = ({ changeForm }) => {
         Get
       </button>
       <button className="btn-bio" onClick={() => getCR2()}>
-        Get 2
+        Get 2f
       </button>
 
       <button className="btn-sw" onClick={() => changeForm()}>
