@@ -36,10 +36,6 @@ const createCR = async () => {
             type: "public-key",
             alg: -7,
           },
-          {
-            type: "public-key",
-            alg: -257,
-          },
         ],
         authenticatorSelection: {
           authenticatorAttachment: "platform",
@@ -79,7 +75,7 @@ const createCRI = async () => {
         pubKeyCredParams: [
           {
             type: "public-key",
-            alg: -257,
+            alg: -7,
           },
         ],
         authenticatorSelection: {
@@ -93,6 +89,7 @@ const createCRI = async () => {
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
       rawID = a.rawId
+      alert(typeof superID)
       saveKey(a)
     })
     .catch((error) => {
