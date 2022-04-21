@@ -145,37 +145,37 @@ const createCRI = async () => {
       rawID = output.rawId;
       const a = publicKeyCredentialToJSON(output);
       superID = a.id;
-      navigator.credentials
-        .get({
-          publicKey: {
-            challenge: new TextEncoder().encode(
-              "randomchallengefromgenerateServerVerificationCredRequest"
-            ).buffer,
-            rpId: document.domain,
-            allowCredentials: [
-              {
-                type: "public-key",
-                // id: new TextEncoder().encode().buffer,
-                id: rawID,
-                transports: ["internal"],
-              },
-            ],
-            userVerification: "required",
-            attestation: "direct",
-          },
-        })
-        .then((output) => {
-          alert(JSON.stringify(output));
-          const a = publicKeyCredentialToJSON(output);
-          alert(JSON.stringify(a));
-        })
-        .catch((error) => {
-          alert(
-            `Catch an error in navigator.credentials get: ${error.message}`
-          );
-          console.log(error.message);
-        });
-      saveKey(a);
+      //   navigator.credentials
+      //     .get({
+      //       publicKey: {
+      //         challenge: new TextEncoder().encode(
+      //           "randomchallengefromgenerateServerVerificationCredRequest"
+      //         ).buffer,
+      //         rpId: document.domain,
+      //         allowCredentials: [
+      //           {
+      //             type: "public-key",
+      //             // id: new TextEncoder().encode().buffer,
+      //             id: rawID,
+      //             transports: ["internal"],
+      //           },
+      //         ],
+      //         userVerification: "required",
+      //         attestation: "direct",
+      //       },
+      //     })
+      //     .then((output) => {
+      //       alert(JSON.stringify(output));
+      //       const a = publicKeyCredentialToJSON(output);
+      //       alert(JSON.stringify(a));
+      //     })
+      //     .catch((error) => {
+      //       alert(
+      //         `Catch an error in navigator.credentials get: ${error.message}`
+      //       );
+      //       console.log(error.message);
+      //     });
+      //   saveKey(a);
     })
     .catch((error) => {
       alert(`testCreate: ${error.message}`);
@@ -213,7 +213,7 @@ async function getCR(id) {
     });
 }
 
-const getCR2 = async (id) => {
+const getCR2 = async () => {
   try {
     const rees = await navigator.credentials.get({
       publicKey: {
@@ -265,7 +265,7 @@ const Bio2 = ({ changeForm }) => {
       <button className="btn-bio" onClick={() => getCR(superID)}>
         Get
       </button>
-      <button className="btn-bio" onClick={() => getCR2(rawID)}>
+      <button className="btn-bio" onClick={() => getCR2()}>
         Get 2
       </button>
 
