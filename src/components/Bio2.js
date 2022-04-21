@@ -41,7 +41,7 @@ const createCR = async () => {
           attachment: "platform",
           userVerification: "required",
         },
-        // attestation: "direct",
+        attestation: "direct",
       },
     })
     .then((output) => {
@@ -61,7 +61,7 @@ const createCR = async () => {
               },
             ],
             userVerification: "required",
-            // attestation: "direct",
+            attestation: "direct",
           },
         })
         .then((res) => {
