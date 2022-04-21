@@ -92,7 +92,7 @@ const createCRI = async () => {
       publicKey: {
         challenge: new TextEncoder().encode("testChallenge").buffer,
 
-        rp: { name: "My test TouchID" },
+        rp: { name: "My test fTouchID" },
 
         user: {
           id: new TextEncoder().encode("testID").buffer,
@@ -106,19 +106,18 @@ const createCRI = async () => {
             alg: -7,
           },
         ],
-        authenticatorSelection: {
-          authenticatorAttachment: "platform",
+        authenticatorSelectionCriteria: {
+          attachment: "platform",
           userVerification: "required",
         },
-        attestation: "direct",
+        // attestation: "direct",
       },
     })
     .then((output) => {
+      rawID = output.rawId
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
-      rawID = a.rawId
-      let e = new TextEncoder().encode(superID).buffer
-      alert(typeof e)
+
       saveKey(a)
     })
     .catch((error) => {
