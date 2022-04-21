@@ -64,21 +64,21 @@ const createCR = async () => {
             attestation: "direct",
           },
         })
-        .then((output) => {
-          alert(JSON.stringify(output))
-          const a = publicKeyCredentialToJSON(output)
+        .then((res) => {
+          alert(JSON.stringify(res))
+          const a = publicKeyCredentialToJSON(res)
           alert(JSON.stringify(a))
         })
         .catch((error) => {
           alert(`Catch an error in navigator.credentials get: ${error.message}`)
           console.log(error.message)
         })
-      const a = publicKeyCredentialToJSON(output)
-      superID = a.id
-      rawID = a.rawId
-      alert(rawID)
-      alert(JSON.stringify(a))
-      saveKey(a)
+      // const a = publicKeyCredentialToJSON(output)
+      // superID = a.id
+      // rawID = a.rawId
+      // alert(rawID)
+      // alert(JSON.stringify(a))
+      // saveKey(a)
     })
     .catch((error) => {
       alert(`testCreate: ${error.message}`)
