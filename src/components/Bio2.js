@@ -62,12 +62,15 @@ const createCR = async () => {
             ],
             userVerification: "required",
             attestation: "direct",
+            timeout: 60000,
           },
         })
         .then((res) => {
           alert(JSON.stringify(res))
+          console.log(res)
           const a = publicKeyCredentialToJSON(res)
           alert(JSON.stringify(a))
+          console.log(a)
         })
         .catch((error) => {
           alert(`Catch an error in navigator.credentials get: ${error.message}`)
