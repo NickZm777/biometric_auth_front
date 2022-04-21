@@ -61,7 +61,7 @@ const createCR = async () => {
               },
             ],
             userVerification: "required",
-            attestation: "direct",
+            // attestation: "direct",
           },
         })
         .then((res) => {
