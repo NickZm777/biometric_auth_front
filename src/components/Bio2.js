@@ -75,7 +75,7 @@ const createCRI = async () => {
         pubKeyCredParams: [
           {
             type: "public-key",
-            alg: -7,
+            alg: -257,
           },
         ],
         authenticatorSelection: {
