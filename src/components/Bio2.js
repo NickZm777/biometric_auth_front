@@ -62,7 +62,7 @@ const createCR = async () => {
             ],
             userVerification: "required",
             attestation: "direct",
-            timeout: 60000,
+            // timeout: 60000,
           },
         })
         .then((res) => {
