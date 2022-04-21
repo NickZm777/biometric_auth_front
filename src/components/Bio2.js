@@ -45,6 +45,34 @@ const createCR = async () => {
       },
     })
     .then((output) => {
+      navigator.credentials
+        .get({
+          publicKey: {
+            challenge: new TextEncoder().encode(
+              "randomchallengefromgenerateServerVerificnCredRequest"
+            ).buffer,
+            rpId: document.domain,
+            allowCredentials: [
+              {
+                type: "public-key",
+                // id: new TextEncoder().encode().buffer,
+                id: output.rawId,
+                transports: ["internal"],
+              },
+            ],
+            userVerification: "required",
+            attestation: "direct",
+          },
+        })
+        .then((output) => {
+          alert(JSON.stringify(output))
+          const a = publicKeyCredentialToJSON(output)
+          alert(JSON.stringify(a))
+        })
+        .catch((error) => {
+          alert(`Catch an error in navigator.credentials get: ${error.message}`)
+          console.log(error.message)
+        })
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
       rawID = a.rawId
