@@ -23,12 +23,12 @@ const createCR = async () => {
       publicKey: {
         challenge: new TextEncoder().encode("testChallenge").buffer,
 
-        rp: { name: "My test TouchID" },
+        rp: { name: "My test TouchID", id: document.domain },
 
         user: {
           id: new TextEncoder().encode("testID").buffer,
-          name: "test name",
-          displayName: "test displayName",
+          name: "yuame",
+          displayName: "test displaysdfsdfdsfdsName",
         },
 
         pubKeyCredParams: [
@@ -37,8 +37,8 @@ const createCR = async () => {
             alg: -7,
           },
         ],
-        authenticatorSelection: {
-          authenticatorAttachment: "platform",
+        authenticatorSelectionCriteria: {
+          attachment: "platform",
           userVerification: "required",
         },
         // attestation: "direct",
