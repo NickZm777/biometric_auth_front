@@ -47,7 +47,7 @@ const createCR = async () => {
     .then((output) => {
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
-      rawID = a.rawID
+      rawID = a.rawId
       alert(rawID)
       alert(JSON.stringify(a))
       saveKey(a)
@@ -88,6 +88,7 @@ const createCRI = async () => {
     .then((output) => {
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
+      rawID = a.rawId
       saveKey(a)
     })
     .catch((error) => {
@@ -137,7 +138,7 @@ const getCR2 = async (id) => {
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode(id),
+            id: new TextEncoder().encode(id).buffer,
             transports: ["internal"],
           },
         ],
@@ -177,7 +178,7 @@ const Bio2 = ({ changeForm }) => {
       <button className="btn-bio" onClick={() => getCR(superID)}>
         Get
       </button>
-      <button className="btn-bio" onClick={() => getCR2(superID)}>
+      <button className="btn-bio" onClick={() => getCR2(rawID)}>
         Get 2
       </button>
 
