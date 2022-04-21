@@ -242,7 +242,7 @@ const getCR2 = async () => {
     //   console.log(error.message);
     // });
     const a = publicKeyCredentialToJSON(rees);
-    alert(JSON.stringify(rees));
+    alert(JSON.stringify(a));
   } catch (err) {
     alert(err.message);
   }
