@@ -5,7 +5,6 @@ import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialTo
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
 let superID
-let rawID
 
 // function base64ToArrayBuffer(base64) {
 //   var binary_string = window.atob(base64)
@@ -174,7 +173,7 @@ const Bio2 = ({ changeForm }) => {
       <button className="btn-bio" onClick={() => getCR(superID)}>
         Get
       </button>
-      <button className="btn-bio" onClick={() => getCR2(rawID)}>
+      <button className="btn-bio" onClick={() => getCR2(superID)}>
         Get 2
       </button>
 
