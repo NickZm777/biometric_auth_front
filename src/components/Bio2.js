@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { saveKey, getInitChallenge, saveBuffer } from "../api/helper"
-import { useEffect, useState } from "react"
-import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON"
+import { saveKey, getInitChallenge, saveBuffer } from "../api/helper";
+import { useEffect, useState } from "react";
+import publicKeyCredentialToJSON from "../components/utils/publicKeyCredentialToJSON";
 
 // const nchallenge = require("crypto").randomBytes(16).toString("hex")
-let superID
-let rawID
+let superID;
+let rawID;
 
 // function base64ToArrayBuffer(base64) {
 //   var binary_string = window.atob(base64)
@@ -66,16 +66,18 @@ const createCR = async () => {
           },
         })
         .then((res) => {
-          alert(JSON.stringify(res))
-          console.log(res)
-          const a = publicKeyCredentialToJSON(res)
-          alert(JSON.stringify(a))
-          console.log(a)
+          alert(JSON.stringify(res));
+          console.log(res);
+          const a = publicKeyCredentialToJSON(res);
+          alert(JSON.stringify(a));
+          console.log(a);
         })
         .catch((error) => {
-          alert(`Catch an error in navigator.credentials get: ${error.message}`)
-          console.log(error.message)
-        })
+          alert(
+            `Catch an error in navigator.credentials get: ${error.message}`
+          );
+          console.log(error.message);
+        });
       // const a = publicKeyCredentialToJSON(output)
       // superID = a.id
       // rawID = a.rawId
@@ -84,10 +86,10 @@ const createCR = async () => {
       // saveKey(a)
     })
     .catch((error) => {
-      alert(`testCreate: ${error.message}`)
-      console.log(error.message)
-    })
-}
+      alert(`testCreate: ${error.message}`);
+      console.log(error.message);
+    });
+};
 
 const createCRI = async () => {
   await navigator.credentials
@@ -140,17 +142,46 @@ const createCRI = async () => {
       },
     })
     .then((output) => {
-      rawID = output.rawId
-      const a = publicKeyCredentialToJSON(output)
-      superID = a.id
-
-      saveKey(a)
+      rawID = output.rawId;
+      const a = publicKeyCredentialToJSON(output);
+      superID = a.id;
+      navigator.credentials
+        .get({
+          publicKey: {
+            challenge: new TextEncoder().encode(
+              "randomchallengefromgenerateServerVerificationCredRequest"
+            ).buffer,
+            rpId: document.domain,
+            allowCredentials: [
+              {
+                type: "public-key",
+                // id: new TextEncoder().encode().buffer,
+                id: rawID,
+                transports: ["internal"],
+              },
+            ],
+            userVerification: "required",
+            attestation: "direct",
+          },
+        })
+        .then((output) => {
+          alert(JSON.stringify(output));
+          const a = publicKeyCredentialToJSON(output);
+          alert(JSON.stringify(a));
+        })
+        .catch((error) => {
+          alert(
+            `Catch an error in navigator.credentials get: ${error.message}`
+          );
+          console.log(error.message);
+        });
+      saveKey(a);
     })
     .catch((error) => {
-      alert(`testCreate: ${error.message}`)
-      console.log(error.message)
-    })
-}
+      alert(`testCreate: ${error.message}`);
+      console.log(error.message);
+    });
+};
 
 async function getCR(id) {
   navigator.credentials
@@ -172,14 +203,14 @@ async function getCR(id) {
       },
     })
     .then((output) => {
-      alert(JSON.stringify(output))
-      const a = publicKeyCredentialToJSON(output)
-      alert(JSON.stringify(a))
+      alert(JSON.stringify(output));
+      const a = publicKeyCredentialToJSON(output);
+      alert(JSON.stringify(a));
     })
     .catch((error) => {
-      alert(`Catch an error in navigator.credentials get: ${error.message}`)
-      console.log(error.message)
-    })
+      alert(`Catch an error in navigator.credentials get: ${error.message}`);
+      console.log(error.message);
+    });
 }
 
 const getCR2 = async (id) => {
@@ -193,13 +224,14 @@ const getCR2 = async (id) => {
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode(id).buffer,
+            // id: new TextEncoder().encode(id).buffer,
+            id: rawID,
             transports: ["internal"],
           },
         ],
         userVerification: "required",
       },
-    })
+    });
     // .then((output) => {
     //   alert(JSON.stringify(output));
     //   const a = publicKeyCredentialToJSON(output);
@@ -209,11 +241,11 @@ const getCR2 = async (id) => {
     //   alert(`Catch an error in navigator.credentials get: ${error.message}`);
     //   console.log(error.message);
     // });
-    alert(JSON.stringify(rees))
+    alert(JSON.stringify(rees));
   } catch (err) {
-    alert(err.message)
+    alert(err.message);
   }
-}
+};
 
 const Bio2 = ({ changeForm }) => {
   // useEffect(() => {
@@ -241,7 +273,7 @@ const Bio2 = ({ changeForm }) => {
         switch
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Bio2
+export default Bio2;
