@@ -89,7 +89,8 @@ const createCRI = async () => {
       const a = publicKeyCredentialToJSON(output)
       superID = a.id
       rawID = a.rawId
-      alert(typeof superID)
+      let e = new TextEncoder().encode(superID).buffer
+      alert(typeof e)
       saveKey(a)
     })
     .catch((error) => {
