@@ -92,15 +92,38 @@ const createCR = async () => {
 const createCRI = async () => {
   await navigator.credentials
     .create({
-      publicKey: {
-        challenge: new TextEncoder().encode("testChallenge").buffer,
+      // publicKey: {
+      //   challenge: new TextEncoder().encode("testChallenge").buffer,
 
-        rp: { name: "My test fTouchID" },
+      //   rp: { name: "My test fTouchID" },
+
+      //   user: {
+      //     id: new TextEncoder().encode("testID").buffer,
+      //     name: "test name",
+      //     displayName: "test displayName",
+      //   },
+
+      //   pubKeyCredParams: [
+      //     {
+      //       type: "public-key",
+      //       alg: -7,
+      //     },
+      //   ],
+      //   authenticatorSelectionCriteria: {
+      //     attachment: "platform",
+      //     userVerification: "required",
+      //   },
+      //   // attestation: "direct",
+      // },
+      publicKey: {
+        challenge: new TextEncoder().encode("testChasdfllenge").buffer,
+
+        rp: { name: "My test TossuchID", id: document.domain },
 
         user: {
-          id: new TextEncoder().encode("testID").buffer,
-          name: "test name",
-          displayName: "test displayName",
+          id: new TextEncoder().encode("tessdftID").buffer,
+          name: "yuame",
+          displayName: "test displaysdfsdfdsfdsName",
         },
 
         pubKeyCredParams: [
@@ -113,7 +136,7 @@ const createCRI = async () => {
           attachment: "platform",
           userVerification: "required",
         },
-        // attestation: "direct",
+        attestation: "direct",
       },
     })
     .then((output) => {
