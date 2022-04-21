@@ -133,8 +133,7 @@ const getCR2 = async (id) => {
         allowCredentials: [
           {
             type: "public-key",
-            // id: new TextEncoder().encode(id).buffer,
-            id: id,
+            id: new TextEncoder().encode(id),
             transports: ["internal"],
           },
         ],
