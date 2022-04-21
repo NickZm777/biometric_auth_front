@@ -108,6 +108,7 @@ async function getCR(id) {
           },
         ],
         userVerification: "required",
+        attestation: "direct",
       },
     })
     .then((output) => {
