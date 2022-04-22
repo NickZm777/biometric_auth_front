@@ -20,7 +20,7 @@ function App() {
   const [data, setData] = useState("")
   const [register, setRegister] = useState(false)
   const [bioR, setBioR] = useState(true)
-  const [getCredsPage, setGetCredsPage] = useState(true)
+  const [getCredsPage, setGetCredsPage] = useState(false) // change if need test BIO_2
 
   const changeForm = () => {
     setRegister((req) => !req)
