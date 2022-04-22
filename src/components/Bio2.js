@@ -227,7 +227,7 @@ async function getCR(id) {
       console.log(res)
       const a = publicKeyCredentialToJSON(res)
       alert(JSON.stringify(a))
-      saveVerifiedCreds(a)
+      // saveVerifiedCreds(a)
       console.log(a)
     })
     .catch((error) => {
