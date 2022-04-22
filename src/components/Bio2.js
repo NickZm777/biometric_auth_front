@@ -21,14 +21,37 @@ let rawID
 const createCR = async () => {
   await navigator.credentials
     .create({
-      publicKey: {
-        challenge: new TextEncoder().encode("testChallenge").buffer,
+      // publicKey: {
+      //   challenge: new TextEncoder().encode("testChallenge").buffer,
 
-        rp: { name: "My test TouchID", id: document.domain },
+      //   rp: { name: "My test TouchID", id: document.domain },
+
+      //   user: {
+      //     id: new TextEncoder().encode("testID").buffer,
+      //     name: "yuame",
+      //     displayName: "test displaysdfsdfdsfdsName",
+      //   },
+
+      //   pubKeyCredParams: [
+      //     {
+      //       type: "public-key",
+      //       alg: -7,
+      //     },
+      //   ],
+      //   authenticatorSelectionCriteria: {
+      //     attachment: "platform",
+      //     userVerification: "required",
+      //   },
+      //   attestation: "direct",
+      // },
+      publicKey: {
+        challenge: new TextEncoder().encode("testChasdfllenge").buffer,
+
+        rp: { name: "My test TossuchID", id: document.domain },
 
         user: {
-          id: new TextEncoder().encode("testID").buffer,
-          name: "yuame",
+          id: new TextEncoder().encode("tesstID").buffer,
+          name: "Radamel Tisco",
           displayName: "test displaysdfsdfdsfdsName",
         },
 
@@ -46,39 +69,8 @@ const createCR = async () => {
       },
     })
     .then((output) => {
-      navigator.credentials
-        .get({
-          publicKey: {
-            challenge: new TextEncoder().encode(
-              "randomchallengefromgenerateServerVerificnCredRequest"
-            ).buffer,
-            rpId: document.domain,
-            allowCredentials: [
-              {
-                type: "public-key",
-                // id: new TextEncoder().encode().buffer,
-                id: output.rawId,
-                transports: ["internal"],
-              },
-            ],
-            userVerification: "required",
-            attestation: "direct",
-            // timeout: 60000,
-          },
-        })
-        .then((res) => {
-          alert(JSON.stringify(res))
-          console.log(res)
-          const a = publicKeyCredentialToJSON(res)
-          alert(JSON.stringify(a))
-          console.log(a)
-        })
-        .catch((error) => {
-          alert(`Catch an error in navigator.credentials get: ${error.message}`)
-          console.log(error.message)
-        })
       // const a = publicKeyCredentialToJSON(output)
-      // superID = a.id
+      superID = output.rawId
       // rawID = a.rawId
       // alert(rawID)
       // alert(JSON.stringify(a))
@@ -183,28 +175,60 @@ const createCRI = async () => {
 }
 
 async function getCR(id) {
+  // navigator.credentials
+  //   .get({
+  //     publicKey: {
+  //       challenge: new TextEncoder().encode(
+  //         "randomchallengefromgenerateServerVerificationCredRequest"
+  //       ).buffer,
+  //       rpId: document.domain,
+  //       allowCredentials: [
+  //         {
+  //           type: "public-key",
+  //           id: new TextEncoder().encode(id).buffer,
+  //           transports: ["internal"],
+  //         },
+  //       ],
+  //       userVerification: "required",
+  //       attestation: "direct",
+  //     },
+  //   })
+  //   .then((output) => {
+  //     alert(JSON.stringify(output))
+  //     const a = publicKeyCredentialToJSON(output)
+  //     alert(JSON.stringify(a))
+  //   })
+  //   .catch((error) => {
+  //     alert(`Catch an error in navigator.credentials get: ${error.message}`)
+  //     console.log(error.message)
+  //   })
   navigator.credentials
     .get({
       publicKey: {
         challenge: new TextEncoder().encode(
-          "randomchallengefromgenerateServerVerificationCredRequest"
+          "randomchallengefromgenerateServerVerificnCredRequest"
         ).buffer,
         rpId: document.domain,
         allowCredentials: [
           {
             type: "public-key",
-            id: new TextEncoder().encode(id).buffer,
+            // id: new TextEncoder().encode().buffer,
+            id: superID,
             transports: ["internal"],
           },
         ],
         userVerification: "required",
         attestation: "direct",
+        // timeout: 60000,
       },
     })
-    .then((output) => {
-      alert(JSON.stringify(output))
-      const a = publicKeyCredentialToJSON(output)
+    .then((res) => {
+      alert(JSON.stringify(res))
+      console.log(res)
+      const a = publicKeyCredentialToJSON(res)
       alert(JSON.stringify(a))
+      saveVerifiedCreds(a)
+      console.log(a)
     })
     .catch((error) => {
       alert(`Catch an error in navigator.credentials get: ${error.message}`)
