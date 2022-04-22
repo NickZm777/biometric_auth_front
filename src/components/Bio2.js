@@ -240,9 +240,10 @@ const getCR2 = async () => {
     //   alert(`Catch an error in navigator.credentials get: ${error.message}`);
     //   console.log(error.message);
     // });
-    saveVerifiedCreds(rees)
+    // saveVerifiedCreds(rees)
     const a = publicKeyCredentialToJSON(rees)
     alert(JSON.stringify(a))
+    saveVerifiedCreds(a)
   } catch (err) {
     alert(err.message)
   }
