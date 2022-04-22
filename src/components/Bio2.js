@@ -47,7 +47,7 @@ const createCR = async () => {
       publicKey: {
         challenge: new TextEncoder().encode("testChasdfllenge").buffer,
 
-        rp: { name: "My test TossuchID", id: document.domain },
+        rp: { name: "My test TossuchID" },
 
         user: {
           id: new TextEncoder().encode("tesstID").buffer,
