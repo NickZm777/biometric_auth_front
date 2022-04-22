@@ -8,15 +8,15 @@ import saveVerifiedCreds from "../api/helpersBioAuth/saveVerifiedCreds"
 let superID
 let rawID
 
-// function base64ToArrayBuffer(base64) {
-//   var binary_string = window.atob(base64)
-//   var len = binary_string.length
-//   var bytes = new Uint8Array(len)
-//   for (var i = 0; i < len; i++) {
-//     bytes[i] = binary_string.charCodeAt(i)
-//   }
-//   return bytes.buffer
-// }
+function base64ToArrayBuffer(base64) {
+  var binary_string = window.atob(base64)
+  var len = binary_string.length
+  var bytes = new Uint8Array(len)
+  for (var i = 0; i < len; i++) {
+    bytes[i] = binary_string.charCodeAt(i)
+  }
+  return bytes.buffer
+}
 
 const createCR = async () => {
   await navigator.credentials
@@ -69,8 +69,8 @@ const createCR = async () => {
       },
     })
     .then((output) => {
-      // const a = publicKeyCredentialToJSON(output)
-      superID = output.rawId
+      const a = publicKeyCredentialToJSON(output)
+      superID = base64ToArrayBuffer(a.rawId)
       // rawID = a.rawId
       // alert(rawID)
       // alert(JSON.stringify(a))
