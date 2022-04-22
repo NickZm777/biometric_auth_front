@@ -52,7 +52,8 @@ const BioForm = () => {
           userInfoforSession: userNameforVerify,
           data: generatedBrowserCreds,
         }
-        saveVerifiedCreds(creds)
+        const verifyRes = await saveVerifiedCreds(creds)
+        alert(JSON.stringify(verifyRes))
       } catch (error) {
         alert(`catch in Bioform verifyBioKey:  ${error.message}`)
         console.log(error)
