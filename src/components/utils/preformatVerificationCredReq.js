@@ -18,7 +18,7 @@ const preformatVerificationCredReq = (verifyCredReq, domain) => {
   // makeCredReq.user.id = base64url.decode(makeCredReq.user.id);
 
   verifyCredReq.challenge = encode(verifyCredReq.challenge)
-  verifyCredReq.allowCredentials[0].id = encode(
+  verifyCredReq.allowCredentials[0].id = base64ToArrayBuffer(
     verifyCredReq.allowCredentials[0].id
   )
   verifyCredReq.rpId = domain
