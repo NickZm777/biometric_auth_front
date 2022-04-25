@@ -3,7 +3,7 @@ const EXPRESS_URL = ".netlify/functions/api"
 
 const REGISTER_URL = `${BASE_URL}/${EXPRESS_URL}/register`
 
-export const getCredentialsChallenge = async (requestData) => {
+export const getCreateOptions = async (requestData) => {
   const data = { data: { ...requestData } }
   try {
     const response = await fetch(REGISTER_URL, {
@@ -17,7 +17,6 @@ export const getCredentialsChallenge = async (requestData) => {
     const res = await response.json()
     return res
   } catch (e) {
-    console.error(e)
-    alert(e.message)
+    alert(`catch in getCreateOptions: ${e.message}`)
   }
 }

@@ -78,6 +78,7 @@
   background-color: rgb(128, 156, 235);
   cursor: pointer;
   border: none;
+  margin-bottom: 30px;
 }
 
 .btn-bio {
@@ -94,10 +95,6 @@
   font-size: 10px;
 }
 
-.btn-switch {
-  margin-bottom: 30px;
-}
-
 .btn-sw {
   position: absolute;
   bottom: 10px;
@@ -108,3 +105,27 @@
   display: flex;
   flex-direction: column;
 }
+
+.notification {
+  color: rgb(190, 190, 190);
+  margin-bottom: 10%;
+  width: 70%;
+}
+.notification-awailable {
+  color: rgb(4, 158, 4);
+}
+
+.notification-unawailable {
+  color: rgb(175, 6, 6);
+}
+.selectForm {
+
+  margin-top: 30px;
+  padding: 7px 12px;
+  border-radius: 5px;
+  background-color: rgb(128, 156, 235);
+  cursor: pointer;
+  border: none;
+  margin-bottom: 80px;
+}
+

@@ -1,6 +1,6 @@
-import publicKeyCredentialToJSON from "../utils/publicKeyCredentialToJSON"
+import publicKeyCredentialToJSON from "./publicKeyCredentialToJSON"
 
-const createBioKey = async (publicKey) => {
+const callBrowserApiCreate = async (publicKey) => {
   // if (!window.PublicKeyCredential) {
   //   alert("window.PublicKeyCredential is disabled")
   //   console.log("window.PublicKeyCredential is disabled")
@@ -18,4 +18,4 @@ const createBioKey = async (publicKey) => {
   return result
 }
 
-export default createBioKey
+export default callBrowserApiCreate

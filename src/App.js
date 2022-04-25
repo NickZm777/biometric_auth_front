@@ -5,11 +5,8 @@ import Auth from "./components/Auth"
 import RegisterForm from "./components/RegisterForm"
 import LogInForm from "./components/LogInForm"
 import Unregistered from "./components/Unregistered"
-import BioForm from "./components/BioForm"
-import Bio from "./components/Bio"
-import Bio2 from "./components/Bio2"
-import Bio3 from "./components/Bio3"
-import Bio4 from "./components/Bio4"
+import BioForm from "./components/biometric/BioRegisterForm"
+import BioCheck from "./components/BioCheck"
 
 const RES = {
   SUCCESS: "success",
@@ -19,8 +16,7 @@ const RES = {
 function App() {
   const [data, setData] = useState("")
   const [register, setRegister] = useState(false)
-  const [bioR, setBioR] = useState(true)
-  const [getCredsPage, setGetCredsPage] = useState(false) // change if need test BIO_2
+  const [bioRegister, setBioRegister] = useState(true)
 
   const changeForm = () => {
     setRegister((req) => !req)
@@ -29,39 +25,30 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {getCredsPage ? (
-          <Bio2 changeForm={() => setGetCredsPage((flag) => !flag)} />
-        ) : (
-          <>
-            <button
-              className="btn-switch"
-              onClick={() => setBioR((flag) => !flag)}
-            >
-              switch
-            </button>
-            {bioR ? (
-              <BioForm />
-            ) : (
-              <>
-                <Bio />
-                <Bio3 />
-                <Bio4 />
-                {!data && !register && (
-                  <LogInForm changeForm={changeForm} setResult={setData} />
-                )}
-                {!data && register && (
-                  <RegisterForm changeForm={changeForm} setResult={setData} />
-                )}
-                {data?.status === RES.SUCCESS && (
-                  <Auth info={data?.data.userInfo} />
-                )}
-                {data?.status === RES.WARNING && (
-                  <Unregistered info={data?.data} />
-                )}
-              </>
-            )}
-          </>
-        )}
+        <>
+          <BioCheck />
+          <button className="selectForm">Войти</button>
+          <button className="selectForm">Регистрация</button>
+
+          {/* {bioRegister ? (
+            <BioForm />
+          ) : (
+            <>
+              {!data && !register && (
+                <LogInForm changeForm={changeForm} setResult={setData} />
+              )}
+              {!data && register && (
+                <RegisterForm changeForm={changeForm} setResult={setData} />
+              )}
+              {data?.status === RES.SUCCESS && (
+                <Auth info={data?.data.userInfo} />
+              )}
+              {data?.status === RES.WARNING && (
+                <Unregistered info={data?.data} />
+              )}
+            </>
+          )} */}
+        </>
       </header>
     </div>
   )

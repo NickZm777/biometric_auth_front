@@ -3,7 +3,7 @@ const EXPRESS_URL = ".netlify/functions/api"
 
 const REGISTER_URL = `${BASE_URL}/${EXPRESS_URL}/getverify`
 
-export const getCredentialsChallengeforVerify = async (userNameforVerify) => {
+export const getVerificationOptions = async (userNameforVerify) => {
   const data = { userName: userNameforVerify }
   try {
     const response = await fetch(REGISTER_URL, {
@@ -17,7 +17,6 @@ export const getCredentialsChallengeforVerify = async (userNameforVerify) => {
     const res = await response.json()
     return res
   } catch (e) {
-    console.log(e.message)
-    alert(`catch in getCredentialsChallengeforVerify: ${e.message}`)
+    alert(`catch in getVerificationOptions: ${e.message}`)
   }
 }

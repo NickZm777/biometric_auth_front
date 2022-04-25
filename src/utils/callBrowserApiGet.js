@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
-import publicKeyCredentialToJSON from "../utils/publicKeyCredentialToJSON"
-import { saveKey } from "../../api/helper"
+import publicKeyCredentialToJSON from "./publicKeyCredentialToJSON"
 
-const verifyBioKey = async ({ publicKey }) => {
+const callBrowserApiGet = async ({ publicKey }) => {
   // if (!window.PublicKeyCredential) {
   //   alert("window.PublicKeyCredential is disabled")
   //   console.log("window.PublicKeyCredential is disabled")
@@ -23,4 +22,4 @@ const verifyBioKey = async ({ publicKey }) => {
   return result
 }
 
-export default verifyBioKey
+export default callBrowserApiGet

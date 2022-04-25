@@ -3,7 +3,7 @@ const EXPRESS_URL = ".netlify/functions/api"
 
 const BIOVERIFY_URL = `${BASE_URL}/${EXPRESS_URL}/verify`
 
-const saveVerifiedCreds = async (requestData) => {
+const sendCredsForVerification = async (requestData) => {
   // const data = {  ...requestData  }
   try {
     const response = await fetch(BIOVERIFY_URL, {
@@ -22,4 +22,4 @@ const saveVerifiedCreds = async (requestData) => {
   }
 }
 
-export default saveVerifiedCreds
+export default sendCredsForVerification
