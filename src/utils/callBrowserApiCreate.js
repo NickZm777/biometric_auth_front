@@ -1,11 +1,6 @@
 import publicKeyCredentialToJSON from "./publicKeyCredentialToJSON"
 
 const callBrowserApiCreate = async (publicKey) => {
-  // if (!window.PublicKeyCredential) {
-  //   alert("window.PublicKeyCredential is disabled")
-  //   console.log("window.PublicKeyCredential is disabled")
-  //   return
-  // }
   const result = await navigator.credentials
     .create({ publicKey })
     .then((output) => {

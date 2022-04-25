@@ -10,7 +10,8 @@ import { saveKey } from "../../api/helper"
 import publicKeyCredentialToJSON from "../../utils/publicKeyCredentialToJSON"
 
 const BioRegisterForm = () => {
-  const [name, setName] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
   const [userName, setUserName] = useState("")
   const [registerSuccess, setRegisterSuccess] = useState(false)
   const [registerError, setRegisterError] = useState(false)
@@ -20,7 +21,8 @@ const BioRegisterForm = () => {
     setRegisterError(false)
     const res = await getCreateOptions({
       userName: userName,
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
     })
     if (res.status === "success") {
       const publicKey = preformatMakeCredReq(res.data)
@@ -52,42 +54,53 @@ const BioRegisterForm = () => {
   return (
     <>
       {!registerSuccess && !registerError && (
-        <div>
-          <h1>Registration</h1>
+        <div className="formContainer">
           <div className="form">
             <form
               onSubmit={(e) => {
                 e.preventDefault()
-                console.log("username:", userName)
-                console.log("name:", name)
                 createBioKey()
               }}
             >
-              <label>Name</label>
+              <label>Имя</label>
               <input
+                required
                 className="form-input"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
-              <label>User Name</label>
+              <label>Фамилия</label>
               <input
+                required
+                className="form-input"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <label>Логин</label>
+              <input
+                required
                 className="form-input"
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
-              <input className="form-submit" type="submit" value="submit" />
+              <input
+                className="form-submit"
+                type="submit"
+                value="Подтвердить"
+              />
             </form>
           </div>
         </div>
       )}
       {registerSuccess && (
-        <h1 className="loginSuccess">{`${userName}, you are successfully registered`}</h1>
+        <h1 className="loginSuccess">{`${firstName} ${lastName}, Вы успешно зарегистрированы`}</h1>
       )}
       {registerError && (
         <>
-          <h1 className="loginError">{`Login failure`}</h1>
+          <h1 className="loginError">{`Ошибка регистрации`}</h1>
           <div className="loginErrorMessage">{registerError}</div>
         </>
       )}

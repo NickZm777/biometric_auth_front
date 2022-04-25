@@ -39,30 +39,39 @@
   flex-direction: column;
   max-width: 250px;
 }
+.formContainer h1 {
+  font-size: 2.5rem;
+  text-decoration: underline;
+  color: rgb(150, 175, 252);
+}
 
 .form-input {
   margin-bottom: 20px;
-  padding: 5px;
+  padding: 8px;
   font-size: 20px;
   background-color: #272727;
-  color: rgb(182, 198, 243);
+  color: rgb(198, 209, 240);
   border-radius: 5px;
   border: none;
   -webkit-box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
   -moz-box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
   box-shadow: 0px 0px 34px -5px rgba(128, 156, 235, 0.2);
 }
+.form-input:focus {
+  outline: none;
+  background-color: #221f1f;
+}
 
 .form form label {
   color: rgb(124, 153, 233);
   text-align: left;
   margin-bottom: 2px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .form-submit {
-  max-width: 70px;
-  margin: 0 auto;
+  /* max-width: 70px; */
+  margin: 20px auto;
   background-color: rgb(65, 64, 64);
   color: rgb(231, 227, 227);
   border-radius: 5px;
@@ -110,6 +119,7 @@
   color: rgb(190, 190, 190);
   margin-bottom: 10%;
   width: 70%;
+  font-size: 1.25rem;
 }
 .notification-awailable {
   color: rgb(4, 158, 4);
@@ -119,13 +129,40 @@
   color: rgb(175, 6, 6);
 }
 .selectForm {
-
   margin-top: 30px;
   padding: 7px 12px;
   border-radius: 5px;
-  background-color: rgb(128, 156, 235);
+  background-color: rgb(138, 166, 241);
   cursor: pointer;
   border: none;
   margin-bottom: 80px;
 }
+.selectForm:hover {
+  background-color: rgb(89, 130, 241);
+  
+}
 
+.btn-back {
+  background-color: rgb(89, 130, 241);
+  color: white;
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  cursor: pointer;
+  border: none;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+.btn-back:hover {
+background-color: rgb(11, 60, 206);
+}
+
+.loginError {
+  color:rgb(197, 5, 5);
+  font-size: 2rem;
+}
+
+.loginErrorMessage {
+  color:rgb(134, 170, 218);
+  font-size: 1.5rem;
+}

@@ -7,14 +7,16 @@ import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerif
 import { saveKey } from "../../api/helper"
 
 const BioLoginForm = () => {
-  const [userNameforVerify, setUserNameforVerify] = useState("")
+  const [login, setLogin] = useState("")
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [loginError, setLoginError] = useState(false)
+  const [userInfo, setUserInfo] = useState("")
+  const [verificationCounter, setVerificationCounter] = useState("")
 
   const verifyBioKey = async () => {
     setLoginSuccess(false)
     setLoginError(false)
-    const res = await getVerificationOptions(userNameforVerify)
+    const res = await getVerificationOptions(login)
     if (res.status === "success") {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
       try {
@@ -24,13 +26,17 @@ const BioLoginForm = () => {
         // saveKey(generatedBrowserCreds)
         console.log(publicKey)
         const creds = {
-          userInfoforSession: userNameforVerify,
+          sessionLogin: login,
           data: generatedBrowserCreds,
         }
         const verifiedRes = await sendCredsForVerification(creds)
         alert(JSON.stringify(verifiedRes))
         if (verifiedRes.status === "success") {
           setLoginSuccess(true)
+          setUserInfo(
+            `${verifiedRes.info.firstName} ${verifiedRes.info.lastName}`
+          )
+          setVerificationCounter(verifiedRes.info.counter)
         } else {
           setLoginError(verifiedRes.message)
         }
@@ -48,8 +54,7 @@ const BioLoginForm = () => {
   return (
     <>
       {!loginSuccess && !loginError && (
-        <div>
-          <h1>Log in</h1>
+        <div className="formContainer">
           <div className="form">
             <form
               onSubmit={(e) => {
@@ -57,24 +62,28 @@ const BioLoginForm = () => {
                 verifyBioKey()
               }}
             >
-              <label>Enter username</label>
+              <label>Логин</label>
               <input
+                required
                 className="form-input"
                 type="text"
-                value={userNameforVerify}
-                onChange={(e) => setUserNameforVerify(e.target.value)}
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
               />
-              <input className="form-submit" type="submit" value="verify" />
+              <input className="form-submit" type="submit" value="Войти" />
             </form>
           </div>
         </div>
       )}
       {loginSuccess && (
-        <h1 className="loginSuccess">{`${userNameforVerify}, you are successfully logined`}</h1>
+        <>
+          <h1 className="loginSuccess">{`${userInfo}, Вы успешно авторизованы`}</h1>
+          <div>{`counter: ${verificationCounter}`}</div>
+        </>
       )}
       {loginError && (
         <>
-          <h1 className="loginError">{`Login failure`}</h1>
+          <h1 className="loginError">{`Ошибка авторизации`}</h1>
           <div className="loginErrorMessage">{loginError}</div>
         </>
       )}
