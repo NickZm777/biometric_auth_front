@@ -25,7 +25,7 @@ function App() {
 
   const [register, setRegister] = useState(false)
   const [login, setLogin] = useState(false)
-  const [currentUser, setCurrentUser] = useState("")
+  // const [currentUser, setCurrentUser] = useState("")
 
   return (
     <div className="App">
@@ -53,8 +53,8 @@ function App() {
             </>
           )}
 
-          {login && <BioLoginForm userLogin={currentUser} />}
-          {register && <BioRegisterForm setCurrentUser={setCurrentUser} />}
+          {login && <BioLoginForm userLogin={""} />}
+          {register && <BioRegisterForm />}
 
           {/* {bioRegister ? (
             <BioForm />

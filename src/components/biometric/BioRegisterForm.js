@@ -9,8 +9,7 @@ import BioLoginForm from "../biometric/BioLoginForm"
 // import { saveKey } from "../../api/helper"
 // import publicKeyCredentialToJSON from "../../utils/publicKeyCredentialToJSON"
 
-const BioRegisterForm = (props) => {
-  const { setCurrentUser } = props
+const BioRegisterForm = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [userName, setUserName] = useState("")
@@ -49,7 +48,6 @@ const BioRegisterForm = (props) => {
         const createdRes = await saveCreatedCreds(creds)
         if (createdRes.status === "success") {
           setRegisterSuccess(true)
-          setCurrentUser(userName)
         } else setRegisterError(createdRes.message)
       } catch (error) {
         // alert(`catch in Bioform:  ${error.message}`)
@@ -64,7 +62,7 @@ const BioRegisterForm = (props) => {
 
   return (
     <>
-      {!registerSuccess && !registerError && (
+      {!registerError && !registerSuccess && (
         <div className="formContainer">
           <div className="form">
             <form
@@ -114,6 +112,7 @@ const BioRegisterForm = (props) => {
           <BioLoginForm userLogin={userName} />
         </>
       )} */}
+      {registerSuccess && <BioLoginForm userLogin={userName} />}
       {registerError && (
         <>
           <h1 className="loginError">{`Ошибка регистрации`}</h1>
