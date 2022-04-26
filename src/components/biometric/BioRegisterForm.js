@@ -23,12 +23,6 @@ const BioRegisterForm = () => {
   // const [valid, setValid] = useState(true)
 
   const createBioKey = async () => {
-    const iphone = isIphone()
-    if (iphone) {
-      alert("Iphone")
-    } else {
-      alert("smth else")
-    }
     setRegisterSuccess(false)
     setRegisterError(false)
     // const isValid = validator(firstName, lastName, userName)
