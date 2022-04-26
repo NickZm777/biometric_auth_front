@@ -1,61 +1,61 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react"
-import { getVerificationOptions } from "../../api/helpersBioAuth/getVerificationOptions"
-import preformatVerificationCredReq from "../../utils/preformatVerificationCredReq"
-import callBrowserApiGet from "../../utils/callBrowserApiGet"
-import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerification"
-import AlphaSpinner from "../spinners/AlphaSpinner"
+import { useState } from "react";
+import { getVerificationOptions } from "../../api/helpersBioAuth/getVerificationOptions";
+import preformatVerificationCredReq from "../../utils/preformatVerificationCredReq";
+import callBrowserApiGet from "../../utils/callBrowserApiGet";
+import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerification";
+import AlphaSpinner from "../spinners/AlphaSpinner";
 
 const BioLoginForm = (props) => {
-  const { userLogin } = props
-  const [login, setLogin] = useState(userLogin)
-  const [loginSuccess, setLoginSuccess] = useState(false)
-  const [loginError, setLoginError] = useState(false)
-  const [userInfo, setUserInfo] = useState("")
-  const [verificationCounter, setVerificationCounter] = useState("")
-  const [loading, setLoading] = useState(false)
+  const { userLogin } = props;
+  const [login, setLogin] = useState(userLogin);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const [userInfo, setUserInfo] = useState("");
+  const [verificationCounter, setVerificationCounter] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const verifyBioKey = async () => {
-    setLoginSuccess(false)
-    setLoginError(false)
-    const res = await getVerificationOptions(login)
+    setLoginSuccess(false);
+    setLoginError(false);
+    const res = await getVerificationOptions(login);
     if (res.status === "success") {
-      const publicKey = preformatVerificationCredReq(res.data, document.domain)
+      const publicKey = preformatVerificationCredReq(res.data, document.domain);
       try {
-        const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
+        const generatedBrowserCreds = await callBrowserApiGet({ publicKey });
         // alert(JSON.stringify(generatedBrowserCreds))
         // console.log(generatedBrowserCreds)
         // saveKey(generatedBrowserCreds)
-        console.log(publicKey)
+        console.log(publicKey);
         const creds = {
           sessionLogin: login,
           data: generatedBrowserCreds,
-        }
-        const verifiedRes = await sendCredsForVerification(creds)
+        };
+        const verifiedRes = await sendCredsForVerification(creds);
         // alert(JSON.stringify(verifiedRes))
         if (verifiedRes.status === "success") {
-          setLoading(false)
-          setLoginSuccess(true)
+          setLoading(false);
+          setLoginSuccess(true);
           setUserInfo(
             `${verifiedRes.info.firstName} ${verifiedRes.info.lastName}`
-          )
-          setVerificationCounter(verifiedRes.info.counter)
+          );
+          setVerificationCounter(verifiedRes.info.counter);
         } else {
-          setLoading(false)
-          setLoginError(verifiedRes.message)
+          setLoading(false);
+          setLoginError(verifiedRes.message);
         }
       } catch (error) {
         // alert(`catch in Bioform verifyBioKey:  ${error.message}`)
-        setLoading(false)
-        console.log(error)
-        setLoginError(error.message)
+        setLoading(false);
+        console.log(error);
+        setLoginError(error.message);
       }
     } else {
       // alert(`else in Bioform getVerificationOptions: ${res.message}`)
-      setLoading(false)
-      setLoginError(res.message)
+      setLoading(false);
+      setLoginError(res.message);
     }
-  }
+  };
 
   return (
     <>
@@ -75,9 +75,9 @@ const BioLoginForm = (props) => {
               <div className="form">
                 <form
                   onSubmit={(e) => {
-                    e.preventDefault()
-                    setLoading(true)
-                    verifyBioKey()
+                    e.preventDefault();
+                    setLoading(true);
+                    verifyBioKey();
                   }}
                 >
                   <label>Логин</label>
@@ -101,18 +101,18 @@ const BioLoginForm = (props) => {
             </>
           )}
           {loginError && (
-            <>
+            <div className="loginErrorBox">
               <h1 className="loginError">{`Ошибка авторизации`}</h1>
               <div className="loginErrorMessage">{loginError}</div>
-            </>
+            </div>
           )}
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default BioLoginForm
+export default BioLoginForm;
 
 // const fakeRegisterCreds = {
 //   userInfoforSession: userName,
