@@ -4,7 +4,7 @@ import { getVerificationOptions } from "../../api/helpersBioAuth/getVerification
 import preformatVerificationCredReq from "../../utils/preformatVerificationCredReq"
 import callBrowserApiGet from "../../utils/callBrowserApiGet"
 import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerification"
-import EktaSpinner from "../spinners/EktaSpinner"
+import AlphaSpinner from "../spinners/AlphaSpinner"
 
 const BioLoginForm = (props) => {
   const { userLogin } = props
@@ -60,7 +60,7 @@ const BioLoginForm = (props) => {
   return (
     <>
       {loading ? (
-        <EktaSpinner />
+        <AlphaSpinner />
       ) : (
         <>
           {userLogin && !loginSuccess && !loginError && (
