@@ -140,7 +140,7 @@
   padding: 7px 12px;
   border-radius: 5px;
   background-color: rgb(138, 166, 241);
-  color: rgb(32, 32, 32);
+  color: rgb(3, 3, 3);
   cursor: pointer;
   border: none;
   margin-bottom: 80px;
@@ -152,17 +152,18 @@
 
 .btn-back {
   background-color: rgb(89, 130, 241);
-  color: white;
+  color: rgb(32, 32, 32);
   position: absolute;
   top: 2%;
   left: 2%;
   cursor: pointer;
   border: none;
-  padding: 3px 6px;
+  padding: 4px 7px;
   border-radius: 3px;
 }
 .btn-back:hover {
 background-color: rgb(11, 60, 206);
+color: rgb(255, 255, 255);
 }
 
 .successBox {
