@@ -1,5 +1,20 @@
 const BioCheck = () => {
-  const isBiometricAwailable = window.PublicKeyCredential
+  let isBiometricAwailable = false
+
+  if (window.PublicKeyCredential) {
+    window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(
+      (uvpaa) => {
+        if (uvpaa) {
+          isBiometricAwailable = true
+        } else {
+          isBiometricAwailable = false
+        }
+      }
+    )
+  } else {
+    isBiometricAwailable = false
+  }
+
   return (
     <>
       {isBiometricAwailable ? (
