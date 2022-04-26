@@ -3,6 +3,7 @@ import { useState } from "react"
 import { getCreateOptions } from "../../api/helpersBioAuth/getCreateOptions"
 import preformatMakeCredReq from "../../utils/preformatMakeCredReq"
 import callBrowserApiCreate from "../../utils/callBrowserApiCreate"
+// import validator from "../../utils/validator"
 
 import saveCreatedCreds from "../../api/helpersBioAuth/saveCreatedCreds"
 
@@ -15,10 +16,18 @@ const BioRegisterForm = () => {
   const [userName, setUserName] = useState("")
   const [registerSuccess, setRegisterSuccess] = useState(false)
   const [registerError, setRegisterError] = useState(false)
+  // const [valid, setValid] = useState(true)
 
   const createBioKey = async () => {
     setRegisterSuccess(false)
     setRegisterError(false)
+    // const isValid = validator(firstName, lastName, userName)
+    // console.log(isValid)
+    // if (isValid) {
+    //   setValid(isValid)
+    //   return
+    // }
+
     const res = await getCreateOptions({
       userName: userName,
       firstName: firstName,
@@ -95,6 +104,7 @@ const BioRegisterForm = () => {
           </div>
         </div>
       )}
+      {/* {!valid && <div className="validate">{valid}</div>} */}
       {registerSuccess && (
         <>
           <h1 className="loginSuccess">{`${firstName} ${lastName}`}</h1>

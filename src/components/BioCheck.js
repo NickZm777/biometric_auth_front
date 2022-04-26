@@ -19,13 +19,13 @@ const BioCheck = () => {
     <>
       {isBiometricAwailable ? (
         <div className="notification">
-          На Вашем устройстве{" "}
+          В Вашем браузере{" "}
           <span className="notification-awailable">доступно</span> использование
-          WebAuth
+          платформенных WebAuth ключей
         </div>
       ) : (
         <div className="notification">
-          На Вашем устройстве использование WebAuth{" "}
+          В Вашем браузере использование платформенных WebAuth ключей{" "}
           <span className="notification-unawailable">недоступно</span>
         </div>
       )}

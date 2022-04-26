@@ -42,7 +42,7 @@ function App() {
             <>
               <BioCheck />
               <button className="selectForm" onClick={() => setLogin(true)}>
-                Войти
+                Авторизация
               </button>
               <button className="selectForm" onClick={() => setRegister(true)}>
                 Регистрация
