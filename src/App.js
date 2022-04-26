@@ -9,20 +9,22 @@ import BioRegisterForm from "./components/biometric/BioRegisterForm"
 import BioLoginForm from "./components/biometric/BioLoginForm"
 import BioCheck from "./components/BioCheck"
 
-const RES = {
-  SUCCESS: "success",
-  WARNING: "warning",
-}
+// const RES = {
+//   SUCCESS: "success",
+//   WARNING: "warning",
+// }
 
 function App() {
   // const [data, setData] = useState("")
-  const [register, setRegister] = useState(false)
-  const [login, setLogin] = useState(false)
+
   // const [bioRegister, setBioRegister] = useState(true)
 
   // const changeForm = () => {
   //   setRegister((req) => !req)
   // }
+
+  const [register, setRegister] = useState(false)
+  const [login, setLogin] = useState(false)
 
   return (
     <div className="App">
@@ -50,7 +52,7 @@ function App() {
             </>
           )}
 
-          {login && <BioLoginForm />}
+          {login && <BioLoginForm userLogin={""} />}
           {register && <BioRegisterForm />}
 
           {/* {bioRegister ? (

@@ -6,8 +6,9 @@ import callBrowserApiGet from "../../utils/callBrowserApiGet"
 import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerification"
 import { saveKey } from "../../api/helper"
 
-const BioLoginForm = () => {
-  const [login, setLogin] = useState("")
+const BioLoginForm = (props) => {
+  const { userLogin } = props
+  const [login, setLogin] = useState(userLogin)
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [loginError, setLoginError] = useState(false)
   const [userInfo, setUserInfo] = useState("")

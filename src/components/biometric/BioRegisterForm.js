@@ -3,12 +3,11 @@ import { useState } from "react"
 import { getCreateOptions } from "../../api/helpersBioAuth/getCreateOptions"
 import preformatMakeCredReq from "../../utils/preformatMakeCredReq"
 import callBrowserApiCreate from "../../utils/callBrowserApiCreate"
-// import validator from "../../utils/validator"
-
 import saveCreatedCreds from "../../api/helpersBioAuth/saveCreatedCreds"
-
-import { saveKey } from "../../api/helper"
-import publicKeyCredentialToJSON from "../../utils/publicKeyCredentialToJSON"
+import BioLoginForm from "../LogInForm"
+// import validator from "../../utils/validator"
+// import { saveKey } from "../../api/helper"
+// import publicKeyCredentialToJSON from "../../utils/publicKeyCredentialToJSON"
 
 const BioRegisterForm = () => {
   const [firstName, setFirstName] = useState("")
@@ -108,7 +107,8 @@ const BioRegisterForm = () => {
       {registerSuccess && (
         <>
           <h1 className="loginSuccess">{`${firstName} ${lastName}`}</h1>
-          <div>Вы успешно зарегистрированы</div>
+          <div>{`Вы успешно зарегистрированы.\n Попробуйте авторизироваться`}</div>
+          <BioLoginForm userLogin={userName} />
         </>
       )}
       {registerError && (
