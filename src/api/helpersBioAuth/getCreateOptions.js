@@ -17,6 +17,6 @@ export const getCreateOptions = async (requestData) => {
     const res = await response.json()
     return res
   } catch (e) {
-    alert(`catch in getCreateOptions: ${e.message}`)
+    alert(`error in getCreateOptions: ${e.message}`)
   }
 }

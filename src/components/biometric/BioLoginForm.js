@@ -30,7 +30,7 @@ const BioLoginForm = () => {
           data: generatedBrowserCreds,
         }
         const verifiedRes = await sendCredsForVerification(creds)
-        alert(JSON.stringify(verifiedRes))
+        // alert(JSON.stringify(verifiedRes))
         if (verifiedRes.status === "success") {
           setLoginSuccess(true)
           setUserInfo(
@@ -41,13 +41,13 @@ const BioLoginForm = () => {
           setLoginError(verifiedRes.message)
         }
       } catch (error) {
-        alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+        // alert(`catch in Bioform verifyBioKey:  ${error.message}`)
         console.log(error)
-        setLoginError(`catch in Bioform verifyBioKey:  ${error.message}`)
+        setLoginError(error.message)
       }
     } else {
-      alert(`else in Bioform getVerificationOptions: ${res.message}`)
-      setLoginError(`else in Bioform getVerificationOptions: ${res.message}`)
+      // alert(`else in Bioform getVerificationOptions: ${res.message}`)
+      setLoginError(res.message)
     }
   }
 

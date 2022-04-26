@@ -18,7 +18,7 @@ const sendCredsForVerification = async (requestData) => {
     return await response.json()
   } catch (e) {
     console.log(e.message)
-    alert(`catch in saveVerifiedCreds: ${e.message}`)
+    alert(`error in saveVerifiedCreds: ${e.message}`)
   }
 }
 

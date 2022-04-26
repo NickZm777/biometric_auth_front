@@ -41,13 +41,13 @@ const BioRegisterForm = () => {
           setRegisterSuccess(true)
         } else setRegisterError(createdRes.message)
       } catch (error) {
-        alert(`catch in Bioform:  ${error.message}`)
+        // alert(`catch in Bioform:  ${error.message}`)
         console.log(error)
-        setRegisterError(`catch in Bioform:  ${error.message}`)
+        setRegisterError(error.message)
       }
     } else {
-      alert(`else in getCreateOptions: ${res.message}`)
-      setRegisterError(`else in getCreateOptions: ${res.message}`)
+      // alert(`else in getCreateOptions: ${res.message}`)
+      setRegisterError(res.message)
     }
   }
 

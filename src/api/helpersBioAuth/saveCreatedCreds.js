@@ -18,7 +18,7 @@ const saveCreatedCreds = async (requestData) => {
     return await response.json()
   } catch (e) {
     console.error(e)
-    alert(`catch in saveCreatedCreds: ${e.message}`)
+    alert(`error in saveCreatedCreds: ${e.message}`)
   }
 }
 

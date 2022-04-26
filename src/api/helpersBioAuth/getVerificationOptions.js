@@ -17,6 +17,6 @@ export const getVerificationOptions = async (userNameforVerify) => {
     const res = await response.json()
     return res
   } catch (e) {
-    alert(`catch in getVerificationOptions: ${e.message}`)
+    alert(`error in getVerificationOptions: ${e.message}`)
   }
 }

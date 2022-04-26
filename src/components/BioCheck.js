@@ -6,11 +6,11 @@ const BioCheck = () => {
         <div className="notification">
           На Вашем устройстве{" "}
           <span className="notification-awailable">доступно</span> использование
-          биометрических ключей
+          WebAuth
         </div>
       ) : (
         <div className="notification">
-          На Вашем устройстве использование биометрических ключей{" "}
+          На Вашем устройстве использование WebAuth{" "}
           <span className="notification-unawailable">недоступно</span>
         </div>
       )}

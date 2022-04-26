@@ -75,7 +75,7 @@
   background-color: rgb(65, 64, 64);
   color: rgb(231, 227, 227);
   border-radius: 5px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border: 1px solid black;
   cursor: pointer;
 }
@@ -164,5 +164,5 @@ background-color: rgb(11, 60, 206);
 
 .loginErrorMessage {
   color:rgb(134, 170, 218);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
