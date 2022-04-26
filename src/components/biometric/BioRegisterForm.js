@@ -6,6 +6,7 @@ import callBrowserApiCreate from "../../utils/callBrowserApiCreate"
 import saveCreatedCreds from "../../api/helpersBioAuth/saveCreatedCreds"
 import BioLoginForm from "../biometric/BioLoginForm"
 import AlphaSpinner from "../spinners/AlphaSpinner"
+import isIphone from "../../utils/isIphone"
 
 // import validator from "../../utils/validator"
 // import { saveKey } from "../../api/helper"
@@ -22,6 +23,12 @@ const BioRegisterForm = () => {
   // const [valid, setValid] = useState(true)
 
   const createBioKey = async () => {
+    const iphone = isIphone()
+    if (iphone) {
+      alert("Iphone")
+    } else {
+      alert("smth else")
+    }
     setRegisterSuccess(false)
     setRegisterError(false)
     // const isValid = validator(firstName, lastName, userName)
