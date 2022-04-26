@@ -4,7 +4,7 @@ import { getVerificationOptions } from "../../api/helpersBioAuth/getVerification
 import preformatVerificationCredReq from "../../utils/preformatVerificationCredReq"
 import callBrowserApiGet from "../../utils/callBrowserApiGet"
 import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerification"
-import { saveKey } from "../../api/helper"
+import AlphaSpinner from "../spinners/AlphaSpinner"
 
 const BioLoginForm = (props) => {
   const { userLogin } = props
@@ -13,6 +13,7 @@ const BioLoginForm = (props) => {
   const [loginError, setLoginError] = useState(false)
   const [userInfo, setUserInfo] = useState("")
   const [verificationCounter, setVerificationCounter] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const verifyBioKey = async () => {
     setLoginSuccess(false)
@@ -33,67 +34,78 @@ const BioLoginForm = (props) => {
         const verifiedRes = await sendCredsForVerification(creds)
         // alert(JSON.stringify(verifiedRes))
         if (verifiedRes.status === "success") {
+          setLoading(false)
           setLoginSuccess(true)
           setUserInfo(
             `${verifiedRes.info.firstName} ${verifiedRes.info.lastName}`
           )
           setVerificationCounter(verifiedRes.info.counter)
         } else {
+          setLoading(false)
           setLoginError(verifiedRes.message)
         }
       } catch (error) {
         // alert(`catch in Bioform verifyBioKey:  ${error.message}`)
+        setLoading(false)
         console.log(error)
         setLoginError(error.message)
       }
     } else {
       // alert(`else in Bioform getVerificationOptions: ${res.message}`)
+      setLoading(false)
       setLoginError(res.message)
     }
   }
 
   return (
     <>
-      {userLogin && !loginSuccess && !loginError && (
-        <div className="successBox">
-          <h3 className="loginSuccess">{`${userLogin}`}</h3>
-          <div>{`Вы успешно зарегистрированы.\n Попробуйте авторизироваться`}</div>
-        </div>
-      )}
+      {loading ? (
+        <AlphaSpinner />
+      ) : (
+        <>
+          {userLogin && !loginSuccess && !loginError && (
+            <div className="successBox">
+              <h3 className="loginSuccess">{`${userLogin}`}</h3>
+              <div>{`Вы успешно зарегистрированы.\n Попробуйте авторизироваться`}</div>
+            </div>
+          )}
 
-      {!loginSuccess && !loginError && (
-        <div className="formContainer">
-          <div className="form">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                verifyBioKey()
-              }}
-            >
-              <label>Логин</label>
-              <input
-                required
-                className="form-input"
-                type="text"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
-              />
-              <input className="form-submit" type="submit" value="Войти" />
-            </form>
-          </div>
-        </div>
-      )}
-      {loginSuccess && (
-        <>
-          <h1 className="loginSuccess">{`${userInfo}`}</h1>
-          <h3>Вы успешно авторизованы</h3>
-          <div>{`counter: ${verificationCounter}`}</div>
-        </>
-      )}
-      {loginError && (
-        <>
-          <h1 className="loginError">{`Ошибка авторизации`}</h1>
-          <div className="loginErrorMessage">{loginError}</div>
+          {!loginSuccess && !loginError && (
+            <div className="formContainer">
+              <div className="form">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    setLoading(true)
+                    verifyBioKey()
+                  }}
+                >
+                  <label>Логин</label>
+                  <input
+                    required
+                    className="form-input"
+                    type="text"
+                    value={login}
+                    onChange={(e) => setLogin(e.target.value)}
+                  />
+                  <input className="form-submit" type="submit" value="Войти" />
+                </form>
+              </div>
+            </div>
+          )}
+          {loginSuccess && (
+            <>
+              <h1 className="loginSuccess">{`${userInfo}`}</h1>
+              <h3>Вы успешно авторизованы</h3>
+              <div>{`counter: ${verificationCounter}`}</div>
+            </>
+          )}
+          {loginError && (
+            <>
+              <h1 className="loginError">{`Ошибка авторизации`}</h1>
+              <div className="loginErrorMessage">{loginError}</div>
+            </>
+          )}
         </>
       )}
     </>

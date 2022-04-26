@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
   white-space: pre-line;
@@ -49,7 +50,7 @@
 .form-input {
   margin-bottom: 20px;
   padding: 8px;
-  font-size: 20px;
+  font-size: 0.6em;
   background-color: #272727;
   color: rgb(198, 209, 240);
   border-radius: 5px;
