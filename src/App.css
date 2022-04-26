@@ -167,7 +167,7 @@ color: rgb(255, 255, 255);
 }
 
 .successBox {
-  margin-bottom: 10%;
+  margin-bottom: 15%;
 }
 
 .loginSuccess {
@@ -176,12 +176,12 @@ color: rgb(255, 255, 255);
 
 .loginError {
   color:rgb(197, 5, 5);
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .loginErrorMessage {
   color:rgb(134, 170, 218);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .validate {
