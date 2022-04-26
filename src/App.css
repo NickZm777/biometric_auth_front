@@ -115,10 +115,16 @@
   flex-direction: column;
 }
 
+.notificationBox {
+  color: rgb(190, 190, 190);
+  margin-bottom: 20%;
+  width: 70%;
+ 
+}
+
 .notification {
   color: rgb(190, 190, 190);
-  margin-bottom: 10%;
-  width: 70%;
+  margin-bottom: 2%;
   font-size: 1.25rem;
 }
 .notification-awailable {

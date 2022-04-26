@@ -1,35 +1,46 @@
 const BioCheck = () => {
-  let isBiometricAwailable = false
+  let isWebAuthAvailable = false
+  let isPlatformAuthenticator = false
 
   if (window.PublicKeyCredential) {
+    isWebAuthAvailable = true
     window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(
       (uvpaa) => {
         if (uvpaa) {
-          isBiometricAwailable = true
+          isPlatformAuthenticator = true
         } else {
-          isBiometricAwailable = false
+          isPlatformAuthenticator = false
         }
       }
     )
   } else {
-    isBiometricAwailable = false
+    isPlatformAuthenticator = false
+    isWebAuthAvailable = false
   }
 
   return (
-    <>
-      {isBiometricAwailable ? (
+    <div className="notificationBox">
+      {isWebAuthAvailable ? (
         <div className="notification">
-          В Вашем браузере{" "}
-          <span className="notification-awailable">доступно</span> использование
-          платформенных WebAuth ключей
+          WebAuth <span className="notification-awailable">доступен</span>
         </div>
       ) : (
         <div className="notification">
-          В Вашем браузере использование платформенных WebAuth ключей{" "}
-          <span className="notification-unawailable">недоступно</span>
+          WebAuth <span className="notification-unawailable">не доступен</span>
         </div>
       )}
-    </>
+      {isPlatformAuthenticator ? (
+        <div className="notification">
+          PlatformAuthenticator{" "}
+          <span className="notification-awailable">доступен</span>
+        </div>
+      ) : (
+        <div className="notification">
+          PlatformAuthenticator{" "}
+          <span className="notification-unawailable">недоступен</span>
+        </div>
+      )}
+    </div>
   )
 }
 

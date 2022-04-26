@@ -41,11 +41,11 @@ function App() {
           {!login && !register && (
             <>
               <BioCheck />
-              <button className="selectForm" onClick={() => setLogin(true)}>
-                Авторизация
-              </button>
               <button className="selectForm" onClick={() => setRegister(true)}>
                 Регистрация
+              </button>
+              <button className="selectForm" onClick={() => setLogin(true)}>
+                Авторизация
               </button>
             </>
           )}
