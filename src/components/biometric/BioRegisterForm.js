@@ -1,30 +1,31 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react"
-import { getCreateOptions } from "../../api/helpersBioAuth/getCreateOptions"
-import preformatMakeCredReq from "../../utils/preformatMakeCredReq"
-import callBrowserApiCreate from "../../utils/callBrowserApiCreate"
-import saveCreatedCreds from "../../api/helpersBioAuth/saveCreatedCreds"
-import BioLoginForm from "../biometric/BioLoginForm"
-import AlphaSpinner from "../spinners/AlphaSpinner"
-import isIphone from "../../utils/isIphone"
+import { useState } from "react";
+import { getCreateOptions } from "../../api/helpersBioAuth/getCreateOptions";
+import preformatMakeCredReq from "../../utils/preformatMakeCredReq";
+import callBrowserApiCreate from "../../utils/callBrowserApiCreate";
+import saveCreatedCreds from "../../api/helpersBioAuth/saveCreatedCreds";
+import BioLoginForm from "../biometric/BioLoginForm";
+import AlphaSpinner from "../spinners/AlphaSpinner";
+import checkIphone from "../../utils/checkIphone";
 
 // import validator from "../../utils/validator"
 // import { saveKey } from "../../api/helper"
 // import publicKeyCredentialToJSON from "../../utils/publicKeyCredentialToJSON"
+const isIphone = checkIphone();
 
 const BioRegisterForm = () => {
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [userName, setUserName] = useState("")
-  const [registerSuccess, setRegisterSuccess] = useState(false)
-  const [registerError, setRegisterError] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // const [valid, setValid] = useState(true)
 
   const createBioKey = async () => {
-    setRegisterSuccess(false)
-    setRegisterError(false)
+    setRegisterSuccess(false);
+    setRegisterError(false);
     // const isValid = validator(firstName, lastName, userName)
     // console.log(isValid)
     // if (isValid) {
@@ -36,40 +37,40 @@ const BioRegisterForm = () => {
       userName: userName,
       firstName: firstName,
       lastName: lastName,
-    })
+    });
     if (res.status === "success") {
-      const publicKey = preformatMakeCredReq(res.data)
-      console.log(publicKey)
+      const publicKey = preformatMakeCredReq(res.data);
+      console.log(publicKey);
 
       try {
-        const browserKey = await callBrowserApiCreate(publicKey)
+        const browserKey = await callBrowserApiCreate(publicKey);
         // alert(JSON.stringify(generatedBrowserCreds))
         // console.log(generatedBrowserCreds)
         // saveKey(generatedBrowserCreds)
         const creds = {
           userInfoforSession: userName,
           data: browserKey,
-        }
-        const createdRes = await saveCreatedCreds(creds)
+        };
+        const createdRes = await saveCreatedCreds(creds);
         if (createdRes.status === "success") {
-          setLoading(false)
-          setRegisterSuccess(true)
+          setLoading(false);
+          setRegisterSuccess(true);
         } else {
-          setLoading(false)
-          setRegisterError(createdRes.message)
+          setLoading(false);
+          setRegisterError(createdRes.message);
         }
       } catch (error) {
         // alert(`catch in Bioform:  ${error.message}`)
-        setLoading(false)
-        console.log(error)
-        setRegisterError(error.message)
+        setLoading(false);
+        console.log(error);
+        setRegisterError(error.message);
       }
     } else {
       // alert(`else in getCreateOptions: ${res.message}`)
-      setLoading(false)
-      setRegisterError(res.message)
+      setLoading(false);
+      setRegisterError(res.message);
     }
-  }
+  };
 
   return (
     <>
@@ -82,9 +83,9 @@ const BioRegisterForm = () => {
               <div className="form">
                 <form
                   onSubmit={(e) => {
-                    e.preventDefault()
-                    setLoading(true)
-                    createBioKey()
+                    e.preventDefault();
+                    setLoading(true);
+                    createBioKey();
                   }}
                 >
                   <label>Имя</label>
@@ -138,10 +139,10 @@ const BioRegisterForm = () => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default BioRegisterForm
+export default BioRegisterForm;
 
 // const fakeRegisterCreds = {
 //   userInfoforSession: userName,
