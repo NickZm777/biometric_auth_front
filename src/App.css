@@ -157,6 +157,10 @@
 background-color: rgb(11, 60, 206);
 }
 
+.loginSuccess h1 {
+  color: rgb(4, 158, 4);;
+}
+
 .loginError {
   color:rgb(197, 5, 5);
   font-size: 2rem;

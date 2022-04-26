@@ -96,7 +96,10 @@ const BioRegisterForm = () => {
         </div>
       )}
       {registerSuccess && (
-        <h1 className="loginSuccess">{`${firstName} ${lastName}, Вы успешно зарегистрированы`}</h1>
+        <>
+          <h1 className="loginSuccess">{`${firstName} ${lastName}`}</h1>
+          <div>Вы успешно зарегистрированы</div>
+        </>
       )}
       {registerError && (
         <>

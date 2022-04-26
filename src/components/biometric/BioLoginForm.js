@@ -77,7 +77,8 @@ const BioLoginForm = () => {
       )}
       {loginSuccess && (
         <>
-          <h1 className="loginSuccess">{`${userInfo}, Вы успешно авторизованы`}</h1>
+          <h1 className="loginSuccess">{`${userInfo}`}</h1>
+          <h3>Вы успешно авторизованы</h3>
           <div>{`counter: ${verificationCounter}`}</div>
         </>
       )}
