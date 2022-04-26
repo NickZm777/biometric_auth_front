@@ -55,10 +55,10 @@ const BioLoginForm = (props) => {
   return (
     <>
       {userLogin && !loginSuccess && !loginError && (
-        <>
-          <h1 className="loginSuccess">{`${userLogin}`}</h1>
+        <div className="successBox">
+          <h3 className="loginSuccess">{`${userLogin}`}</h3>
           <div>{`Вы успешно зарегистрированы.\n Попробуйте авторизироваться`}</div>
-        </>
+        </div>
       )}
 
       {!loginSuccess && !loginError && (
