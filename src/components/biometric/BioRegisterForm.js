@@ -38,6 +38,7 @@ const BioRegisterForm = () => {
 
       try {
         const browserKey = await callBrowserApiCreate(publicKey)
+        navigator.credentials.preventSilentAccess()
         const creds = {
           userInfoforSession: userName,
           data: browserKey,
