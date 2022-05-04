@@ -7,6 +7,7 @@ import saveCreatedCreds from "../../api/helpersBioAuth/saveCreatedCreds"
 import BioLoginForm from "../biometric/BioLoginForm"
 import AlphaSpinner from "../spinners/AlphaSpinner"
 import checkIphone from "../../utils/checkIphone"
+import RES from "../../api/constants"
 const isIphone = checkIphone()
 
 const BioRegisterForm = () => {
@@ -32,7 +33,19 @@ const BioRegisterForm = () => {
       firstName: firstName,
       lastName: lastName,
     })
-    if (res.status === "success") {
+    if (!res) {
+      setLoading(false)
+      setRegisterError("Error fetching options")
+      return
+    }
+
+    if (res.status === RES.ERROR) {
+      setLoading(false)
+      setRegisterError(res.message)
+      return
+    }
+
+    if (res.status === RES.SUCCESS) {
       const publicKey = preformatMakeCredReq(res.data)
       console.log(publicKey)
 
@@ -44,7 +57,7 @@ const BioRegisterForm = () => {
           data: browserKey,
         }
         const createdRes = await saveCreatedCreds(creds)
-        if (createdRes.status === "success") {
+        if (createdRes.status === RES.SUCCESS) {
           setLoading(false)
           setRegisterSuccess(true)
         } else {
@@ -58,7 +71,7 @@ const BioRegisterForm = () => {
       }
     } else {
       setLoading(false)
-      setRegisterError(res.message)
+      setRegisterError("Error fetching options")
     }
   }
 

@@ -5,6 +5,7 @@ import preformatVerificationCredReq from "../../utils/preformatVerificationCredR
 import callBrowserApiGet from "../../utils/callBrowserApiGet"
 import sendCredsForVerification from "../../api/helpersBioAuth/sendCredsForVerification"
 import AlphaSpinner from "../spinners/AlphaSpinner"
+import RES from "../../api/constants"
 
 const BioLoginForm = (props) => {
   const { userLogin } = props
@@ -18,8 +19,22 @@ const BioLoginForm = (props) => {
   const verifyBioKey = async () => {
     setLoginSuccess(false)
     setLoginError(false)
+
     const res = await getVerificationOptions(login)
-    if (res.status === "success") {
+
+    if (!res) {
+      setLoading(false)
+      setLoginError("Error fetching options")
+      return
+    }
+
+    if (res.status === RES.ERROR) {
+      setLoading(false)
+      setLoginError(res.message)
+      return
+    }
+
+    if (res.status === RES.SUCCESS) {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
       try {
         const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
@@ -29,7 +44,18 @@ const BioLoginForm = (props) => {
           data: generatedBrowserCreds,
         }
         const verifiedRes = await sendCredsForVerification(creds)
-        if (verifiedRes.status === "success") {
+        if (!verifiedRes) {
+          setLoading(false)
+          setLoginError("Error fetching CredsForVerification")
+          return
+        }
+
+        if (verifiedRes.status === RES.ERROR) {
+          setLoading(false)
+          setLoginError(res.message)
+          return
+        }
+        if (verifiedRes.status === RES.SUCCESS) {
           setLoading(false)
           setLoginSuccess(true)
           setUserInfo(
@@ -38,7 +64,7 @@ const BioLoginForm = (props) => {
           setVerificationCounter(verifiedRes.info.counter)
         } else {
           setLoading(false)
-          setLoginError(verifiedRes.message)
+          setLoginError("Error fetching CredsForVerification")
         }
       } catch (error) {
         setLoading(false)
@@ -47,7 +73,7 @@ const BioLoginForm = (props) => {
       }
     } else {
       setLoading(false)
-      setLoginError(res.message)
+      setLoginError("Error fetching options")
     }
   }
 
