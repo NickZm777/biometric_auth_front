@@ -4,6 +4,7 @@ const callBrowserApiCreate = async (publicKey) => {
   const result = await navigator.credentials
     .create({ publicKey })
     .then((output) => {
+      navigator.credentials.preventSilentAccess()
       return publicKeyCredentialToJSON(output)
     })
     .catch((error) => {

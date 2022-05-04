@@ -49,30 +49,33 @@ const BioRegisterForm = () => {
       const publicKey = preformatMakeCredReq(res.data)
       console.log(publicKey)
 
-      try {
-        const browserKey = await callBrowserApiCreate(publicKey)
-        navigator.credentials.preventSilentAccess()
-        const creds = {
-          userInfoforSession: userName,
-          data: browserKey,
-        }
-        const createdRes = await saveCreatedCreds(creds)
-        if (createdRes.status === RES.ERROR) {
-          setLoading(false)
-          setRegisterError(createdRes.message)
-        }
-        if (createdRes.status === RES.SUCCESS) {
-          setLoading(false)
-          setRegisterSuccess(true)
-        } else {
-          setLoading(false)
-          setRegisterError("Error saving created creds")
-        }
-      } catch (error) {
+      const browserKey = await callBrowserApiCreate(publicKey)
+      if (!browserKey) {
         setLoading(false)
-        console.log(error)
-        setRegisterError(error.message)
+        setRegisterError("Error creating publicKey")
+        return
       }
+      const creds = {
+        userInfoforSession: userName,
+        data: browserKey,
+      }
+      const createdRes = await saveCreatedCreds(creds)
+      if (createdRes.status === RES.ERROR) {
+        setLoading(false)
+        setRegisterError(createdRes.message)
+      }
+      if (createdRes.status === RES.SUCCESS) {
+        setLoading(false)
+        setRegisterSuccess(true)
+      } else {
+        setLoading(false)
+        setRegisterError("Error saving created creds")
+      }
+      // catch (error) {
+      //   setLoading(false)
+      //   console.log(error)
+      //   setRegisterError(error.message)
+      // }
     } else {
       setLoading(false)
       setRegisterError("Error fetching options")
