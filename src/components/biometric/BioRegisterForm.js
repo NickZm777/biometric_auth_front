@@ -57,12 +57,16 @@ const BioRegisterForm = () => {
           data: browserKey,
         }
         const createdRes = await saveCreatedCreds(creds)
+        if (createdRes.status === RES.ERROR) {
+          setLoading(false)
+          setRegisterError(createdRes.message)
+        }
         if (createdRes.status === RES.SUCCESS) {
           setLoading(false)
           setRegisterSuccess(true)
         } else {
           setLoading(false)
-          setRegisterError(createdRes.message)
+          setRegisterError("Error saving created creds")
         }
       } catch (error) {
         setLoading(false)
