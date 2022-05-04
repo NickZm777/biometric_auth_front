@@ -1,7 +1,7 @@
 import BASE_URL from "../endpoint"
 const EXPRESS_URL = ".netlify/functions/api"
 
-const BIOCREATE_URL = `${BASE_URL}/${EXPRESS_URL}/biocreate`
+const BIOCREATE_URL = `${BASE_URL}/${EXPRESS_URL}/register`
 
 const saveCreatedCreds = async (requestData) => {
   try {

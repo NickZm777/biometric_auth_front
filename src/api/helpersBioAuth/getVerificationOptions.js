@@ -1,7 +1,7 @@
 import BASE_URL from "../endpoint"
 const EXPRESS_URL = ".netlify/functions/api"
 
-const REGISTER_URL = `${BASE_URL}/${EXPRESS_URL}/getverify`
+const REGISTER_URL = `${BASE_URL}/${EXPRESS_URL}/verification_options`
 
 export const getVerificationOptions = async (userNameforVerify) => {
   const data = { userName: userNameforVerify }
