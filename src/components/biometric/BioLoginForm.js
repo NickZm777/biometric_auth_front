@@ -52,7 +52,7 @@ const BioLoginForm = (props) => {
 
         if (verifiedRes.status === RES.ERROR) {
           setLoading(false)
-          setLoginError(res.message)
+          setLoginError(verifiedRes.message)
           return
         }
         if (verifiedRes.status === RES.SUCCESS) {
