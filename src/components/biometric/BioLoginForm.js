@@ -23,16 +23,12 @@ const BioLoginForm = (props) => {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
       try {
         const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
-        // alert(JSON.stringify(generatedBrowserCreds))
-        // console.log(generatedBrowserCreds)
-        // saveKey(generatedBrowserCreds)
         console.log(publicKey)
         const creds = {
           sessionLogin: login,
           data: generatedBrowserCreds,
         }
         const verifiedRes = await sendCredsForVerification(creds)
-        // alert(JSON.stringify(verifiedRes))
         if (verifiedRes.status === "success") {
           setLoading(false)
           setLoginSuccess(true)
@@ -45,13 +41,11 @@ const BioLoginForm = (props) => {
           setLoginError(verifiedRes.message)
         }
       } catch (error) {
-        // alert(`catch in Bioform verifyBioKey:  ${error.message}`)
         setLoading(false)
         console.log(error)
         setLoginError(error.message)
       }
     } else {
-      // alert(`else in Bioform getVerificationOptions: ${res.message}`)
       setLoading(false)
       setLoginError(res.message)
     }

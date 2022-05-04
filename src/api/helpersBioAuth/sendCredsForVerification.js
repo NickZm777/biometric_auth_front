@@ -4,7 +4,6 @@ const EXPRESS_URL = ".netlify/functions/api"
 const BIOVERIFY_URL = `${BASE_URL}/${EXPRESS_URL}/verify`
 
 const sendCredsForVerification = async (requestData) => {
-  // const data = {  ...requestData  }
   try {
     const response = await fetch(BIOVERIFY_URL, {
       method: "POST",

@@ -9,9 +9,7 @@ const callBrowserApiGet = async ({ publicKey }) => {
       return publicKeyCredentialToJSON(a)
     })
     .catch((error) => {
-      // alert(`n.c.get: ${error.message}`)
-      // alert(JSON.stringify(error))
-      // console.log(error.message)
+      alert(error.message)
     })
   return result
 }
