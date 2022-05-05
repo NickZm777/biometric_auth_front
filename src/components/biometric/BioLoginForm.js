@@ -75,6 +75,7 @@ const BioLoginForm = (props) => {
 
     if (res.status === RES.SUCCESS) {
       const publicKey = preformatVerificationCredReq(res.data, document.domain)
+      setLoading(false)
       setPk(publicKey)
       // try {
       //   const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
