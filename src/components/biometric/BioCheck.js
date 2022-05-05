@@ -6,16 +6,16 @@ const BioCheck = () => {
     isWebAuthAvailable = true
     window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(
       (uvpaa) => {
-        if (uvpaa) {
-          isPlatformAuthenticator = true
-        } else {
-          isPlatformAuthenticator = false
-        }
+        alert(JSON.stringify(uvpaa))
+        // if (uvpaa) {
+        //   isPlatformAuthenticator = true
+        //   console.log(uvpaa)
+        // } else {
+        //   isPlatformAuthenticator = true
+        //   console.log(uvpaa)
+        // }
       }
     )
-  } else {
-    isPlatformAuthenticator = false
-    isWebAuthAvailable = false
   }
 
   return (
