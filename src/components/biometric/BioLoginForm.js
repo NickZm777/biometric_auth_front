@@ -18,9 +18,10 @@ const BioLoginForm = (props) => {
   const [pk, setPk] = useState(false)
 
   const userClicks = async (key) => {
+    const publicKey = preformatVerificationCredReq(key.data, document.domain)
     try {
-      const generatedBrowserCreds = await callBrowserApiGet({ key })
-      // console.log(publicKey)
+      const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
+
       const creds = {
         sessionLogin: login,
         data: generatedBrowserCreds,
@@ -74,9 +75,9 @@ const BioLoginForm = (props) => {
     }
 
     if (res.status === RES.SUCCESS) {
-      const publicKey = preformatVerificationCredReq(res.data, document.domain)
+      // const publicKey = preformatVerificationCredReq(res.data, document.domain)
       setLoading(false)
-      setPk(publicKey)
+      setPk(res)
       // try {
       //   const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
       //   console.log(publicKey)
