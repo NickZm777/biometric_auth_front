@@ -15,46 +15,6 @@ const BioLoginForm = (props) => {
   const [userInfo, setUserInfo] = useState("")
   const [verificationCounter, setVerificationCounter] = useState("")
   const [loading, setLoading] = useState(false)
-  const [pk, setPk] = useState(false)
-
-  const userClicks = async (key) => {
-    const publicKey = preformatVerificationCredReq(key.data, document.domain)
-    try {
-      const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
-
-      const creds = {
-        sessionLogin: login,
-        data: generatedBrowserCreds,
-      }
-      const verifiedRes = await sendCredsForVerification(creds)
-      if (!verifiedRes) {
-        setLoading(false)
-        setLoginError("Error fetching CredsForVerification")
-        return
-      }
-
-      if (verifiedRes.status === RES.ERROR) {
-        setLoading(false)
-        setLoginError(verifiedRes.message)
-        return
-      }
-      if (verifiedRes.status === RES.SUCCESS) {
-        setLoading(false)
-        setLoginSuccess(true)
-        setUserInfo(
-          `${verifiedRes.info.firstName} ${verifiedRes.info.lastName}`
-        )
-        setVerificationCounter(verifiedRes.info.counter)
-      } else {
-        setLoading(false)
-        setLoginError("Error fetching CredsForVerification")
-      }
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-      setLoginError(error.message)
-    }
-  }
 
   const verifyBioKey = async () => {
     setLoginSuccess(false)
@@ -75,44 +35,42 @@ const BioLoginForm = (props) => {
     }
 
     if (res.status === RES.SUCCESS) {
-      // const publicKey = preformatVerificationCredReq(res.data, document.domain)
-      setLoading(false)
-      setPk(res)
-      // try {
-      //   const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
-      //   console.log(publicKey)
-      //   const creds = {
-      //     sessionLogin: login,
-      //     data: generatedBrowserCreds,
-      //   }
-      //   const verifiedRes = await sendCredsForVerification(creds)
-      //   if (!verifiedRes) {
-      //     setLoading(false)
-      //     setLoginError("Error fetching CredsForVerification")
-      //     return
-      //   }
+      const publicKey = preformatVerificationCredReq(res.data, document.domain)
+      try {
+        const generatedBrowserCreds = await callBrowserApiGet({ publicKey })
+        console.log(publicKey)
+        const creds = {
+          sessionLogin: login,
+          data: generatedBrowserCreds,
+        }
+        const verifiedRes = await sendCredsForVerification(creds)
+        if (!verifiedRes) {
+          setLoading(false)
+          setLoginError("Error fetching CredsForVerification")
+          return
+        }
 
-      //   if (verifiedRes.status === RES.ERROR) {
-      //     setLoading(false)
-      //     setLoginError(verifiedRes.message)
-      //     return
-      //   }
-      //   if (verifiedRes.status === RES.SUCCESS) {
-      //     setLoading(false)
-      //     setLoginSuccess(true)
-      //     setUserInfo(
-      //       `${verifiedRes.info.firstName} ${verifiedRes.info.lastName}`
-      //     )
-      //     setVerificationCounter(verifiedRes.info.counter)
-      //   } else {
-      //     setLoading(false)
-      //     setLoginError("Error fetching CredsForVerification")
-      //   }
-      // } catch (error) {
-      //   setLoading(false)
-      //   console.log(error)
-      //   setLoginError(error.message)
-      // }
+        if (verifiedRes.status === RES.ERROR) {
+          setLoading(false)
+          setLoginError(verifiedRes.message)
+          return
+        }
+        if (verifiedRes.status === RES.SUCCESS) {
+          setLoading(false)
+          setLoginSuccess(true)
+          setUserInfo(
+            `${verifiedRes.info.firstName} ${verifiedRes.info.lastName}`
+          )
+          setVerificationCounter(verifiedRes.info.counter)
+        } else {
+          setLoading(false)
+          setLoginError("Error fetching CredsForVerification")
+        }
+      } catch (error) {
+        setLoading(false)
+        console.log(error)
+        setLoginError(error.message)
+      }
     } else {
       setLoading(false)
       setLoginError("Error fetching options")
@@ -154,11 +112,6 @@ const BioLoginForm = (props) => {
                 </form>
               </div>
             </div>
-          )}
-          {pk && (
-            <button className="form-submit" onClick={() => userClicks(pk)}>
-              key
-            </button>
           )}
           {loginSuccess && (
             <>
