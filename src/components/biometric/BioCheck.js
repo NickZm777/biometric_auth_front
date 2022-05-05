@@ -1,22 +1,19 @@
-const BioCheck = () => {
-  let isWebAuthAvailable = false
-  let isPlatformAuthenticator = false
+import { useState, useEffect } from "react"
 
-  if (window.PublicKeyCredential) {
-    isWebAuthAvailable = true
-    window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(
-      (uvpaa) => {
-        alert(JSON.stringify(uvpaa))
-        // if (uvpaa) {
-        //   isPlatformAuthenticator = true
-        //   console.log(uvpaa)
-        // } else {
-        //   isPlatformAuthenticator = true
-        //   console.log(uvpaa)
-        // }
-      }
-    )
-  }
+const BioCheck = () => {
+  const [isWebAuthAvailable, setIsWebAuthAvailable] = useState(false)
+  const [isPlatformAuthenticator, setIsPlatformAuthenticator] = useState(false)
+
+  useEffect(() => {
+    if (window.PublicKeyCredential) {
+      setIsWebAuthAvailable(true)
+      window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(
+        (available) => {
+          if (available) setIsPlatformAuthenticator(true)
+        }
+      )
+    }
+  }, [])
 
   return (
     <div className="notificationBox">
